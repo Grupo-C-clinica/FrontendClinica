@@ -38,6 +38,12 @@ nav {
 	align-items: center;
 }
 
+.photo{
+	height: 10%;
+  	width: 10%;
+  	border-radius: 50%;
+
+}
 @media only screen and (max-width: 1024px) {
 	header .nav-btn {
 		visibility: visible;
@@ -72,4 +78,5 @@ nav {
 	nav a {
 		font-size: 1.5rem;
 	}
+	
 }
