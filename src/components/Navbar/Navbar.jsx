@@ -15,10 +15,10 @@ function Navbar() {
 		<header>
 			<nav ref={navRef}>
 				<img className="photo" src={logo} alt="logo"/>
-				<a href="/#">Home</a>
-				<a href="/#">Servicios</a>
-				<a href="/#">Doctores</a>
-				<a href="/#">Información</a>
+				<a href="/">Home</a>
+				<a href="/Servicios">Servicios</a>
+				<a href="/Doctores">Doctores</a>
+				<a href="/Informacion">Información</a>
         
 				<button
 					className="nav-btn nav-close-btn"
