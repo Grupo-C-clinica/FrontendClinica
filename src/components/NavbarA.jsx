@@ -5,17 +5,19 @@ import logo from '../assets/logo.png'
 import { GrLanguage } from "react-icons/gr";
 import { FaXmark } from "react-icons/fa6";
 import { FaBars } from "react-icons/fa";
+import { Link } from 'react-scroll';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const togglerMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
   const navItems = [
-    {link: "Información",path: "informacion"},
+    {link: "Home",path: "home"},
     {link: "Servicios",path: "servicios"},
-    {link: "Doctores",path: "doctores"},
+    {link: "Información",path: "informacion"},
     {link: "Precios",path: "precios"},
   ]
+
   return (
     <>
     <nav className='bg-white md:px-14 p-4 max-w-screen-2xl border-b mx-auto text-primary fixed top-0 right-0 left-0'>
@@ -28,8 +30,8 @@ const Navbar = () => {
 
           <ul className="md:flex space-x-12 hidden">
             {
-              navItems.map(({link, path}) => <a key={link} href={path} className='block 
-              hover:text-gray-300'>{link}</a>)
+              navItems.map(({link, path}) => <Link activeClass='active' spy={true} smooth={true} offset={-100} key={link} to={path} className='block 
+              hover:text-gray-300 cursor-pointer'>{link}</Link>)
               
             }
           </ul>
@@ -59,8 +61,10 @@ const Navbar = () => {
 
     <div className={`space-y-4 px-4 pt-24 pb-5 bg-secondary text-xl ${isMenuOpen ? "block fixed top-0 right-0 left-0":"hidden"}`}>
       {
-            navItems.map(({link, path}) => <a key={link} href={path} className='block 
-            hover:text-gray-300'>{link}</a>)
+            navItems.map(({link, path}) => <Link ctiveClass='active' spy={true} smooth={true} offset={-80} key={link} to={path} className='block 
+            hover:text-gray-300 text-white'
+            onClick={togglerMenu}
+            >{link}</Link>)
       }
 
     </div>
