@@ -13,10 +13,6 @@
     "@heroicons/react": "^1.0.6",
     "flow": "^0.2.3",
     "framer-motion": "^11.0.20",
-<<<<<<< HEAD
-=======
-    "heroicons": "^2.1.3",
->>>>>>> e568028b692f8765736497e866f1a32aaabca5d7
     "pdf-lib": "^1.17.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

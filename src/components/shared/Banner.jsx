@@ -1,5 +1,5 @@
 import {motion} from 'framer-motion'; 
-import {fadeIn } from '../variants';
+import { fadeIn } from '../../variants';
 
 const Banner = ({ banner, heading, subheading, bt1, bt2 }) => {
     return (
