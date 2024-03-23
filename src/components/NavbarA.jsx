@@ -5,17 +5,19 @@ import logo from '../assets/logo.png'
 import { GrLanguage } from "react-icons/gr";
 import { FaXmark } from "react-icons/fa6";
 import { FaBars } from "react-icons/fa";
-import { Link } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll'; // Renombrado para evitar conflictos
+import { Link as RouterLink } from 'react-router-dom'; 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const togglerMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
   const navItems = [
-    {link: "Home",path: "home"},
-    {link: "Servicios",path: "servicios"},
-    {link: "Información",path: "informacion"},
-    {link: "Precios",path: "precios"},
+    {link: "Home", path: "home", type: "scroll"},
+    {link: "Servicios", path: "servicios", type: "scroll"},
+    {link: "Información", path: "informacion", type: "scroll"},
+    {link: "Precios", path: "precios", type: "scroll"},
+    {link: "Pacientes", path: "/pacientes", type: "route"},
   ]
 
   return (
@@ -29,12 +31,15 @@ const Navbar = () => {
 
 
           <ul className="md:flex space-x-12 hidden">
-            {
-              navItems.map(({link, path}) => <Link activeClass='active' spy={true} smooth={true} offset={-100} key={link} to={path} className='block 
-              hover:text-gray-300 cursor-pointer'>{link}</Link>)
-              
-            }
-          </ul>
+          {
+            navItems.map(({link, path, type}) => type === "scroll" ? (
+              <ScrollLink activeClass='active' spy={true} smooth={true} offset={-100} key={link} to={path} className='block hover:text-gray-300 cursor-pointer'>{link}</ScrollLink>
+            ) : (
+              // Solo para "Pacientes", usamos RouterLink para redirigir a otra página
+              <RouterLink to={path} key={link} className='block hover:text-gray-300 cursor-pointer'>{link}</RouterLink>
+            ))
+          }
+        </ul>
         </div>
 
         <div className='space-x-12 hidden md:flex items-center'>
@@ -61,10 +66,10 @@ const Navbar = () => {
 
     <div className={`space-y-4 px-4 pt-24 pb-5 bg-secondary text-xl ${isMenuOpen ? "block fixed top-0 right-0 left-0":"hidden"}`}>
       {
-            navItems.map(({link, path}) => <Link ctiveClass='active' spy={true} smooth={true} offset={-80} key={link} to={path} className='block 
+            navItems.map(({link, path}) => <ScrollLink activeClass='active' spy={true} smooth={true} offset={-80} key={link} to={path} className='block 
             hover:text-gray-300 text-white'
             onClick={togglerMenu}
-            >{link}</Link>)
+            >{link}</ScrollLink>)
       }
 
     </div>
