@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import user from '../assets/user.png';
-// Supongamos que tienes una lista de pacientes así, esto debería venir de tu backend o context
+import {motion} from 'framer-motion'; 
+import {fadeIn } from '../variants';
+
 const pacientes = [
   { id: 1, nombre: "Juan Pérez", carnet: "123456" },
   { id: 2, nombre: "Pérez Juan", carnet: "123456" },
   { id: 3, nombre: "Pedro Pérez", carnet: "123456" },
-  // Más pacientes aquí
+
 ];
 
 const Pacientes = () => {
@@ -16,12 +18,26 @@ const Pacientes = () => {
   
   return (
     
-    <div className="container mx-auto mt-20">
-        <hr/><hr/><hr/><hr/>
+    <motion.div 
+    variants={fadeIn('up',0.3)}
+    initial='hidden'
+    whileInView={'show'}
+    viewport={{once:false,amount:0.7}}
+    
+    className="container mx-auto mt-32">
+        <div className="text-center">
+                <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Lista de Pacientes</h2>
+                <p className="text-tartiary md:w-1/3 mx-auto px-4">Lista de todos los pacientes registrados:</p>    
+            </div>
       <div className="bg-white shadow-xl rounded-lg p-6">
-        {/* Aquí podrías tener tu cabecera de la card */}
-        {/* Usa flex flex-col para organizar los pacientes en una columna y items-center para centrarlos */}
-        <div className="flex flex-col items-center -mx-3 mb-6">
+       
+        <motion.div 
+        variants={fadeIn('up',0.3)}
+        initial='hidden'
+        whileInView={'show'}
+        viewport={{once:false,amount:0.7}}
+        
+        className="flex flex-col items-center -mx-3 mb-6">
           {/* Iterar sobre la lista de pacientes y mostrarlos */}
           {pacientes.map((paciente) => (
             <div key={paciente.id} className="w-full flex flex-col items-center mb-4">
@@ -35,9 +51,14 @@ const Pacientes = () => {
               </div>
             </div>
           ))}
-        </div>
-        {/* Aquí podrías agregar la paginación */}
-        <div className="flex justify-center mt-6">
+        </motion.div>
+        {/* 1 la paginación */}
+        <motion.div 
+        variants={fadeIn('right',0.3)}
+        initial='hidden'
+        whileInView={'show'}
+        viewport={{once:false,amount:0.7}}
+        className="flex justify-center mt-6">
           <button 
             className="mx-1 px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" 
             onClick={() => setPaginaActual(paginaActual - 1)}
@@ -51,9 +72,9 @@ const Pacientes = () => {
           >
             Siguiente
           </button>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
