@@ -1,4 +1,6 @@
-import Banner from '../shared/Banner'; 
+
+import React from 'react';
+import Banner from '../components/shared/Banner';
 import logo from '../assets/lo1.png';
 
 const Home = () => {
