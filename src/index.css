@@ -1,7 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities;/*
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
 * {
 	padding: 0;
 	margin: 0;
@@ -14,4 +15,4 @@
 	--mainColorLight: #5767aa;
 	--secondaryColor: #25b963;
 	--textColor: #eee;
-}
+}*/

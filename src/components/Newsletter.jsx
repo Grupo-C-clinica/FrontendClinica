@@ -1,6 +1,7 @@
-import Banner from "../shared/Banner";
+import Banner from '../components/shared/Banner';
 
 import ban from "../assets/shareff2.png";
+
 const Newsletter = () => {
   return (
     <div className="md:px-14 p-4 max-w-screen-2xl mx-auto my-12">

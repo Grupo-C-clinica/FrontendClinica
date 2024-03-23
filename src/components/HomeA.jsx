@@ -1,5 +1,5 @@
 
-import React from 'react';
+
 import Banner from '../components/shared/Banner';
 import logo from '../assets/lo1.png';
 
