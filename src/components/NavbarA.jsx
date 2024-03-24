@@ -19,6 +19,7 @@ const Navbar = () => {
     {link: "Precios", path: "precios", type: "scroll"},
     {link: "Pacientes", path: "/pacientes", type: "route"},
     {link: "Alergias", path: "/alergias", type: "route"},
+    {link: "Registro de Pacientes", path: "/registroPacientes", type: "route"},
   ]
 
   return (

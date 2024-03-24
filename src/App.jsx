@@ -41,6 +41,7 @@ import Fotter from './components/Fotter'
 import { Routes, Route } from 'react-router-dom'; // Importa Routes y Route
 import Pacientes from './components/Pacientes'; 
 import Alergias from './components/Alergias'
+import RegistroPacientes from './components/Doctor/Formulario'
 function App() {
   return (
     <>
@@ -49,6 +50,7 @@ function App() {
         <Route path="/" element={<><Home/><Informacion/><About/><Princing/><Newsletter/><Fotter/></>} />
         <Route path="/pacientes" element={<Pacientes />} />
         <Route path="/alergias" element={<Alergias />} />
+        <Route path="/registroPacientes" element={<RegistroPacientes />} />
         {/* Agrega aquí otras rutas según sea necesario */}
       </Routes>
     </>
