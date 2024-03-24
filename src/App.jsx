@@ -42,12 +42,14 @@ import { Routes, Route } from 'react-router-dom'; // Importa Routes y Route
 import Pacientes from './components/Pacientes'; 
 import Alergias from './components/Alergias'
 import RegistroPacientes from './components/Doctor/Formulario'
+import Contacts from './components/Contacts/contacts'
+import Wrapper from './components/ContenedorGlobal/Contenedor'
 function App() {
   return (
     <>
       <Navbar/>
       <Routes>
-        <Route path="/" element={<><Home/><Informacion/><About/><Princing/><Newsletter/><Fotter/></>} />
+        <Route path="/" element={<><Home/><Informacion/><About/><Princing/><Newsletter/><Wrapper><Contacts/></Wrapper><Fotter/></>} />
         <Route path="/pacientes" element={<Pacientes />} />
         <Route path="/alergias" element={<Alergias />} />
         <Route path="/registroPacientes" element={<RegistroPacientes />} />
