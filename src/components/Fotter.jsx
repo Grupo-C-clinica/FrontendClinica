@@ -3,6 +3,7 @@ import fb from '../assets/fb.png'
 import ig from '../assets/ig.png'
 import tw from '../assets/tw.png'
 import lk from '../assets/lk.png'
+import tt from '../assets/tt.png'
 const Fotter = () => {
     
   const currentYear = new Date().getFullYear();
@@ -12,7 +13,7 @@ const Fotter = () => {
                 <div className="md:w-1/2 space-y-8">
                     <a href="/" className="text-2xl font-semibold flex items-center space-x-3 text-primary">
                         <img src={logo} alt="" className="w-10 inline-block items-center"/>
-                        <span className="text-white">XYZ</span>
+                        <span className="text-white">Clinica Torrelio</span>
                     </a>
                     <p className="md:w-1/2">Reciba las últimas actualizaciones en tratamientos ORL y consejos para su salud auditiva y respiratoria directamente en su correo.</p>
                     <div>
@@ -28,9 +29,9 @@ const Fotter = () => {
                         <h4 className="text-xl">Plataform</h4>
                         <ul className="space-y-3">
                             <a href="/" className="block hover:text-gray-300">Overview</a>
-                            <a href="/" className="block hover:text-gray-300">Features</a>
-                            <a href="/" className="block hover:text-gray-300">About</a>
-                            <a href="/" className="block hover:text-gray-300">Pricing</a>
+                            <a href="/" className="block hover:text-gray-300">Servicios</a>
+                            <a href="/" className="block hover:text-gray-300">Sobre nosotros</a>
+                            <a href="/" className="block hover:text-gray-300">Precios</a>
                         </ul>
                     </div>
                     <div className="space-y-4 mt-5">
@@ -53,10 +54,10 @@ const Fotter = () => {
                 Hecho con {"<3"}
                 </p>
                 <div className='flex items-center space-x-5'>
-                    <img src={fb} alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
-                    <img src={ig} alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
+                    <img src={fb} alt="https://www.facebook.com/dreduardotorrelio" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
+                    <img src={ig} hreh="https://www.instagram.com/dreduardotorrelio"alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
                     <img src={tw} alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
-                    <img src={lk} alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
+                    <img src={tt} href="https://www.tiktok.com/dreduardotorrelio" alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
                 </div>
             </div>
         </div>
