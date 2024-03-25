@@ -26,7 +26,7 @@ const Wrapper = ({
             transition={{ type: "linear", duration: 0.5 }}
             className={`${
               textCenter && "xl:text-center"
-            }  font-display uppercase text-primary text-3xl text-center xl:text-left lg:text-5xl dark:text-white`}
+            }  font-display uppercase text-secondary text-3xl text-center xl:text-left lg:text-5xl dark:text-secondary`}
           >
             {heading}
           </motion.h1>

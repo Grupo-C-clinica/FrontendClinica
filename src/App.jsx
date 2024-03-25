@@ -49,12 +49,16 @@ function App() {
     <>
       <Navbar/>
       <Routes>
-        <Route path="/" element={<><Home/><Informacion/><About/><Princing/><Newsletter/><Wrapper><Contacts/></Wrapper><Fotter/></>} />
+        <Route path="/" element={<>
+          <Home/><Informacion/><About/><Princing/><Newsletter/>
+            <Wrapper id="contacts" heading="Contactos" textCenter="center"><Contacts/></Wrapper>
+            </>} />
         <Route path="/pacientes" element={<Pacientes />} />
         <Route path="/alergias" element={<Alergias />} />
         <Route path="/registroPacientes" element={<RegistroPacientes />} />
         {/* Agrega aquí otras rutas según sea necesario */}
       </Routes>
+      <Fotter/>
     </>
   );
 }

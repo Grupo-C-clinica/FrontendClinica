@@ -64,10 +64,18 @@ const Contacts = () => {
             Telefono: 2-2250513
           </li>
           <li>
-            Celular: 71265599
+            Celular: 
+            <ul>
+              <li>
+                71265599
+              </li>
+              <li>
+                73722420
+              </li>
+            </ul>
           </li>
           <li>
-            Correo: <a href="mailto:diego.tiger.ac@gmail.com"> diego.tiger.ac@gmail.com</a>
+            Correo: <a href="mailto:dreduardotorrelio@gmail.com"> dreduardotorrelio@gmail.com</a>
               
           </li>
 
