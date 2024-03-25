@@ -9,13 +9,55 @@ const RegistroPacientes = () => {
   const [fechaNacimiento, setFechaNacimiento] = useState('');
   const [genero, setGenero] = useState('');
   const [correo, setCorreo] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [CI, setCI] = useState('');
+  const [idZona, setIdZona] = useState('');
+  const [tipoSangre, setTipoSangre] = useState('');
 
   const generos = ["Masculino", "Femenino"];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const nuevoPaciente = {
+      nombre,
+      apellidoP,
+      apellidoM,
+      fechaNacimiento,
+      genero,
+      correo,
+      telefono: telefono ? telefono : 12345,
+      CI: CI ? CI : 12345,
+      idZona: idZona ? idZona : 1,
+      tipoSangre: tipoSangre ? tipoSangre : 'A+'
+    };
+
+    try{
+      const response = await fetch('http://localhost:8080/api/v1/paciente/agregar',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(nuevoPaciente)
+      });
+      if(response.formData.code === 200){
+        alert('Paciente registrado correctamente');
+        
+        setNombre('');
+        setApellidoP('');
+        setApellidoM('');
+        setFechaNacimiento('');
+        setGenero('');
+        setCorreo('');
+      }else{
+        alert('Error al registrar paciente');
+      }
+    }catch(error){
+      console.error('Error al registrar paciente', error);
+      alert('Error al registrar paciente');
+    }
     // Aquí manejarías el envío de los datos del formulario
-    console.log({ nombre, apellidoP, apellidoM, fechaNacimiento, correo });
+    console.log(nuevoPaciente);
   };
 
   return (
