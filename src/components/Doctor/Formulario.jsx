@@ -35,6 +35,10 @@ const RegistroPacientes = () => {
       status: true, // Asumiendo que esto ya es un booleano
     };
     try {
+      if (!nombre || !apellidoP || !apellidoM || !fechaNacimiento || !genero || !correo) {
+        alert('Por favor, llena todos los campos');
+        return;
+      }
       await addPaciente(pacienteData);
       alert('Paciente registrado con éxito');
       // Aquí puedes limpiar el formulario o redireccionar al usuario
