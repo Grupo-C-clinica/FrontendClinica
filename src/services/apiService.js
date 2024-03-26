@@ -23,3 +23,14 @@ export const addAlergiaToPaciente = async (idPaciente, alergiaData) => {
       throw error;
     }
   };
+
+// Añadir esta nueva función para enviar pacientes
+export const addPaciente = async (pacienteData) => {
+    try {
+      const response = await axios.post(`${API_URL}/paciente/agregar`, pacienteData);
+      return response.data;
+    } catch (error) {
+      console.error('Error adding paciente:', error);
+      throw error;
+    }
+  };
