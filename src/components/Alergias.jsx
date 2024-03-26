@@ -6,7 +6,7 @@ const Alergias = () => {
   const [alergiaActiva, setAlergiaActiva] = useState(false);
   const [tipoAlergia, setTipoAlergia] = useState('');
   const [causa, setCausa] = useState('');
-
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   // Ejemplo de tipos de alergias, podrías cargar estos desde tu backend
   const tiposDeAlergia = ["Epidermica", "Polen", "Alimentos", "Animales", "Medicamentos"];
 
@@ -15,16 +15,17 @@ const Alergias = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const alergiaData = {
-      tipoAlergia, // Asegúrate de que estos nombres coincidan con tu DTO
+      tipoAlergia,
       causa,
       status: alergiaActiva,
     };
     try {
-      // Aquí se llama a `addAlergia`, conforme a lo definido en el store
-      await addAlergia(1, alergiaData);
-      console.log("Alergia agregada con éxito");
+      await addAlergia(1, alergiaData); // Asumiendo que 1 es el ID del paciente
+      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 3000); // Oculta el mensaje después de 3 segundos
     } catch (error) {
       console.error('Error al agregar alergia:', error);
+      // Aquí podrías manejar el estado de error si lo deseas
     }
   };
   return (
@@ -37,6 +38,11 @@ const Alergias = () => {
     >
       <div className="bg-white shadow-xl rounded-lg p-6 max-w-md mx-auto">
         <h2 className="text-center text-3xl font-extrabold mb-4 text-primary">Registro de Alergia</h2>
+        {showSuccessMessage && (
+          <div className="text-center p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+            Alergia registrada con éxito.
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Selector de tipo de alergia */}
           <div>
