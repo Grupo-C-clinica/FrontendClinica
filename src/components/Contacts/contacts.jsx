@@ -78,6 +78,17 @@ const Contacts = () => {
             Correo: <a href="mailto:dreduardotorrelio@gmail.com"> dreduardotorrelio@gmail.com</a>
               
           </li>
+          <li>
+            Horarios de atención:
+            <ul>
+              <li>
+                Lunes-Miercoles-Viernes: 8:00 - 12:00, 15:00 - 19:00
+              </li>
+              <li>
+                Sabado: 8:00 - 12:00
+              </li>
+            </ul>
+          </li>
 
         </ul>
       </motion.div>

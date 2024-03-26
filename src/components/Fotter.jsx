@@ -4,6 +4,7 @@ import ig from '../assets/ig.png'
 import tw from '../assets/tw.png'
 import lk from '../assets/lk.png'
 import tt from '../assets/tt.png'
+import doctor from '../assets/doctor1.jpg'
 const Fotter = () => {
     
   const currentYear = new Date().getFullYear();
@@ -35,13 +36,7 @@ const Fotter = () => {
                         </ul>
                     </div>
                     <div className="space-y-4 mt-5">
-                        <h4 className="text-xl">Help</h4>
-                        <ul className="space-y-3">
-                            <a href="/" className="block hover:text-gray-300">How does it works?</a>
-                            <a href="/" className="block hover:text-gray-300">Where to ask question?</a>
-                            <a href="/" className="block hover:text-gray-300">How to play?</a>
-                            <a href="/" className="block hover:text-gray-300">What is needed for this?</a>
-                        </ul>
+                        <img src={doctor} alt="" className="w-40 h-40 rounded-full"/>
                     </div>
                     
                 </div>

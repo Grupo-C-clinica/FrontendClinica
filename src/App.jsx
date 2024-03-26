@@ -22,7 +22,7 @@ const App = () => {
       <Contacts />
     </Wrapper>
       <Informacion></Informacion>
-    <Footer/>
+    
     </>
   );
 };
@@ -50,7 +50,7 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/" element={<>
-          <Home/><Informacion/><About/><Princing/><Newsletter/><Fotter/>
+          <Home/><Informacion/><About/><Princing/><Newsletter/>
             <Wrapper id="contacts" heading="Contactos" textCenter="center"><Contacts/></Wrapper>
             </>} />
         <Route path="/pacientes" element={<Pacientes />} />
@@ -58,7 +58,7 @@ function App() {
         <Route path="/registroPacientes" element={<RegistroPacientes />} />
         {/* Agrega aquí otras rutas según sea necesario */}
       </Routes>
-      
+      <Fotter/>
     </>
   );
 }
