@@ -35,17 +35,17 @@ const Pacientes = () => {
         >
           {/* Iterar sobre la lista de pacientes y mostrarlos */}
           {pacientes.map((paciente) => (
-            <div key={paciente.idPaciente} className="w-full flex flex-col items-center mb-4">
-              <div className="flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full max-w-sm">
-                <img src={user} alt="Paciente" className="w-20 rounded-full" />
-                <div>
-                  <h2 className="text-lg font-semibold">{`${paciente.nombre} ${paciente.apellidoPaterno} ${paciente.apellidoMaterno}`}</h2>
-                  <p className="text-gray-600">{`Fecha de nacimiento: ${paciente.fechaNacimiento}`}</p>
-                  <p className="text-gray-600">{`Sexo: ${paciente.sexo}`}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+  <div key={paciente.idPersona} className="w-full flex flex-col items-center mb-4">
+    <div className="flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full max-w-sm">
+      <img src={user} alt="Paciente" className="w-20 rounded-full" />
+      <div>
+        <h2 className="text-lg font-semibold">{`${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}`}</h2>
+        <p className="text-gray-600">{`Fecha de nacimiento: ${paciente.fechaNacimiento}`}</p>
+        <p className="text-gray-600">{`Sexo: ${paciente.genero}`}</p>
+      </div>
+    </div>
+  </div>
+))}
         </motion.div>
         {/* Paginación */}
         <motion.div 
@@ -70,7 +70,14 @@ const Pacientes = () => {
           </button>
         </motion.div>
       </div>
+      <hr />
+      <hr />
+      <hr />
+      <hr />
+      <hr />
+      <hr />
     </motion.div>
+    
   );
 }
 

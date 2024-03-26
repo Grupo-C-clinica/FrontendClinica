@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8090'; 
+const API_URL = 'http://localhost:8090/api/v1/paciente'; 
 
 export const fetchPacientes = async (pagina = 1) => {
   try {
