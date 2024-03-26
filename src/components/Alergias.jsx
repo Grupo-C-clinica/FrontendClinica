@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
-
+import useAlergiasStore from '../store/alergiasStore';
 const Alergias = () => {
   const [alergiaActiva, setAlergiaActiva] = useState(false);
   const [tipoAlergia, setTipoAlergia] = useState('');
@@ -10,12 +10,23 @@ const Alergias = () => {
   // Ejemplo de tipos de alergias, podrías cargar estos desde tu backend
   const tiposDeAlergia = ["Epidermica", "Polen", "Alimentos", "Animales", "Medicamentos"];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí manejarías el envío de los datos del formulario
-    console.log({ tipoAlergia, causa, alergiaActiva });
-  };
+  const { addAlergia } = useAlergiasStore();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const alergiaData = {
+      tipoAlergia, // Asegúrate de que estos nombres coincidan con tu DTO
+      causa,
+      status: alergiaActiva,
+    };
+    try {
+      // Aquí se llama a `addAlergia`, conforme a lo definido en el store
+      await addAlergia(1, alergiaData);
+      console.log("Alergia agregada con éxito");
+    } catch (error) {
+      console.error('Error al agregar alergia:', error);
+    }
+  };
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
