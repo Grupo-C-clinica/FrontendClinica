@@ -70,12 +70,7 @@ const Pacientes = () => {
           </button>
         </motion.div>
       </div>
-      <hr />
-      <hr />
-      <hr />
-      <hr />
-      <hr />
-      <hr />
+    
     </motion.div>
     
   );
