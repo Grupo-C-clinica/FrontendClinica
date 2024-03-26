@@ -33,9 +33,11 @@ const RegistroPacientes = () => {
       CI: '12345',
       idZona: 1,
       tipoSangre: 'O+',
-      status: true,
     };
     try{
+      if(!nombre || !apellidoP || !apellidoM || !fechaNacimiento || !genero || !correo){
+        alert('Por favor, complete todos los campos');
+      }
       await addPaciente(pacienteData);
       alert('Paciente registrado con éxito');
     }catch(error){
