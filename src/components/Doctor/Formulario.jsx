@@ -10,11 +10,8 @@ const RegistroPacientes = () => {
   const [fechaNacimiento, setFechaNacimiento] = useState('');
   const [genero, setGenero] = useState('');
   const [correo, setCorreo] = useState('');
-  const [telefono, setTelefono] = useState('');
-  const [CI, setCI] = useState('');
-  const [idZona, setIdZona] = useState('');
-  const [tipoSangre, setTipoSangre] = useState('');
-  const [status, setStatus] = useState(true);
+
+
 
   const generos = ["Masculino", "Femenino"];
 
@@ -23,26 +20,28 @@ const RegistroPacientes = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const pacienteData = {
+      
       nombre,
       apellidoP,
       apellidoM,
-      fechaNacimiento,
+      fechaNacimiento, // Asegúrate de que el formato de fecha sea compatible con tu backend
       genero,
       correo,
-      telefono: '12345',
-      CI: '12345',
+      telefono:'123', // Asumiendo que esto ya es una cadena que representa un número
+      ci:123, // Asumiendo que esto ya es una cadena
       idZona: 1,
-      tipoSangre: 'O+',
-      status: true,
+       // Convierte a número
+      tipoSangre:'1',
+      status: true, // Asumiendo que esto ya es un booleano
     };
-    try{
+    try {
       await addPaciente(pacienteData);
       alert('Paciente registrado con éxito');
-    }catch(error){
-      console.error('Error al registrar paciente', error);
+      // Aquí puedes limpiar el formulario o redireccionar al usuario
+    } catch (error) {
+      console.error('Error al registrar paciente:', error);
       alert('Error al registrar paciente');
     }
-    console.log(pacienteData);
   };
 
   return (
