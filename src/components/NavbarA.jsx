@@ -2,7 +2,7 @@ import  { useState } from 'react';
 import logo from '../assets/logo.png'
 
 //iconos
-import { GrLanguage } from "react-icons/gr";
+
 import { FaXmark } from "react-icons/fa6";
 import { FaBars } from "react-icons/fa";
 import { Link as ScrollLink } from 'react-scroll'; // Renombrado para evitar conflictos
