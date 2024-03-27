@@ -44,7 +44,9 @@ import Alergias from './components/Alergias'
 import RegistroPacientes from './components/Doctor/Formulario'
 import Contacts from './components/Contacts/contacts'
 import Wrapper from './components/ContenedorGlobal/Contenedor'
+import Referencias from './components/Referencias'
 import Reviews from './components/Reviews'
+
 function App() {
   return (
     <>
