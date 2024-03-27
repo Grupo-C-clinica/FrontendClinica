@@ -2,32 +2,53 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
 import useAlergiasStore from '../store/alergiasStore';
+
 const Alergias = () => {
   const [alergiaActiva, setAlergiaActiva] = useState(false);
   const [tipoAlergia, setTipoAlergia] = useState('');
   const [causa, setCausa] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  // Ejemplo de tipos de alergias, podrías cargar estos desde tu backend
+  const [error, setError] = useState('');
+
   const tiposDeAlergia = ["Epidermica", "Polen", "Alimentos", "Animales", "Medicamentos"];
 
   const { addAlergia } = useAlergiasStore();
 
+  const validateForm = () => {
+    if (!tipoAlergia) {
+      setError('Seleccione un tipo de alergia.');
+      return false;
+    }
+    if (!causa) {
+      setError('Ingrese la causa de la alergia.');
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
+    
     const alergiaData = {
       tipoAlergia,
       causa,
       status: alergiaActiva,
     };
+
     try {
       await addAlergia(1, alergiaData); // Asumiendo que 1 es el ID del paciente
       setShowSuccessMessage(true);
+      setError(''); // Limpia errores previos
       setTimeout(() => setShowSuccessMessage(false), 3000); // Oculta el mensaje después de 3 segundos
     } catch (error) {
       console.error('Error al agregar alergia:', error);
-      // Aquí podrías manejar el estado de error si lo deseas
+      setError('Ocurrió un error al registrar la alergia.');
     }
   };
+
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
@@ -43,8 +64,12 @@ const Alergias = () => {
             Alergia registrada con éxito.
           </div>
         )}
+        {error && (
+          <div className="text-center p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+            {error}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Selector de tipo de alergia */}
           <div>
             <label htmlFor="tipoAlergia" className="block text-sm font-medium text-gray-700">Tipo de alergia</label>
             <select
@@ -60,7 +85,6 @@ const Alergias = () => {
             </select>
           </div>
 
-          {/* Campo de texto para la causa */}
           <div>
             <label htmlFor="causa" className="block text-sm font-medium text-gray-700">Causa</label>
             <input
@@ -72,7 +96,6 @@ const Alergias = () => {
             />
           </div>
 
-          {/* Toggle button para el estado de la alergia */}
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-700">Alergia activa</span>
             <button
@@ -84,7 +107,6 @@ const Alergias = () => {
             </button>
           </div>
 
-          {/* Botón de envío */}
           <button
             type="submit"
             className="w-full py-2 px-8 bg-secondary font-semibold text-white rounded

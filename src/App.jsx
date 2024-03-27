@@ -45,14 +45,15 @@ import RegistroPacientes from './components/Doctor/Formulario'
 import Contacts from './components/Contacts/contacts'
 import Wrapper from './components/ContenedorGlobal/Contenedor'
 import Referencias from './components/Referencias'
+import Reviews from './components/Reviews'
+
 function App() {
   return (
     <>
       <Navbar/>
       <Routes>
         <Route path="/" element={<>
-          <Home/><Informacion/><About/><Princing/><Newsletter/>
-            <Wrapper id="referencias" heading="Referencias" textCenter="center"><Referencias/></Wrapper>
+          <Home/><Informacion/><About/><Princing/><Newsletter/><Reviews/>
             <Wrapper id="contacts" heading="Contactos" textCenter="center"><Contacts/></Wrapper>
             </>} />
         <Route path="/pacientes" element={<Pacientes />} />
