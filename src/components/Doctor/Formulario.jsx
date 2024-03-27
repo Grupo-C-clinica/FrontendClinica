@@ -20,7 +20,6 @@ const RegistroPacientes = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const pacienteData = {
-      
       nombre,
       apellidoP,
       apellidoM,
