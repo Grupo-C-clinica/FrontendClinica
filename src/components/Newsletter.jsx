@@ -1,11 +1,13 @@
 import Banner from '../components/shared/Banner';
 
-import ban from "../assets/shareff2.png";
+import doc from "../assets/doctor1.jpg";
 
 const Newsletter = () => {
   return (
     <div className="md:px-14 p-4 max-w-screen-2xl mx-auto my-12">
-        <Banner banner={ban} heading="Comparte Salud, Comparte Beneficios" subheading="Tu salud es importante para nosotros y también la de tus seres queridos. Recomienda nuestra clínica a tus amigos y familiares y disfruten juntos de beneficios exclusivos en sus próximas consultas. Porque cuidar de los tuyos nunca fue tan gratificante." />
+        <Banner
+
+         banner={doc} heading="Dr. Eduardo Torrelio" subheading="Cirujano OTORRINOLARINGÓLOGO, Especializado en la cirugía estética con mas de 4 años de experiencia en el campo" />
     </div>
   );
 }

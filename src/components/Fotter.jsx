@@ -2,7 +2,6 @@ import logo from '../assets/logo.png'
 import fb from '../assets/fb.png'
 import ig from '../assets/ig.png'
 import tw from '../assets/tw.png'
-import lk from '../assets/lk.png'
 import tt from '../assets/tt.png'
 import doctor from '../assets/doctor1.jpg'
 const Fotter = () => {
