@@ -17,6 +17,41 @@ const RegistroPacientes = () => {
 
   const { addPaciente } = usePacientesStore();
 
+  const handleCorreoChange = (e) => {
+    const value = e.target.value;
+    
+    // Expresión regular para validar el formato del correo electrónico
+    const correoValidoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Verificar si el correo electrónico ingresado tiene un formato válido
+    if (correoValidoRegex.test(value)) {
+      // Si el formato es válido, actualizar el estado
+      setCorreo(value);
+    } else {
+      // Si el formato no es válido, mostrar un mensaje de error o realizar alguna acción
+      alert('Por favor, introduce un correo electrónico válido.');
+      // También puedes mantener el valor actual si lo deseas
+      // setCorreo(value);
+    }
+  };
+
+  const handleFechaNacimientoChange = (e) => {
+    const selectedDate = new Date(e.target.value);
+    const today = new Date();
+    const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+    
+    // Verificar si la fecha seleccionada está dentro del rango permitido
+    if (selectedDate < oneYearAgo) {
+      // Si la fecha seleccionada está dentro del rango permitido, actualizar el estado
+      setFechaNacimiento(e.target.value);
+    } else {
+      // Si la fecha seleccionada está fuera del rango permitido, mostrar un mensaje de error o realizar alguna acción
+      alert('La fecha de nacimiento no puede ser futura');
+      // También puedes mantener la fecha actual si lo deseas
+      // setFechaNacimiento(formatDate(today)); // suponiendo que tienes una función formatDate para formatear la fecha
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const pacienteData = {
@@ -38,6 +73,27 @@ const RegistroPacientes = () => {
         alert('Por favor, llena todos los campos');
         return;
       }
+      if(!correo.includes('@')){
+        alert('Por favor, introduce un correo electrónico válido.');
+        return;
+      }
+      //verificar si el el nombre tiene caracteres especiales
+      const regex = /^[a-zA-Z\s]*$/;
+      if (!regex.test(nombre)) {
+        alert('El nombre no puede contener caracteres especiales');
+        return;
+      }
+      //verificar si el el apellido tiene caracteres especiales
+      if (!regex.test(apellidoP)) {
+        alert('El apellido paterno no puede contener caracteres especiales');
+        return;
+      }
+      //verificar si el el apellido tiene caracteres especiales
+      if (!regex.test(apellidoM)) {
+        alert('El apellido materno no puede contener caracteres especiales');
+        return;
+      }
+      
       await addPaciente(pacienteData);
       alert('Paciente registrado con éxito');
       // Aquí puedes limpiar el formulario o redireccionar al usuario
@@ -46,7 +102,9 @@ const RegistroPacientes = () => {
       alert('Error al registrar paciente');
     }
   };
-
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  const fechaMaxima = oneYearAgo.toISOString().split('T')[0];
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
@@ -83,7 +141,7 @@ const RegistroPacientes = () => {
             </div>
             {/* ApellidoM */}
             <div>
-              <label htmlFor="apellidoM" className="block text-sm font-medium text-gray-700">Apellido</label>
+              <label htmlFor="apellidoM" className="block text-sm font-medium text-gray-700">Apellido Materno</label>
               <input
                 type="text"
                 id="apellidoM"
@@ -92,17 +150,16 @@ const RegistroPacientes = () => {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               />
             </div>
-
-                
-            {/* Fecha Nacimiento */}
+             {/*fechaNacimiento*/}   
             <div>
               <label htmlFor="fechaNacimiento" className="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
               <input
                 type="date"
                 id="fechaNacimiento"
                 value={fechaNacimiento}
-                onChange={(e) => setFechaNacimiento(e.target.value)}
+                onChange={handleFechaNacimientoChange}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                max={fechaMaxima} // Establecer el atributo max para restringir la fecha máxima a hoy
               />
             </div>
             {/* Género */}
@@ -136,7 +193,7 @@ const RegistroPacientes = () => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             />
           </div>
-
+          
          
           
 
