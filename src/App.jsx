@@ -54,6 +54,7 @@ function App() {
       <Routes>
         <Route path="/" element={<>
           <Home/><Informacion/><About/><Princing/><Newsletter/><Reviews/>
+            <Wrapper id="referencias" heading="Referencias" textCenter="center"><Referencias/></Wrapper>
             <Wrapper id="contacts" heading="Contactos" textCenter="center"><Contacts/></Wrapper>
             </>} />
         <Route path="/pacientes" element={<Pacientes />} />
