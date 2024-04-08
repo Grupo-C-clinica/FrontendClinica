@@ -2,7 +2,7 @@
 import user from '../assets/user.png';
 import {motion} from 'framer-motion'; 
 import {fadeIn } from '../variants';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import usePacientesStore from '../store/pacientesStore';
 
 const Pacientes = () => {
@@ -10,29 +10,53 @@ const Pacientes = () => {
   const [busqueda, setBusqueda] = useState('');
   const [fechaRegistro, setFechaRegistro] = useState('');
   const [mostrarActivos, setMostrarActivos] = useState(true);
+  const [mensajeNoEncontrado, setMensajeNoEncontrado] = useState('');
+
+  // Utilizamos useCallback para envolver fetchPacientes para evitar que sea recreada en cada render
+  const fetchPacientesCallback = useCallback(fetchPacientes, []);
 
   useEffect(() => {
-    fetchPacientes(paginaActual);
-  }, [paginaActual]);
+    const fetchData = async () => {
+      try {
+        // Asumimos que fetchPacientes puede lanzar una excepción si no se encuentran datos
+        await fetchPacientesCallback(paginaActual, busqueda, fechaRegistro, mostrarActivos);
+      } catch (error) {
+        // Establecemos un mensaje adecuado dependiendo del estado del filtro
+        let mensajeError = 'No se encontraron pacientes.';
+        if (busqueda) {
+          mensajeError = `No se encontraron pacientes con el nombre "${busqueda}".`;
+        } else if (fechaRegistro) {
+          mensajeError = `No se encontraron pacientes registrados en la fecha ${fechaRegistro}.`;
+        } else if (!mostrarActivos) {
+          mensajeError = "No se encontraron pacientes inactivos.";
+        }
+        setMensajeNoEncontrado(mensajeError);
+      }
+    };
+
+    fetchData();
+  }, [paginaActual, busqueda, fechaRegistro, mostrarActivos, fetchPacientesCallback]);
 
   // Manejador de búsqueda por nombre
   const handleSearchByName = () => {
-    // Aquí debes implementar la lógica para filtrar pacientes por nombre en el backend
+    // Implementar lógica para filtrar pacientes por nombre en el backend
     console.log("Búsqueda por nombre", busqueda);
   };
 
   // Manejador de búsqueda por fecha de registro
   const handleSearchByDate = () => {
-    // Aquí debes implementar la lógica para filtrar pacientes por fecha en el backend
+    // Implementar lógica para filtrar pacientes por fecha en el backend
     console.log("Búsqueda por fecha de registro", fechaRegistro);
   };
 
   // Manejador para cambiar entre activos/inactivos
   const handleToggleActive = () => {
     setMostrarActivos(!mostrarActivos);
-    // Aquí debes implementar la lógica para filtrar pacientes por estado (activo/inactivo) en el backend
+    // Implementar lógica para filtrar pacientes por estado (activo/inactivo) en el backend
     console.log("Mostrar", mostrarActivos ? "Inactivos" : "Activos");
   };
+
+
 
   return (
     <motion.div 
@@ -74,23 +98,29 @@ const Pacientes = () => {
         </div>
 
         {/* Iterar sobre la lista de pacientes y mostrarlos */}
-        {pacientes.map((paciente) => (
-          <motion.div key={paciente.idPersona} className="w-full flex flex-col items-center mb-4"
-            variants={fadeIn('up',0.3)}
-            initial='hidden'
-            whileInView={'show'}
-            viewport={{once:false,amount:0.7}}
-          >
-            <div className="flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full max-w-sm">
-              <img src={user} alt="Paciente" className="w-20 rounded-full" />
-              <div>
-                <h2 className="text-lg font-semibold">{`${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}`}</h2>
-                <p className="text-gray-600">{`Fecha de nacimiento: ${paciente.fechaNacimiento}`}</p>
-                <p className="text-gray-600">{`Sexo: ${paciente.genero}`}</p>
+        {pacientes.length > 0 ? (
+          pacientes.map((paciente) => (
+            <motion.div key={paciente.idPersona} className="w-full flex flex-col items-center mb-4"
+              variants={fadeIn('up',0.3)}
+              initial='hidden'
+              whileInView={'show'}
+              viewport={{once:false,amount:0.7}}
+            >
+              <div className="flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full max-w-sm">
+                <img src={user} alt="Paciente" className="w-20 rounded-full" />
+                <div>
+                  <h2 className="text-lg font-semibold">{`${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}`}</h2>
+                  <p className="text-gray-600">{`Fecha de nacimiento: ${paciente.fechaNacimiento}`}</p>
+                  <p className="text-gray-600">{`Sexo: ${paciente.genero}`}</p>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))
+        ) : (
+          <div className="text-center py-4">
+            {mensajeNoEncontrado}
+          </div>
+        )}
 
         {/* Paginación */}
         <motion.div 
