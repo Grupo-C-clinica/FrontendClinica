@@ -1,8 +1,8 @@
-import React from "react";
-import { BriefcaseIcon, CalendarIcon, MapIcon } from "@heroicons/react/solid";
+
+import {  CalendarIcon, MapIcon } from "@heroicons/react/solid";
 import { motion } from "framer-motion";
 import "./contact.css";
-import { FaMapPin } from "react-icons/fa6";
+
 const Contacts = () => {
   return (
     <motion.div
