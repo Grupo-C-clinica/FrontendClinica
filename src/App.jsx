@@ -18,14 +18,17 @@ import Reviews from './components/Reviews'
 import NavbarL from './components/logeado/Navbarlogeado'
 import Login from './components/logeado/Login'
 function App() {
-  const isLoggedIn = false;
+  // Asumo que isLoggedIn se determinará por algún método de autenticación real
+  const isLoggedIn = true;
   let location = useLocation();
 
-  const showNavbarAndFooter = isLoggedIn || !['/login'].includes(location.pathname);
+  // Ahora incluye la comprobación para mostrar el navbar y el footer
+  const showNavbar = isLoggedIn || location.pathname !== '/login';
+  const showFooter = location.pathname !== '/login' && !isLoggedIn;
 
   return (
     <>
-      {showNavbarAndFooter && (isLoggedIn ? <NavbarL /> : <Navbar />)}
+      {showNavbar && (isLoggedIn ? <NavbarL /> : <Navbar />)}
       <Routes>
         <Route path="/" element={<>
           <Home/><Informacion/><About/><Princing/><Newsletter/><Reviews/>
@@ -36,8 +39,9 @@ function App() {
         <Route path="/alergias" element={<Alergias />} />
         <Route path="/registroPacientes" element={<RegistroPacientes />} />
         <Route path="/login" element={<Login />} />
+        {/* Aquí puedes agregar más rutas según sea necesario */}
       </Routes>
-      {showNavbarAndFooter && <Fotter/>}
+      {showFooter && <Fotter/>}
     </>
   );
 }

@@ -10,9 +10,9 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   }
   const navItems = [
-    {link: "Consultas", path: "/consultas"},
-    {link: "Horarios", path: "/horarios"},
-    {link: "Información", path: "/infolog"},
+    {link: "Registrar nuevo paciente", path: "/registroPacientes"},
+    {link: "Lista Pacientes", path: "/pacientes"},
+    {link: "Alergias", path: "/alergias"},
   ];
 
   return (
@@ -22,7 +22,7 @@ const Navbar = () => {
           <div className='flex space-x-14 items-center'>
             <a href="/" className='text-2xl font-semibold flex items-center space-x-3 text-primary'>
               <img src={logo} alt="UCB Logo" className='w-10 inline-block items-center'/>
-              <span>UCB</span>
+              <span>Clinica Torrelio</span>
             </a>
 
             <ul className="md:flex space-x-12 hidden">
