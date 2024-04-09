@@ -112,6 +112,12 @@ const Pacientes = () => {
                   <h2 className="text-lg font-semibold">{`${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}`}</h2>
                   <p className="text-gray-600">{`Fecha de nacimiento: ${paciente.fechaNacimiento}`}</p>
                   <p className="text-gray-600">{`Sexo: ${paciente.genero}`}</p>
+                  <button 
+                    className="btnPrimary"
+                    onClick={() => goToHistorial(paciente.id)}
+                  >
+                    Ver Historial
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -121,7 +127,6 @@ const Pacientes = () => {
             {mensajeNoEncontrado}
           </div>
         )}
-
         {/* Paginación */}
         <motion.div 
           variants={fadeIn('right',0.3)}

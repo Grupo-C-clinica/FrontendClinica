@@ -5,6 +5,8 @@ import usePacientesStore from '../store/pacientesStore';
 
 const HistorialClinico = ({ pacienteId }) => {
   const [historialClinico, setHistorialClinico] = useState([]);
+  const [tratamiento, setTratamiento] = useState('');
+  const [multimedia, setMultimedia] = useState('');
 
   useEffect(() => {
     // Aquí podrías hacer una solicitud para obtener el historial clínico del paciente
@@ -33,28 +35,41 @@ const HistorialClinico = ({ pacienteId }) => {
       <div className="text-center">
         <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Historial Clínico</h2>
       </div>
-
       <div className="bg-white shadow-xl rounded-lg p-6">
-        <table className="min-w-full">
-          <thead>
-            <tr>
-              <th className="px-4 py-2">Fecha</th>
-              <th className="px-4 py-2">Observaciones</th>
-              <th className="px-4 py-2">Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            {historialClinico.map(item => (
-              <tr key={item.HISTORIAL_CLINICO_ID}>
-                <td className="border px-4 py-2">{item.FECHA}</td>
-                <td className="border px-4 py-2">{item.OBSERVACIONES}</td>
-                <td className="border px-4 py-2">{item.STATUS ? 'Activo' : 'Inactivo'}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {/* Información del historial clínico */}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold mb-2">Historial Clínico</h3>
+          {historialClinico.map(item => (
+            <div key={item.HISTORIAL_CLINICO_ID} className="mb-4">
+              <p><strong>Fecha:</strong> {item.FECHA}</p>
+              <p><strong>Observaciones:</strong> {item.OBSERVACIONES}</p>
+              <p><strong>Estado:</strong> {item.STATUS ? 'Activo' : 'Inactivo'}</p>
+            </div>
+          ))}
+        </div>
+        {/* Información del tratamiento */}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold mb-2">Tratamiento</h3>
+          <textarea
+            className="border border-gray-300 rounded-md w-full h-32 p-2 resize-none"
+            value={tratamiento}
+            readOnly
+          />
+        </div>
+
+        {/* Información multimedia clínica */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Multimedia Clínica</h3>
+          <input
+            type="text"
+            className="border border-gray-300 rounded-md w-full p-2"
+            value={multimedia}
+            readOnly
+          />
+        </div>
       </div>
     </motion.div>
   );
 };
+
 export default HistorialClinico;
