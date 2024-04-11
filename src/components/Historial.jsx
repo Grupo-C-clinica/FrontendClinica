@@ -1,16 +1,38 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
-import usePacientesStore from '../store/pacientesStore';
+
 
 const HistorialClinico = ({ pacienteId }) => {
   const [historialClinico, setHistorialClinico] = useState([]);
   const [tratamiento, setTratamiento] = useState('');
   const [multimedia, setMultimedia] = useState('');
+  const [historialPrueba, setHistorialPrueba] = useState([]);
 
+  setHistorialPrueba([
+    {
+      HISTORIAL_CLINICO_ID: 1,
+      FECHA: '2022-01-01',
+      OBSERVACIONES: 'Paciente con dolor de cabeza',
+      STATUS: true
+    },
+    {
+      HISTORIAL_CLINICO_ID: 2,
+      FECHA: '2022-01-02',
+      OBSERVACIONES: 'Paciente con dolor de estómago',
+      STATUS: true
+    },
+    {
+      HISTORIAL_CLINICO_ID: 3,
+      FECHA: '2022-01-03',
+      OBSERVACIONES: 'Paciente con dolor de garganta',
+      STATUS: false
+    }
+  ]);
   useEffect(() => {
     // Aquí podrías hacer una solicitud para obtener el historial clínico del paciente
     // Supongamos que tienes una función fetchHistorialClinico que obtiene el historial clínico de la API
+      
     const fetchHistorialClinico = async () => {
       try {
         const response = await fetch(`/api/pacientes/${pacienteId}/historial-clinico`);
@@ -71,5 +93,4 @@ const HistorialClinico = ({ pacienteId }) => {
     </motion.div>
   );
 };
-
 export default HistorialClinico;
