@@ -6,7 +6,15 @@ import { useEffect, useState, useCallback } from 'react';
 import usePacientesStore from '../store/pacientesStore';
 
 const Pacientes = () => {
-  const { pacientes, paginaActual, fetchPacientes, setPaginaActual } = usePacientesStore();
+  const {
+    pacientes,
+    paginaActual,
+    fetchPacientes,
+    setPaginaActual,
+    fetchPacientesByName,
+    fetchPacientesByFecha,
+    fetchPacientesByStatus,
+  } = usePacientesStore();
   const [busqueda, setBusqueda] = useState('');
   const [fechaRegistro, setFechaRegistro] = useState('');
   const [mostrarActivos, setMostrarActivos] = useState(true);
@@ -14,6 +22,18 @@ const Pacientes = () => {
 
   // Utilizamos useCallback para envolver fetchPacientes para evitar que sea recreada en cada render
   const fetchPacientesCallback = useCallback(fetchPacientes, []);
+  const handleSearchByName = () => {
+    fetchPacientesByName(busqueda);
+  };
+
+  const handleSearchByDate = () => {
+    fetchPacientesByFecha(fechaRegistro);
+  };
+
+  const handleToggleActive = () => {
+    setMostrarActivos(!mostrarActivos);
+    fetchPacientesByStatus(mostrarActivos);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,26 +55,13 @@ const Pacientes = () => {
     };
 
     fetchData();
-  }, [paginaActual, busqueda, fechaRegistro, mostrarActivos, fetchPacientesCallback]);
+  }, [paginaActual, 
+    busqueda, 
+    fechaRegistro, 
+    mostrarActivos, 
+    fetchPacientesCallback]);
 
   // Manejador de búsqueda por nombre
-  const handleSearchByName = () => {
-    // Implementar lógica para filtrar pacientes por nombre en el backend
-    console.log("Búsqueda por nombre", busqueda);
-  };
-
-  // Manejador de búsqueda por fecha de registro
-  const handleSearchByDate = () => {
-    // Implementar lógica para filtrar pacientes por fecha en el backend
-    console.log("Búsqueda por fecha de registro", fechaRegistro);
-  };
-
-  // Manejador para cambiar entre activos/inactivos
-  const handleToggleActive = () => {
-    setMostrarActivos(!mostrarActivos);
-    // Implementar lógica para filtrar pacientes por estado (activo/inactivo) en el backend
-    console.log("Mostrar", mostrarActivos ? "Inactivos" : "Activos");
-  };
 
 
 

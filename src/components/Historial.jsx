@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import  { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
-import usePacientesStore from '../store/pacientesStore';
+
 
 const HistorialClinico = ({ pacienteId }) => {
   const [historialClinico, setHistorialClinico] = useState([]);
-  const [tratamiento, setTratamiento] = useState('');
-  const [multimedia, setMultimedia] = useState('');
+  const [tratamiento, ] = useState('');
+  const [multimedia, ] = useState('');
 
   useEffect(() => {
     // Aquí podrías hacer una solicitud para obtener el historial clínico del paciente

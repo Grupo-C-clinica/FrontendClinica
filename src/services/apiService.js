@@ -11,6 +11,34 @@ export const fetchPacientes = async (pagina = 1) => {
     throw error;
   }
 };
+export const fetchPacientesByName = async (nombre) => {
+  try {
+    const response = await axios.get(`${API_URL}/paciente/nombre/${nombre}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching pacientes by name:', error);
+    throw error;
+  }
+};
+export const fetchPacientesByFecha = async (fecha) => {
+  try {
+    const response = await axios.get(`${API_URL}/paciente/fecha/${fecha}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching pacientes by fecha:', error);
+    throw error;
+  }
+};
+
+export const fetchPacientesByStatus = async (estado) => {
+  try {
+    const response = await axios.get(`${API_URL}/paciente/estado/${estado}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching pacientes by status:', error);
+    throw error;
+  }
+};
 
 // Añadir esta nueva función para enviar alergias
 export const addAlergiaToPaciente = async (idPaciente, alergiaData) => {
