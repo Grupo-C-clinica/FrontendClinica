@@ -13,17 +13,18 @@ const Pacientes = () => {
     setPaginaActual,
     fetchPacientesByName,
     fetchPacientesByFecha,
-    fetchPacientesByStatus,
+    fetchPacientesByStatus
   } = usePacientesStore();
   const [busqueda, setBusqueda] = useState('');
   const [fechaRegistro, setFechaRegistro] = useState('');
   const [mostrarActivos, setMostrarActivos] = useState(true);
   const [mensajeNoEncontrado, setMensajeNoEncontrado] = useState('');
-
+  const [dataLoaded, setDataLoaded] = useState(false);
   // Utilizamos useCallback para envolver fetchPacientes para evitar que sea recreada en cada render
   const fetchPacientesCallback = useCallback(fetchPacientes, []);
   const handleSearchByName = () => {
-    fetchPacientesByName(busqueda);
+    const searchQuery = busqueda.toLowerCase();
+    fetchPacientesByName(searchQuery);
   };
 
   const handleSearchByDate = () => {
@@ -32,45 +33,60 @@ const Pacientes = () => {
 
   const handleToggleActive = () => {
     setMostrarActivos(!mostrarActivos);
-    fetchPacientesByStatus(mostrarActivos);
   };
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Asumimos que fetchPacientes puede lanzar una excepción si no se encuentran datos
-        await fetchPacientesCallback(paginaActual, busqueda, fechaRegistro, mostrarActivos);
-      } catch (error) {
-        // Establecemos un mensaje adecuado dependiendo del estado del filtro
-        let mensajeError = 'No se encontraron pacientes.';
-        if (busqueda) {
-          mensajeError = `No se encontraron pacientes con el nombre "${busqueda}".`;
-        } else if (fechaRegistro) {
-          mensajeError = `No se encontraron pacientes registrados en la fecha ${fechaRegistro}.`;
-        } else if (!mostrarActivos) {
-          mensajeError = "No se encontraron pacientes inactivos.";
-        }
-        setMensajeNoEncontrado(mensajeError);
-      }
+    const loadActivePatients = async () => {
+      await fetchPacientesByStatus(true);
+      setDataLoaded(true);
     };
 
-    fetchData();
-  }, [paginaActual, 
-    busqueda, 
-    fechaRegistro, 
-    mostrarActivos, 
-    fetchPacientesCallback]);
+    loadActivePatients();
+  }, []);
 
-  // Manejador de búsqueda por nombre
+  useEffect(() => {
+    fetchPacientesByStatus(mostrarActivos);
+    if (!dataLoaded) {
+        const fetchData = async () => {
+            try {
+                await fetchPacientesCallback(paginaActual, busqueda, fechaRegistro, mostrarActivos);
+                if (pacientes.length === 0) {
+                    let mensajeError = 'No se encontraron pacientes.';
+                    if (busqueda) {
+                        mensajeError = `No se encontraron pacientes con el nombre "${busqueda}".`;
+                    } else if (fechaRegistro) {
+                        mensajeError = `No se encontraron pacientes registrados en la fecha ${fechaRegistro}.`;
+                    } else if (!mostrarActivos) {
+                        mensajeError = "No se encontraron pacientes inactivos.";
+                    }
+                    setMensajeNoEncontrado(mensajeError);
+                }
+                setDataLoaded(true);
+            } catch (error) {
+                console.error('Error fetching patients:', error);
+                setMensajeNoEncontrado('Error al cargar los pacientes.');
+            }
+        };
+
+        fetchData();
+      }
+  }, [paginaActual, busqueda, fechaRegistro, mostrarActivos, fetchPacientesCallback]);
 
 
-
+  useEffect(() => {
+      setDataLoaded(false);
+  }, [paginaActual, busqueda, fechaRegistro, mostrarActivos]);
+    
+  const pacientesSeguros = pacientes || [];
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Intl.DateTimeFormat('en-GB', options).format(new Date(dateString));
+  };
   return (
     <motion.div 
       variants={fadeIn('up', 0.3)}
       initial='hidden'
       whileInView={'show'}
-      viewport={{ once: false, amount: 0.7 }}
+      
       className="container mx-auto mt-32"
     >
       <div className="text-center">
@@ -104,36 +120,34 @@ const Pacientes = () => {
           </button>
         </div>
 
-        {/* Iterar sobre la lista de pacientes y mostrarlos */}
-        {pacientes.length > 0 ? (
-          pacientes.map((paciente) => (
-            <motion.div key={paciente.idPersona} className="w-full flex flex-col items-center mb-4"
+        <div className="grid grid-cols-3 gap-4">
+        {pacientesSeguros.length > 0 ? (
+          pacientesSeguros.map((paciente) => (
+            
+            <motion.div key={paciente.idPersona} className="col-span-1"
               variants={fadeIn('up',0.3)}
               initial='hidden'
               whileInView={'show'}
               viewport={{once:false,amount:0.7}}
             >
-              <div className="flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full max-w-sm">
+              <div className="flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full">
                 <img src={user} alt="Paciente" className="w-20 rounded-full" />
                 <div>
                   <h2 className="text-lg font-semibold">{`${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}`}</h2>
-                  <p className="text-gray-600">{`Fecha de nacimiento: ${paciente.fechaNacimiento}`}</p>
+                  <p className="text-gray-600">{`Fecha de nacimiento: ${formatDate(paciente.fechaNacimiento)}`}</p>
                   <p className="text-gray-600">{`Sexo: ${paciente.genero}`}</p>
-                  <button 
-                    className="btnPrimary"
-                    onClick={() => goToHistorial(paciente.id)}
-                  >
+                  
+                  {/*<button className="btnPrimary" onClick={() => goToHistorial(paciente.id)}>
                     Ver Historial
-                  </button>
+                  </button>*/ }
                 </div>
               </div>
             </motion.div>
           ))
         ) : (
-          <div className="text-center py-4">
-            {mensajeNoEncontrado}
-          </div>
+          <div className="text-center py-4 col-span-3">{mensajeNoEncontrado}</div>
         )}
+      </div>
         {/* Paginación */}
         <motion.div 
           variants={fadeIn('right',0.3)}

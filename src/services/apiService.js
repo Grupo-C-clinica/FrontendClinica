@@ -13,7 +13,7 @@ export const fetchPacientes = async (pagina = 1) => {
 };
 export const fetchPacientesByName = async (nombre) => {
   try {
-    const response = await axios.get(`${API_URL}/paciente/nombre/${nombre}`);
+    const response = await axios.get(`${API_URL}/paciente/nombre`, { params: { nombre } });
     return response.data;
   } catch (error) {
     console.error('Error fetching pacientes by name:', error);
