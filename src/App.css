@@ -75,3 +75,19 @@ nav{
     @apply py-3 px-8 bg-secondary font-semibold text-white rounded
     hover:bg-primary transition-all duration-300
 }
+.btn2{
+  @apply ml-4 px-4 py-2 bg-secondary font-semibold text-white rounded
+  hover:bg-primary transition-all duration-300
+}
+.page {
+  margin: 0 4px; /* Espacio entre los números de página */
+  padding: 6px 10px; /* Padding para hacer los números de página clicables más grandes */
+  border: 1px solid #ccc; /* Borde para los números de página */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre los números de página */
+}
+
+.page.active {
+  @apply ml-4 px-4 py-2 bg-secondary font-semibold text-white rounded
+  hover:bg-primary transition-all duration-300/* Color de texto para la página activa */
+}
