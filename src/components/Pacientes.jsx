@@ -181,6 +181,9 @@ const Pacientes = () => {
                   <button className="btnPrimary" onClick={() => goToHistorial(paciente.id)}>
                     Ver Historial
                   </button>
+                </div>
+              </div>
+            </motion.div>
           )) : (
             <div className="text-center py-4 col-span-3">{mensajeNoEncontrado}</div>
           )}
