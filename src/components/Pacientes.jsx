@@ -178,7 +178,7 @@ const Pacientes = () => {
                   <p className="text-gray-600">{`Fecha de nacimiento: ${formatDate(paciente.fechaNacimiento)}`}</p>
                   <p className="text-gray-600">{`Sexo: ${paciente.genero}`}</p>
 
-                  <button className="btnPrimary" onClick={() => goToHistorial(paciente.id)}>
+                  <button className="btn2" onClick={() => goToHistorial(paciente.idPaciente)}>
                     Ver Historial
                   </button>
                 </div>

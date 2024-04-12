@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
+import usePacientesStore from '../store/pacientesStore';
+import { useParams } from 'react-router-dom';
 
-const ListaHistorialesClinicos = ({pacienteId}) => {
-  const [historialesClinicos, setHistorialesClinicos] = useState([]);
+const ListaHistorialesClinicos = () => {
+  const { idPaciente } = useParams(); // Obtiene el idPaciente de la URL
+  const { historialesClinicos, fetchHistorialesClinicos } = usePacientesStore();
 
   useEffect(() => {
-    // Aquí podrías hacer una solicitud para obtener la lista de historiales clínicos
-    // Supongamos que tienes una función fetchHistorialesClinicos que obtiene los historiales clínicos de la API
-    const fetchHistorialesClinicos = async () => {
-        try {
-            const response = await fetch(`/api/pacientes/${pacienteId}/historial-clinico`);
-            const data = await response.json();
-            setHistorialesClinicos(data);
-          } catch (error) {
-            console.error('Error al obtener el historial clínico:', error);
-          }
-    };
-
-    fetchHistorialesClinicos();
-  }, []);
+    if (idPaciente) {
+      fetchHistorialesClinicos(idPaciente);
+    }
+  }, [idPaciente, fetchHistorialesClinicos]); 
 
   return (
     <motion.div
@@ -37,12 +30,12 @@ const ListaHistorialesClinicos = ({pacienteId}) => {
         {historialesClinicos.length > 0 ? (
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {historialesClinicos.map(historial => (
-              <li key={historial.HISTORIAL_CLINICO_ID} className="p-4 border rounded-lg">
-                <h3 className="text-lg font-semibold mb-2">{`Historial #${historial.HISTORIAL_CLINICO_ID}`}</h3>
-                <p><strong>Fecha:</strong> {historial.FECHA}</p>
-                <p><strong>Observaciones:</strong> {historial.OBSERVACIONES}</p>
-                <p><strong>Estado:</strong> {historial.STATUS ? 'Activo' : 'Inactivo'}</p>
-              </li>
+              <div key={historial.idHistorial} className=" historial-item p-4 border rounded-lg">
+              <h3 className="text-lg font-semibold">{`Historial #${historial.idHistorial}`}</h3>
+              <p className="text-justify"><strong>Fecha:</strong> {new Date(historial.fecha).toLocaleDateString()}</p>
+              <p className="text-justify"><strong>Observaciones:</strong> {historial.observaciones}</p>
+              <p className="text-justify"><strong>Estado:</strong> {historial.status ? 'Activo' : 'Inactivo'}</p>
+              </div>
             ))}
           </ul>
         ) : (

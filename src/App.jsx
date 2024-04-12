@@ -42,7 +42,7 @@ function App() {
         <Route path="/registroPacientes" element={<RegistroPacientes />} />
         <Route path="/historialClinico" element={<HistorialClinico />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/listaHistorial/:pacienteId" element={<ListaHistorialesClinicos />} />
+        <Route path="/listaHistorial/:idPaciente" element={<ListaHistorialesClinicos />} />
         <Route path="*" element={<div>404</div>} />
         {/* Aquí puedes agregar más rutas según sea necesario */}
       </Routes>
