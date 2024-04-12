@@ -14,7 +14,7 @@ export const fetchPacientesPaginated = async (page, pageSize) => {
     throw error;
   }
 };
-
+ 
 export const fetchPacientesByName = async (nombre) => {
   try {
     const response = await axios.get(`${API_URL}/paciente/nombre`, { params: { nombre } });
@@ -68,7 +68,6 @@ export const addPaciente = async (pacienteData) => {
 
 // Añadir esta nueva función para enviar alergias
 export const addAlergiaToPaciente = async (idPaciente, alergiaData) => {
-<<<<<<< HEAD
     try {
       // Asegúrate de enviar un array, incluso si solo estás enviando un objeto
       const response = await axios.post(`${API_URL}/alergia/${idPaciente}`, [alergiaData]);
@@ -79,9 +78,19 @@ export const addAlergiaToPaciente = async (idPaciente, alergiaData) => {
     }
   };
 
+export const listHistorialByPaciente = async (idPaciente) =>{
+  try{
+    const response = await axios.get(`${API_URL}/historial/${idPaciente}`);
+    return response.data;
+  }catch(error){
+    console.error("Error en la lista de historiales por paciente" , error);
+    throw error; 
+  }
+};
+
 // Añadir esta nueva función para enviar pacientes
 // apiService.js
-export const addPaciente = async (pacienteData) => {
+/*export const addPaciente = async (pacienteData) => {
     try {
       const response = await axios.post(`${API_URL}/paciente/agregar`, {
         ...pacienteData,
@@ -95,15 +104,4 @@ export const addPaciente = async (pacienteData) => {
       console.error('Error adding paciente:', error);
       throw error;
     }
-};
-=======
-  try {
-    // Asegúrate de enviar un array, incluso si solo estás enviando un objeto
-    const response = await axios.post(`${API_URL}/alergia/${idPaciente}`, [alergiaData]);
-    return response.data;
-  } catch (error) {
-    console.error('Error adding alergia:', error);
-    throw error;
-  }
-};
->>>>>>> 1e6082bd8f26f514030adbaa5fb68dc4ad588ba7
+};*/
