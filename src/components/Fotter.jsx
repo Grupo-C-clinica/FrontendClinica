@@ -49,7 +49,7 @@ const Fotter = () => {
                 </p>
                 <div className='flex items-center space-x-5'>
                     <img src={fb} alt="https://www.facebook.com/dreduardotorrelio" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
-                    <img src={ig} hreh="https://www.instagram.com/dreduardotorrelio"alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
+                    <img src={ig} href="https://www.instagram.com/dreduardotorrelio"alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
                     <img src={tw} alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
                     <img src={tt} href="https://www.tiktok.com/dreduardotorrelio" alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300'/>
                 </div>

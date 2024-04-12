@@ -1,29 +1,83 @@
 import { create } from 'zustand';
-import { fetchPacientes } from '../services/apiService';
-import { addPaciente as addPacienteService } from '../services/apiService';
+import { fetchPacientesPaginated, fetchPacientesByName, fetchPacientesByFecha, fetchPacientesByStatus, addPaciente } from '../services/apiService';
 
 const usePacientesStore = create((set) => ({
-    pacientes: [],
-    paginaActual: 1,
+  pacientes: [],
+  paginaActual: 0, // Comenzar la paginación desde 0
+  totalPaginas: 0,
+  pageSize: 6,
 
-    addPaciente: async (pacienteData) => {
-      try {
-        const newPaciente = await addPacienteService(pacienteData);
-        set((state) => ({
-          pacientes: [...state.pacientes, newPaciente]
-        }));
-        console.log('Paciente agregado con éxito');
-      } catch (error) {
-        console.error('Error al agregar paciente:', error);
+  fetchPacientes: async (pagina = 0, pageSize = 6) => { // Valor por defecto de página ajustado a 0
+    try {
+      const response = await fetchPacientesPaginated(pagina, pageSize);
+      if (response && response.data && response.data.content) {
+        set({ 
+          pacientes: response.data.content, 
+          totalPaginas: response.data.totalPages, 
+          paginaActual: pagina
+        });
+      } else {
+        console.log('Respuesta inesperada:', response);
+        set({
+          pacientes: [],
+          totalPaginas: 0
+        });
       }
-    },
-
-    fetchPacientes: async (pagina) => {
-      const data = await fetchPacientes(pagina);
-      // Asegúrate de ajustar esto según la estructura de tu respuesta de API
-      set({ pacientes: data.data }); // Cambio aquí
-    },
-    setPaginaActual: (pagina) => set(() => ({ paginaActual: pagina })),
-  }));
+    } catch (error) {
+      console.error('Error fetching paginated pacientes:', error);
+      set({ 
+        pacientes: [],
+        totalPaginas: 0
+      });
+    }
+  },
+  addPaciente: async (pacienteData) => {
+    try {
+      const newPaciente = await addPaciente(pacienteData);
+      set((state) => ({
+        pacientes: [...state.pacientes, newPaciente]
+      }));
+      console.log('Paciente agregado con éxito');
+    } catch (error) {
+      console.error('Error al agregar paciente:', error);
+    }
+  },
   
+  fetchPacientesByName: async (nombre) => {
+    const data = await fetchPacientesByName(nombre);
+    set({ pacientes: data.data });
+  },
+
+  fetchPacientesByFecha: async (fecha) => {
+    const data = await fetchPacientesByFecha(fecha);
+    set({ pacientes: data.data });
+  },
+
+  fetchPacientesByStatus: async (activo, pagina = 0, pageSize = 6) => {
+    console.log("Estado activo para cargar: ", activo); // Añadir para debugging
+    const data = await fetchPacientesByStatus(activo, pagina, pageSize);
+    console.log("Datos recibidos para estado: ", data); // Añadir para debugging
+    if (data && data.data && data.data.content) {
+      set({
+        pacientes: data.data.content,
+        totalPaginas: data.data.totalPages || 0,
+        paginaActual: pagina
+      });
+    } else {
+      console.log('No se encontraron pacientes o respuesta inesperada:', data);
+      set({
+        pacientes: [],
+        totalPaginas: 0,
+        paginaActual: 0 // Resetear la página actual si no hay contenido
+      });
+    }
+  },
+
+  setPaginaActual: (pagina) => set(() => ({ paginaActual: pagina })),
+}));
+
+  
+
+
+
 export default usePacientesStore;

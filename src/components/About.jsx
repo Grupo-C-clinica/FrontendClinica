@@ -1,5 +1,5 @@
 import about from "../assets/about2.png";
-import about2 from "../assets/ab3.png";
+
 import {motion} from 'framer-motion'; 
 import {fadeIn } from '../variants';
 const About = () => {

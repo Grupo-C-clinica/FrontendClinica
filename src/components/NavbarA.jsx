@@ -7,7 +7,9 @@ import { FaXmark } from "react-icons/fa6";
 import { FaBars } from "react-icons/fa";
 import { Link as ScrollLink } from 'react-scroll'; // Renombrado para evitar conflictos
 import { Link as RouterLink } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const togglerMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,9 +19,7 @@ const Navbar = () => {
     {link: "Servicios", path: "servicios", type: "scroll"},
     {link: "Información", path: "informacion", type: "scroll"},
     {link: "Precios", path: "precios", type: "scroll"},
-    {link: "Pacientes", path: "/pacientes", type: "route"},
-    {link: "Alergias", path: "/alergias", type: "route"},
-    {link: "Registro de Pacientes", path: "/registroPacientes", type: "route"},
+    
   ]
 
   return (
@@ -45,8 +45,12 @@ const Navbar = () => {
         </div>
 
         <div className='space-x-12 hidden md:flex items-center'>
-          <button className="bg-secondary py-2 px-4 transition-all duration-300 rounded 
-          hover: text-white hover:bg-indigo-600">Iniciar sesion</button>
+        <button
+            onClick={() => navigate('/login')} // Usa navigate para cambiar la ruta
+            className="bg-secondary py-2 px-4 transition-all duration-300 rounded 
+            hover: text-white hover:bg-indigo-600"
+          >
+          Iniciar sesion</button>
         
         </div>
 

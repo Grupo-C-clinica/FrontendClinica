@@ -3,7 +3,7 @@ import {motion} from 'framer-motion';
 import {fadeIn } from '../variants';
 import "../components/Informacion.css";
 
-import ov1 from '../assets/ov22.png';
+
 import servi1 from '../assets/servi1.jpg';
 import servi2 from '../assets/servi2.jpeg';
 import servi3 from '../assets/servi3.jpg';
