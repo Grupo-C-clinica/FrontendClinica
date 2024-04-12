@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { fetchPacientesPaginated, fetchPacientesByName, fetchPacientesByFecha, fetchPacientesByStatus, addPaciente } from '../services/apiService';
 import { fetchHistorialByPaciente } from '../services/apiService';
+import { updatePaciente } from '../services/apiService'; 
 const usePacientesStore = create((set) => ({
   pacientes: [],
   paginaActual: 0, // Comenzar la paginación desde 0
@@ -16,6 +17,16 @@ const usePacientesStore = create((set) => ({
     } catch (error) {
       console.error('Error al cargar los historiales clínicos:', error);
       set({ historialesClinicos: [] });
+    }
+  },
+  updatePaciente: async (idPaciente, pacienteData) => {
+    try {
+      const result = await updatePaciente(idPaciente, pacienteData);
+      // Aquí podrías actualizar el estado local con la respuesta si es necesario
+      alert(result.message); // o manejar el resultado como prefieras
+    } catch (error) {
+      console.error('Error al actualizar paciente:', error);
+      alert('Error al actualizar paciente');
     }
   },
 

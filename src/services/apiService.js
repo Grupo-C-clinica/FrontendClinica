@@ -115,3 +115,14 @@ export const fetchHistorialByPaciente = async (idPaciente) => {
     throw error;
   }
 };
+export const updatePaciente = async (idPaciente, pacienteData) => {
+  console.log("Datos enviados para actualizar:", pacienteData);
+  try {
+    const response = await axios.put(`${API_URL}/paciente/${idPaciente}`, pacienteData);
+    console.log("Respuesta de actualización:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating paciente:', error.response ? error.response.data : error);
+    throw error;
+  }
+};

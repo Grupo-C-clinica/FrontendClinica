@@ -120,6 +120,9 @@ const Pacientes = () => {
   const goToHistorial = (id) => {
     window.location.href = `/listaHistorial/${id}`;
   };
+  const goToModificar = (id) => {
+    window.location.href = `/modificarPaciente/${id}`;
+  };
   const pacientesSeguros = pacientes || [];
 
   return (
@@ -178,8 +181,11 @@ const Pacientes = () => {
                   <p className="text-gray-600">{`Fecha de nacimiento: ${formatDate(paciente.fechaNacimiento)}`}</p>
                   <p className="text-gray-600">{`Sexo: ${paciente.genero}`}</p>
 
-                  <button className="btn2" onClick={() => goToHistorial(paciente.idPaciente)}>
+                  <button className="btn3" onClick={() => goToHistorial(paciente.idPaciente)}>
                     Ver Historial
+                  </button>
+                  <button className="btn3" onClick={() => goToModificar(paciente.idPaciente)}>
+                    Modificar
                   </button>
                 </div>
               </div>

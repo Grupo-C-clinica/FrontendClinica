@@ -1,9 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 import usePacientesStore from '../../store/pacientesStore';
-
-const ModificarPaciente = ({ pacienteId }) => {
+import { useParams } from 'react-router-dom';
+const zonasPredefinidas = [
+  { id: 1, nombre: 'Miraflores' },
+  { id: 2, nombre: 'Sopocachi' },
+  { id: 3, nombre: 'Calacoto' },
+  { id: 4, nombre: 'San Pedro' },
+  { id: 5, nombre: 'Obrajes' },
+  { id: 6, nombre: 'Achumani' },
+  { id: 7, nombre: 'Centro' },
+  { id: 8, nombre: 'Zona Sur' },
+  // ... Asegúrate de continuar con el mismo patrón si hay más zonas
+];
+const ModificarPaciente = () => {
+  const { idPaciente } = useParams(); // Utiliza el hook useParams para obtener el id del paciente de la URL.
+  const { getPacienteById, updatePaciente } = usePacientesStore(); // Extrae las funciones necesarias de tu tienda Zustand.
+  
+  // Aquí declaras tus estados, incluyendo un estado para cada campo del formulario.
   const [nombre, setNombre] = useState('');
   const [apellidoP, setApellidoP] = useState('');
   const [apellidoM, setApellidoM] = useState('');
@@ -15,46 +30,39 @@ const ModificarPaciente = ({ pacienteId }) => {
   const [idZona, setIdZona] = useState('');
   const [correo, setCorreo] = useState('');
   const [tipoSangre, setTipoSangre] = useState('');
+ // Asumo que necesitas cargar las zonas para el select.
 
-  const { getZonas } = usePacientesStore();
-  const { getPacienteById, updatePaciente } = usePacientesStore();
-  const [zonas, setZonas] = useState([]);
+  // ... (otros estados)
 
+  // Este efecto secundario se ejecuta una vez cuando el componente se monta y siempre que cambie el idPaciente.
   useEffect(() => {
-    const fetchZonas = async () => {
-      try {
-        const zonas = await getZonas();
-        setZonas(zonas);
-      } catch (error) {
-        console.error('Error al obtener las zonas:', error);
-      }
-    };
-    fetchZonas();
-  }, [getZonas]);
+    if (idPaciente) {
+      // Obtener la información actual del paciente
+      const fetchPaciente = async () => {
+        try {
+          const paciente = await getPacienteById(idPaciente);
+          setNombre(paciente.nombre);
+          setApellidoP(paciente.apellidoP);
+          setApellidoM(paciente.apellidoM);
+          setFechaNacimiento(paciente.fechaNacimiento);
+          setGenero(paciente.genero);
+          setTelefono(paciente.telefono);
+          setCi(paciente.ci);
+          setStatus(paciente.status);
+          setIdZona(paciente.idZona);
+          setCorreo(paciente.correo);
+          setTipoSangre(paciente.tipoSangre);
 
-  useEffect(() => {
-    const fetchPaciente = async () => {
-      try {
-        const paciente = await getPacienteById(pacienteId);
-        setNombre(paciente.nombre);
-        setApellidoP(paciente.apellidoP);
-        setApellidoM(paciente.apellidoM);
-        setFechaNacimiento(paciente.fechaNacimiento);
-        setGenero(paciente.genero);
-        setTelefono(paciente.telefono);
-        setCi(paciente.ci);
-        setStatus(paciente.status);
-        setIdZona(paciente.idZona);
-        setCorreo(paciente.correo);
-        setTipoSangre(paciente.tipoSangre);
-      } catch (error) {
-        console.error('Error al obtener el paciente:', error);
-      }
-    };
+          // ... (actualizar otros estados)
+        } catch (error) {
+          console.error('Error al obtener el paciente:', error);
+        }
+      };
+      fetchPaciente();
+    }
+  }, [idPaciente, getPacienteById]);
 
-    fetchPaciente();
-  }, [pacienteId, getPacienteById]);
-
+  // Aquí manejas el envío del formulario.
   const handleSubmit = async (e) => {
     e.preventDefault();
     const pacienteData = {
@@ -65,21 +73,21 @@ const ModificarPaciente = ({ pacienteId }) => {
       genero,
       telefono,
       ci,
-      status,
+      status: status === 'Activo' ? true : false, // Asegúrate de enviar un booleano
       idZona,
       correo,
       tipoSangre,
-
     };
+  
     try {
-      await updatePaciente(pacienteId, pacienteData);
+      await updatePaciente(idPaciente, pacienteData);
       alert('Paciente modificado con éxito');
-      window.location.href = '/pacientes';
     } catch (error) {
-      console.error('Error al modificar el paciente:', error);
       alert('Error al modificar el paciente');
+      console.error('Error al modificar el paciente:', error);
     }
   };
+
 
   return (
     <motion.div
@@ -197,9 +205,8 @@ const ModificarPaciente = ({ pacienteId }) => {
               onChange={(e) => setIdZona(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             >
-              <option value="">Seleccione una zona</option>
-              {zonas.map((zona) => (
-                <option key={zona.idZona} value={zona.idZona}>{zona.nombre}</option>
+              {zonasPredefinidas.map((zona) => (
+                <option key={zona.id} value={zona.id}>{zona.nombre}</option>
               ))}
             </select>
           </div>

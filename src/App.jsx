@@ -45,6 +45,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/listaHistorial/:idPaciente" element={<ListaHistorialesClinicos />} />
         <Route path="/modificarPaciente/:idPaciente" element={<ModificarPaciente />} />
+        
         <Route path="*" element={<div>404</div>} />
         {/* Aquí puedes agregar más rutas según sea necesario */}
       </Routes>
