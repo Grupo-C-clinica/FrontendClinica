@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
 
 
-const HistorialClinico = ({ pacienteId }) => {
+const HistorialClinico = ({ historialId }) => {
   const [historialClinico, setHistorialClinico] = useState([]);
   const [tratamiento, ] = useState('');
   const [multimedia, ] = useState('');
@@ -13,7 +13,7 @@ const HistorialClinico = ({ pacienteId }) => {
     // Supongamos que tienes una función fetchHistorialClinico que obtiene el historial clínico de la API
     const fetchHistorialClinico = async () => {
       try {
-        const response = await fetch(`/api/pacientes/${pacienteId}/historial-clinico`);
+        const response = await fetch(`/api/historialClinico/${historialId}`);
         const data = await response.json();
         setHistorialClinico(data);
       } catch (error) {

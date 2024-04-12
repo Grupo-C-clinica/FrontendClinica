@@ -117,6 +117,9 @@ const Pacientes = () => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return new Intl.DateTimeFormat('en-GB', options).format(new Date(dateString));
   };
+  const goToHistorial = (id) => {
+    window.location.href = `/listaHistorial/${id}`;
+  };
   const pacientesSeguros = pacientes || [];
 
   return (
@@ -174,9 +177,10 @@ const Pacientes = () => {
                   <h2 className="text-lg font-semibold">{`${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}`}</h2>
                   <p className="text-gray-600">{`Fecha de nacimiento: ${formatDate(paciente.fechaNacimiento)}`}</p>
                   <p className="text-gray-600">{`Sexo: ${paciente.genero}`}</p>
-                </div>
-              </div>
-            </motion.div>
+
+                  <button className="btnPrimary" onClick={() => goToHistorial(paciente.id)}>
+                    Ver Historial
+                  </button>
           )) : (
             <div className="text-center py-4 col-span-3">{mensajeNoEncontrado}</div>
           )}
