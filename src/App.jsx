@@ -17,6 +17,8 @@ import Referencias from './components/Referencias'
 import Reviews from './components/Reviews'
 import NavbarL from './components/logeado/Navbarlogeado'
 import Login from './components/logeado/Login'
+import HistorialClinico from './components/Historial'
+import ListaHistorialesClinicos from './components/listaHistorial'
 function App() {
   // Asumo que isLoggedIn se determinará por algún método de autenticación real
   const isLoggedIn = true;
@@ -38,7 +40,10 @@ function App() {
         <Route path="/pacientes" element={<Pacientes />} />
         <Route path="/alergias" element={<Alergias />} />
         <Route path="/registroPacientes" element={<RegistroPacientes />} />
+        <Route path="/historialClinico" element={<HistorialClinico />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/listaHistorial/:pacienteId" element={<ListaHistorialesClinicos />} />
+        <Route path="*" element={<div>404</div>} />
         {/* Aquí puedes agregar más rutas según sea necesario */}
       </Routes>
       {showFooter && <Fotter/>}

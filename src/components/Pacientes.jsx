@@ -71,7 +71,9 @@ const Pacientes = () => {
       }
   }, [paginaActual, busqueda, fechaRegistro, mostrarActivos, fetchPacientesCallback]);
 
-
+  const goToHistorial = (id) => {
+    window.location.href = `/listaHistorial/${id}`;
+  };
   useEffect(() => {
       setDataLoaded(false);
   }, [paginaActual, busqueda, fechaRegistro, mostrarActivos]);
@@ -136,16 +138,20 @@ const Pacientes = () => {
                   <h2 className="text-lg font-semibold">{`${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}`}</h2>
                   <p className="text-gray-600">{`Fecha de nacimiento: ${formatDate(paciente.fechaNacimiento)}`}</p>
                   <p className="text-gray-600">{`Sexo: ${paciente.genero}`}</p>
-                  
-                  {/*<button className="btnPrimary" onClick={() => goToHistorial(paciente.id)}>
+                  <button className="btnPrimary" onClick={() => goToHistorial(paciente.id)}>
                     Ver Historial
-                  </button>*/ }
+                  </button>
                 </div>
               </div>
             </motion.div>
           ))
         ) : (
-          <div className="text-center py-4 col-span-3">{mensajeNoEncontrado}</div>
+          <div className="text-center py-4 col-span-3">{mensajeNoEncontrado}
+          
+          <button className="btnPrimary" onClick={() => goToHistorial(1)}>
+            Ver Historial
+          </button>
+          </div>
         )}
       </div>
         {/* Paginación */}
