@@ -9,9 +9,28 @@ const ModificarPaciente = ({ pacienteId }) => {
   const [apellidoM, setApellidoM] = useState('');
   const [fechaNacimiento, setFechaNacimiento] = useState('');
   const [genero, setGenero] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [ci, setCi] = useState('');
+  const [status, setStatus] = useState('');
+  const [idZona, setIdZona] = useState('');
   const [correo, setCorreo] = useState('');
+  const [tipoSangre, setTipoSangre] = useState('');
 
+  const { getZonas } = usePacientesStore();
   const { getPacienteById, updatePaciente } = usePacientesStore();
+  const [zonas, setZonas] = useState([]);
+
+  useEffect(() => {
+    const fetchZonas = async () => {
+      try {
+        const zonas = await getZonas();
+        setZonas(zonas);
+      } catch (error) {
+        console.error('Error al obtener las zonas:', error);
+      }
+    };
+    fetchZonas();
+  }, [getZonas]);
 
   useEffect(() => {
     const fetchPaciente = async () => {
@@ -22,7 +41,12 @@ const ModificarPaciente = ({ pacienteId }) => {
         setApellidoM(paciente.apellidoM);
         setFechaNacimiento(paciente.fechaNacimiento);
         setGenero(paciente.genero);
+        setTelefono(paciente.telefono);
+        setCi(paciente.ci);
+        setStatus(paciente.status);
+        setIdZona(paciente.idZona);
         setCorreo(paciente.correo);
+        setTipoSangre(paciente.tipoSangre);
       } catch (error) {
         console.error('Error al obtener el paciente:', error);
       }
@@ -39,7 +63,13 @@ const ModificarPaciente = ({ pacienteId }) => {
       apellidoM,
       fechaNacimiento,
       genero,
+      telefono,
+      ci,
+      status,
+      idZona,
       correo,
+      tipoSangre,
+
     };
     try {
       await updatePaciente(pacienteId, pacienteData);
@@ -122,6 +152,57 @@ const ModificarPaciente = ({ pacienteId }) => {
               </select>
             </div>
           </div>
+          {/* Teléfono */}
+          <div>
+            <label htmlFor="telefono" className="block text-sm font-medium text-gray-700">Teléfono</label>
+            <input
+              type="text"
+              id="telefono"
+              value={telefono}
+              onChange={(e) => setTelefono(e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+          </div>
+          {/* CI */}
+          <div>
+            <label htmlFor="ci" className="block text-sm font-medium text-gray-700">CI</label>
+            <input
+              type="text"
+              id="ci"
+              value={ci}
+              onChange={(e) => setCi(e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+          </div>
+          {/* Status */}
+          <div>
+            <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
+            <select
+              id="status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            >
+              <option value="">Seleccione un status</option>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+          {/* Zona */}
+          <div>
+            <label htmlFor="idZona" className="block text-sm font-medium text-gray-700">Zona</label>
+            <select
+              id="idZona"
+              value={idZona}
+              onChange={(e) => setIdZona(e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            >
+              <option value="">Seleccione una zona</option>
+              {zonas.map((zona) => (
+                <option key={zona.idZona} value={zona.idZona}>{zona.nombre}</option>
+              ))}
+            </select>
+          </div>
           {/* Correo */}
           <div>
             <label htmlFor="correo" className="block text-sm font-medium text-gray-700">Correo</label>
@@ -133,6 +214,18 @@ const ModificarPaciente = ({ pacienteId }) => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             />
           </div>
+          {/* Tipo de Sangre */}
+          <div>
+            <label htmlFor="tipoSangre" className="block text-sm font-medium text-gray-700">Tipo de Sangre</label>
+            <input
+              type="text"
+              id="tipoSangre"
+              value={tipoSangre}
+              onChange={(e) => setTipoSangre(e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+          </div>
+          
           {/* Botón de envío */}
           <button
             type="submit"
