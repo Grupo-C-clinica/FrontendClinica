@@ -31,7 +31,7 @@ export const addPaciente = async (pacienteData) => {
       const response = await axios.post(`${API_URL}/paciente/agregar`, {
         ...pacienteData,
         telefono: parseInt(pacienteData.telefono, 10),
-        CI: pacienteData.CI,
+        ci: 123,
         idZona: parseInt(pacienteData.idZona, 10),
         status: pacienteData.status === 'true',
       });
