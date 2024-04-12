@@ -95,7 +95,7 @@ const usePacientesStore = create((set) => ({
       });
     }
   },
-
+  
   setPaginaActual: (pagina) => set(() => ({ paginaActual: pagina })),
 }));
 

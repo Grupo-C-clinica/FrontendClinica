@@ -80,6 +80,41 @@ const ModificarPaciente = () => {
     };
   
     try {
+      if (!nombre || !apellidoP || !apellidoM || !fechaNacimiento || !genero || !correo) {
+        alert('Por favor, llena todos los campos');
+        return;
+      }
+      if(!correo.includes('@')){
+        alert('Por favor, introduce un correo electrónico válido.');
+        return;
+      }
+      //verificar si el el nombre tiene caracteres especiales
+      const regex = /^[a-zA-Z\s]*$/;
+      if (!regex.test(nombre)) {
+        alert('El nombre no puede contener caracteres especiales');
+        return;
+      }
+      //verificar si el el apellido tiene caracteres especiales
+      if (!regex.test(apellidoP)) {
+        alert('El apellido paterno no puede contener caracteres especiales');
+        return;
+      }
+      //verificar si el el apellido tiene caracteres especiales
+      if (!regex.test(apellidoM)) {
+        alert('El apellido materno no puede contener caracteres especiales');
+        return;
+      }
+      const regex2 =/^[0-9\s]*$/;
+      //verificar numero
+      if(!regex2.test(telefono)){
+        alert('El Telefono debe contener solo numeros');
+        return;
+      }
+      //verificar ci
+      if(!regex2.test(ci)){
+        alert('El ci debe contener solo numeros');
+        return;
+      }
       await updatePaciente(idPaciente, pacienteData);
       alert('Paciente modificado con éxito');
     } catch (error) {
@@ -90,7 +125,7 @@ const ModificarPaciente = () => {
 
 
   return (
-    <motion.div
+    <motion.div 
       variants={fadeIn('up', 0.3)}
       initial='hidden'
       whileInView={'show'}
