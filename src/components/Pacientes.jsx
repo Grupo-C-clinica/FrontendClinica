@@ -1,14 +1,14 @@
-
-import user from '../assets/user.png';
-import {motion} from 'framer-motion'; 
-import {fadeIn } from '../variants';
-import { useEffect, useState, useCallback } from 'react';
+import  { useEffect, useState,  } from 'react';
+import { motion } from 'framer-motion'; 
+import { fadeIn } from '../variants';
 import usePacientesStore from '../store/pacientesStore';
+import user from '../assets/user.png';
 
 const Pacientes = () => {
   const {
     pacientes,
     paginaActual,
+    totalPaginas,
     fetchPacientes,
     setPaginaActual,
     fetchPacientesByName,
@@ -18,13 +18,48 @@ const Pacientes = () => {
   const [busqueda, setBusqueda] = useState('');
   const [fechaRegistro, setFechaRegistro] = useState('');
   const [mostrarActivos, setMostrarActivos] = useState(true);
-  const [mensajeNoEncontrado, setMensajeNoEncontrado] = useState('');
+  const [mensajeNoEncontrado, ] = useState('No se encontraron pacientes.');
   const [dataLoaded, setDataLoaded] = useState(false);
-  // Utilizamos useCallback para envolver fetchPacientes para evitar que sea recreada en cada render
-  const fetchPacientesCallback = useCallback(fetchPacientes, []);
+  
+  useEffect(() => {
+    const loadActivePatients = async () => {
+      await fetchPacientesByStatus(mostrarActivos, 0, 6);
+      setDataLoaded(true);
+    };
+    loadActivePatients();
+  }, [mostrarActivos, fetchPacientesByStatus]);
+  useEffect(() => {
+    const loadPatients = async () => {
+      console.log(`Cargando pacientes para estado ${mostrarActivos}`);
+      await fetchPacientesByStatus(mostrarActivos);
+      setDataLoaded(true);
+    };
+  
+    if (!dataLoaded) {
+      loadPatients();
+    }
+  }, [mostrarActivos, dataLoaded, fetchPacientesByStatus]);  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchPacientes(paginaActual);
+        setDataLoaded(true);
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+        setDataLoaded(false);
+      }
+    };
+  
+    if (!dataLoaded) {
+      fetchData();
+    }
+  }, [paginaActual, dataLoaded, fetchPacientes]);
+  useEffect(() => {
+    setDataLoaded(false);
+  }, [paginaActual, busqueda, fechaRegistro, mostrarActivos]);
+
   const handleSearchByName = () => {
-    const searchQuery = busqueda.toLowerCase();
-    fetchPacientesByName(searchQuery);
+    fetchPacientesByName(busqueda.toLowerCase());
   };
 
   const handleSearchByDate = () => {
@@ -32,63 +67,66 @@ const Pacientes = () => {
   };
 
   const handleToggleActive = () => {
+    console.log('Cambiando estado de activos/inactivos a: ', !mostrarActivos);
     setMostrarActivos(!mostrarActivos);
+    setDataLoaded(false);  // Forzar la recarga de datos
   };
   useEffect(() => {
-    const loadActivePatients = async () => {
-      await fetchPacientesByStatus(true);
-      setDataLoaded(true);
-    };
-
-    loadActivePatients();
-  }, []);
-
-  useEffect(() => {
-    fetchPacientesByStatus(mostrarActivos);
     if (!dataLoaded) {
-        const fetchData = async () => {
-            try {
-                await fetchPacientesCallback(paginaActual, busqueda, fechaRegistro, mostrarActivos);
-                if (pacientes.length === 0) {
-                    let mensajeError = 'No se encontraron pacientes.';
-                    if (busqueda) {
-                        mensajeError = `No se encontraron pacientes con el nombre "${busqueda}".`;
-                    } else if (fechaRegistro) {
-                        mensajeError = `No se encontraron pacientes registrados en la fecha ${fechaRegistro}.`;
-                    } else if (!mostrarActivos) {
-                        mensajeError = "No se encontraron pacientes inactivos.";
-                    }
-                    setMensajeNoEncontrado(mensajeError);
-                }
-                setDataLoaded(true);
-            } catch (error) {
-                console.error('Error fetching patients:', error);
-                setMensajeNoEncontrado('Error al cargar los pacientes.');
-            }
-        };
-
-        fetchData();
-      }
-  }, [paginaActual, busqueda, fechaRegistro, mostrarActivos, fetchPacientesCallback]);
-
-  const goToHistorial = (id) => {
-    window.location.href = `/listaHistorial/${id}`;
+      fetchPacientesByStatus(mostrarActivos, paginaActual, 6).then(() => {
+        setDataLoaded(true);
+      }).catch(error => {
+        console.error('Failed to fetch data:', error);
+        setDataLoaded(true); // Asegurarse de resetear el estado para permitir reintentos
+      });
+    }
+  }, [mostrarActivos, paginaActual, dataLoaded, fetchPacientesByStatus]);
+  const handleNextPage = () => {
+    if (paginaActual < totalPaginas - 1) {
+      setPaginaActual(paginaActual + 1);
+      setDataLoaded(false); // Forzar la recarga
+    }
   };
-  useEffect(() => {
-      setDataLoaded(false);
-  }, [paginaActual, busqueda, fechaRegistro, mostrarActivos]);
-    
-  const pacientesSeguros = pacientes || [];
+  
+  const handlePreviousPage = () => {
+    if (paginaActual > 0) {
+      setPaginaActual(paginaActual - 1);
+      setDataLoaded(false); // Forzar la recarga
+    }
+  };
+  const renderPaginacion = () => {
+    const paginas = [];
+    const paginasMostradas = 5; // Número de páginas mostradas a la vez
+    let inicio = Math.max(0, paginaActual - Math.floor(paginasMostradas / 2));
+    let fin = Math.min(totalPaginas - 1, inicio + paginasMostradas - 1);
+  
+    // Ajustar el inicio si estamos cerca del final
+    inicio = Math.max(0, fin - paginasMostradas + 1);
+  
+    for (let i = inicio; i <= fin; i++) {
+      paginas.push(
+        <button key={i} onClick={() => setPaginaActual(i)} className={`page ${paginaActual === i ? 'active' : ''}`}>
+          {i + 1}
+        </button>
+      );
+    }
+    return paginas;
+  };
+
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return new Intl.DateTimeFormat('en-GB', options).format(new Date(dateString));
   };
+  const goToHistorial = (id) => {
+    window.location.href = `/listaHistorial/${id}`;
+  };
+  const pacientesSeguros = pacientes || [];
+
   return (
     <motion.div 
       variants={fadeIn('up', 0.3)}
       initial='hidden'
       whileInView={'show'}
-      
       className="container mx-auto mt-32"
     >
       <div className="text-center">
@@ -97,7 +135,6 @@ const Pacientes = () => {
       </div>
 
       <div className="bg-white shadow-xl rounded-lg p-6">
-        {/* Agregar controles de búsqueda y toggle aquí */}
         <div className="flex flex-col md:flex-row justify-between mb-6">
           <input
             type="text"
@@ -122,10 +159,12 @@ const Pacientes = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
-        {pacientesSeguros.length > 0 ? (
-          pacientesSeguros.map((paciente) => (
-            
+
+        {!dataLoaded ? (
+          <p>Cargando datos...</p>
+          )  : (
+          <div className="grid grid-cols-3 gap-4">
+          {pacientesSeguros.length > 0 ? pacientesSeguros.map((paciente) => (
             <motion.div key={paciente.idPersona} className="col-span-1"
               variants={fadeIn('up',0.3)}
               initial='hidden'
@@ -138,43 +177,34 @@ const Pacientes = () => {
                   <h2 className="text-lg font-semibold">{`${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}`}</h2>
                   <p className="text-gray-600">{`Fecha de nacimiento: ${formatDate(paciente.fechaNacimiento)}`}</p>
                   <p className="text-gray-600">{`Sexo: ${paciente.genero}`}</p>
+
                   <button className="btnPrimary" onClick={() => goToHistorial(paciente.id)}>
                     Ver Historial
                   </button>
-                </div>
-              </div>
-            </motion.div>
-          ))
-        ) : (
-          <div className="text-center py-4 col-span-3">{mensajeNoEncontrado}
-          
-          <button className="btnPrimary" onClick={() => goToHistorial(1)}>
-            Ver Historial
-          </button>
-          </div>
+          )) : (
+            <div className="text-center py-4 col-span-3">{mensajeNoEncontrado}</div>
+          )}
+        </div>
         )}
-      </div>
-        {/* Paginación */}
+
         <motion.div 
           variants={fadeIn('right',0.3)}
           initial='hidden'
           whileInView={'show'}
           viewport={{once:false,amount:0.7}}
-          className="flex justify-center mt-6"
+          className="paginacion flex justify-center mt-6"
         >
-          <button 
-            className="mx-1 px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300" 
-            onClick={() => setPaginaActual(paginaActual - 1)}
-            disabled={paginaActual <= 1}
-          >
+          <div>
+          <button className='btn2' onClick={handlePreviousPage} disabled={paginaActual <= 0}>
             Anterior
           </button>
-          <button 
-            className="btnPrimary"
-            onClick={() => setPaginaActual(paginaActual + 1)}
-          >
+
+          {renderPaginacion()}
+
+          <button className='btn2' onClick={handleNextPage} disabled={paginaActual >= totalPaginas - 1}>
             Siguiente
           </button>
+          </div>
         </motion.div>
       </div>
     </motion.div>
