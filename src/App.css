@@ -79,6 +79,10 @@ nav{
   @apply ml-4 px-4 py-2 bg-secondary font-semibold text-white rounded
   hover:bg-primary transition-all duration-300
 }
+.btn3{
+  @apply ml-4 px-4 py-2 bg-primary font-semibold text-white rounded
+  hover:bg-secondary transition-all duration-300
+}
 .page {
   margin: 0 4px; /* Espacio entre los números de página */
   padding: 6px 10px; /* Padding para hacer los números de página clicables más grandes */
