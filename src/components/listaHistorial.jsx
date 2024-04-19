@@ -14,8 +14,11 @@ const ListaHistorialesClinicos = () => {
     }
   }, [idPaciente, fetchHistorialesClinicos]); 
 
-  const goToHistorial = () => {
-    window.location.href = `/regHistorial`;
+  const goToHistorial = (historialId) => {
+    window.location.href = `/regHistorial/${historialId}`;
+  };
+  const goToHistorial2 = (historialId) => {
+    window.location.href = `/historialMultimedia/${historialId}`;
   };
   return (
     <motion.div
@@ -41,13 +44,18 @@ const ListaHistorialesClinicos = () => {
         {historialesClinicos.length > 0 ? (
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {historialesClinicos.map(historial => (
-              <div key={historial.idHistorial} className=" historial-item p-4 border rounded-lg">
+              <div key={historial.idHistorial} className=" historial-item flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full">
               <h3 className="text-lg font-semibold">{`Historial #${historial.idHistorial}`}</h3>
               <p className="text-justify"><strong>Fecha:</strong> {new Date(historial.fecha).toLocaleDateString()}</p>
               <p className="text-justify"><strong>Observaciones:</strong> {historial.observaciones}</p>
               <p className="text-justify"><strong>Estado:</strong> {historial.status ? 'Activo' : 'Inactivo'}</p>
+              <button className="btn3" onClick={() => goToHistorial2()}>
+                    Ver Historial
+                  </button>
               </div>
+              
             ))}
+            
           </ul>
         ) : (
           <p className="text-center">No se encontraron historiales clínicos.</p>
