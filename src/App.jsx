@@ -20,6 +20,7 @@ import Login from './components/logeado/Login'
 import HistorialClinico from './components/Historial'
 import ListaHistorialesClinicos from './components/listaHistorial'
 import ModificarPaciente from './components/Doctor/ModificarPaciente'
+import Citas from './components/logeado/Citas'
 function App() {
   // Asumo que isLoggedIn se determinará por algún método de autenticación real
   const isLoggedIn = true;
@@ -45,7 +46,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/listaHistorial/:idPaciente" element={<ListaHistorialesClinicos />} />
         <Route path="/modificarPaciente/:idPaciente" element={<ModificarPaciente />} />
-        
+        <Route path="/citas" element={<Citas />} />
         <Route path="*" element={<div>404</div>} />
         {/* Aquí puedes agregar más rutas según sea necesario */}
       </Routes>
