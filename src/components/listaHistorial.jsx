@@ -14,6 +14,9 @@ const ListaHistorialesClinicos = () => {
     }
   }, [idPaciente, fetchHistorialesClinicos]); 
 
+  const goToHistorial = () => {
+    window.location.href = `/regHistorial`;
+  };
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
@@ -25,6 +28,14 @@ const ListaHistorialesClinicos = () => {
       <div className="text-center">
         <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Lista de Historiales Clínicos</h2>
       </div>
+      
+      <button
+        className="absolute top-20 right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
+        onClick={() => goToHistorial()}
+        
+      >
+        Añadir Historial Clínico
+      </button>
 
       <div className="bg-white shadow-xl rounded-lg p-6">
         {historialesClinicos.length > 0 ? (

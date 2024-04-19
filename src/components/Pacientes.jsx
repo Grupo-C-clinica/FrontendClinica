@@ -161,7 +161,7 @@ const Pacientes = () => {
             {mostrarActivos ? 'Activos' : 'Inactivos'}
           </button>
         </div>
-
+        
 
         {!dataLoaded ? (
           <p>Cargando datos...</p>
