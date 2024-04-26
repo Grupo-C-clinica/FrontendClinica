@@ -1,28 +1,30 @@
-import { create } from 'zustand'
-import { addHistorialToPaciente, fetchHistorialByPaciente, fetchPacientesByFecha, listHistorialByPaciente } from '../services/apiService';
-const useHistorialStore = create((set) =>({
-    historiales:[],
-    listHistorialesbyPaciente: async (idPaciente) => {
-        try{
-            const historial = await listHistorialByPaciente(idPaciente);
-            set({ historial });
-        }catch(error){
-            console.error("Error al obtener historiales del paciente")
-        }
-    },
-    addHistorialToPaciente: async(idPaciente, historialData) =>{
-        try{
-            const newHistorial = await addHistorialToPaciente(idPaciente, historialData);
-            set((state) => ({
-                historiales: [...state.historiales, newHistorial]
-            }));
-            console.log('Paciente agregado con éxito');
-        } catch (error) {
-            console.error('Error al agregar historial', error);
-        }
-    },
+import create from 'zustand';
+import { addHistorialToPaciente as addHistorialToPacienteAPI, createMultimediaForHistorial as createMultimediaForHistorialAPI } from '../services/apiService';
+
+const usePacientesStore = create((set) => ({
+  pacientes: [],
+  historialesClinicos: [],
+  addHistorialToPaciente: async (idPaciente, historialData) => {
+    try {
+      const response = await addHistorialToPacienteAPI(idPaciente, historialData);
+      const newHistorial = response.data; // Asumiendo que los datos del nuevo historial vienen en la respuesta
+      set(state => ({
+        historialesClinicos: [...state.historialesClinicos, newHistorial]
+      }));
+      return newHistorial; // Devolvemos el nuevo historial para su uso posterior
+    } catch (error) {
+      console.error('Error al agregar historial', error);
+      throw error;
+    }
+  },
+  createMultimediaForHistorial: async (historialId, multimediaData) => {
+    try {
+      await createMultimediaForHistorialAPI(historialId, multimediaData);
+    } catch (error) {
+      console.error('Error al crear multimedia:', error);
+      throw error;
+    }
+  }
 }));
 
-
-export default useHistorialStore;
-
+export default usePacientesStore;

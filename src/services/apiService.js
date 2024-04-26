@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { error } from 'pdf-lib';
+import {  } from 'pdf-lib';
 
 const API_URL = 'http://localhost:8090/api/v1';
 const API_URL1 = 'http://localhost:8006/api/v1';
@@ -107,16 +107,7 @@ export const listHistorialByPaciente = async (idPaciente) =>{
       throw error;
     }
 };*/
-export const fetchHistorialByPaciente = async (idPaciente) => {
-  try {
-    const response = await axios.get(`http://localhost:8805/api/v1/historial/${idPaciente}`);
-    // Asegúrate de acceder a `response.data.data`, ya que tu backend envuelve los datos en un objeto con `code`, `data` y `message`.
-    return response.data.data;
-  } catch (error) {
-    console.error('Error fetching historial by paciente:', error);
-    throw error;
-  }
-};
+
 export const updatePaciente = async (idPaciente, pacienteData) => {
   console.log("Datos enviados para actualizar:", pacienteData);
   try {
@@ -129,15 +120,7 @@ export const updatePaciente = async (idPaciente, pacienteData) => {
   }
 };
 
-export const addHistorialToPaciente = async (idPaciente, historialData) => {
-  try{
-    const response = await axios.post(`${API_URL}/historial/agregar/${idPaciente}`, historialData);
-    return response.data;
-  }catch{
-    console.error('Error al añadir historial: ', error);
-    throw error;
-  }
-};
+
 
 export const fetchCitasByFecha = async (fecha) => {
   try{
@@ -158,3 +141,40 @@ export const addCita = async (pacienteId, citaData) => {
     throw error;
   }
 };
+<<<<<<< HEAD
+=======
+
+
+
+//HISTORIALES
+export const fetchHistorialByPaciente = async (idPaciente) => {
+  try {
+    const response = await axios.get(`http://localhost:8805/api/v1/historial/paciente/${idPaciente}`);
+    // Asegúrate de acceder a `response.data.data`, ya que tu backend envuelve los datos en un objeto con `code`, `data` y `message`.
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching historial by paciente:', error);
+    throw error;
+  }
+};
+
+export const addHistorialToPaciente = async (idPaciente, historialData) => {
+  console.log('API sending historialData:', historialData); // Debug: confirmar datos antes de la solicitud
+  try {
+    const response = await axios.post(`http://localhost:8805/api/v1/historial/agregar/${idPaciente}`, historialData);
+    return response.data;
+  } catch (error) {
+    console.error('Error al agregar historial:', error);
+    throw error;
+  }
+};
+export const createMultimediaForHistorial = async (historialId, multimediaData) => {
+  try {
+    const response = await axios.post(`http://localhost:8805/api/v1/multimedia/create/${historialId}`, multimediaData);
+    return response.data;
+  } catch (error) {
+    console.error('Error al crear multimedia:', error);
+    throw error;
+  }
+};
+>>>>>>> e2bd5018387a0e1cba951bd407463fe53084be10
