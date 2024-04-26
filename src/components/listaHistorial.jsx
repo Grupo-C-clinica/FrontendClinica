@@ -14,8 +14,8 @@ const ListaHistorialesClinicos = () => {
     }
   }, [idPaciente, fetchHistorialesClinicos]); 
 
-  const goToHistorial = (historialId) => {
-    window.location.href = `/regHistorial`;
+  const goToHistorial = (PacienteId) => {
+    window.location.href = `/regHistorial/${PacienteId}`;
   };
   const goToHistorial2 = (historialId) => {
     window.location.href = `/historialMultimedia/${historialId}`;
@@ -34,7 +34,7 @@ const ListaHistorialesClinicos = () => {
       
       <button
         className="absolute top-20 right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
-        onClick={() => goToHistorial()}
+        onClick={() => goToHistorial(idPaciente)}
         
       >
         Añadir Historial Clínico
@@ -49,7 +49,7 @@ const ListaHistorialesClinicos = () => {
               <p className="text-justify"><strong>Fecha:</strong> {new Date(historial.fecha).toLocaleDateString()}</p>
               <p className="text-justify"><strong>Observaciones:</strong> {historial.observaciones}</p>
               <p className="text-justify"><strong>Estado:</strong> {historial.status ? 'Activo' : 'Inactivo'}</p>
-              <button className="btn3" onClick={() => goToHistorial2()}>
+              <button className="btn3" onClick={() => goToHistorial2(historial.idHistorial)}>
                     Ver Historial
                   </button>
               </div>
