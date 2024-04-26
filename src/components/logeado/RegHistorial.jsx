@@ -4,8 +4,8 @@ import { fadeIn } from '../../variants';
 import { useParams } from 'react-router-dom';
 
 const RegHistorialClinico = () => {
-  const [idPaciente] = useParams(); // Obtiene el idPaciente de la URL
-  const [estatus, setEstatus] = useState(false);
+  const { idPaciente } = useParams();
+ const [estatus, setEstatus] = useState(false);
   const [fecha, setFecha] = useState('');
   const [observacion, setObservacion] = useState('');
   const [imagenes, setImagenes] = useState([]);

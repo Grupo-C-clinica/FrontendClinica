@@ -14,8 +14,8 @@ const ListaHistorialesClinicos = () => {
     }
   }, [idPaciente, fetchHistorialesClinicos]); 
 
-  const goToHistorial = (PacienteId) => {
-    window.location.href = `/regHistorial/${PacienteId}`;
+  const goToHistorial = () => {
+    window.location.href = `/regHistorial/${idPaciente}`;
   };
   const goToHistorial2 = (historialId) => {
     window.location.href = `/historialMultimedia/${historialId}`;
@@ -34,7 +34,7 @@ const ListaHistorialesClinicos = () => {
       
       <button
         className="absolute top-20 right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
-        onClick={() => goToHistorial(idPaciente)}
+        onClick={() => goToHistorial()}
         
       >
         Añadir Historial Clínico
