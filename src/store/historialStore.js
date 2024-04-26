@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { listHistorialByPaciente } from '../services/apiService';
+import { addHistorialToPaciente, fetchHistorialByPaciente, fetchPacientesByFecha, listHistorialByPaciente } from '../services/apiService';
 const useHistorialStore = create((set) =>({
     historiales:[],
     listHistorialesbyPaciente: async (idPaciente) => {
@@ -9,7 +9,20 @@ const useHistorialStore = create((set) =>({
         }catch(error){
             console.error("Error al obtener historiales del paciente")
         }
-    }
+    },
+    addHistorialToPaciente: async(idPaciente, historialData) =>{
+        try{
+            const newHistorial = await addHistorialToPaciente(idPaciente, historialData);
+            set((state) => ({
+                historiales: [...state.historiales, newHistorial]
+            }));
+            console.log('Paciente agregado con éxito');
+        } catch (error) {
+            console.error('Error al agregar historial', error);
+        }
+    },
 }));
 
+
 export default useHistorialStore;
+

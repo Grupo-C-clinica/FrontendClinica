@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { error } from 'pdf-lib';
 
 const API_URL = 'http://localhost:8090/api/v1';
 
@@ -126,3 +127,14 @@ export const updatePaciente = async (idPaciente, pacienteData) => {
     throw error;
   }
 };
+
+export const addHistorialToPaciente = async (idPaciente, historialData) => {
+  try{
+    const response = await axios.post(`${API_URL}/historial/agregar/${idPaciente}`, historialData);
+    return response.data;
+  }catch{
+    console.error('Error al añadir historial: ', error);
+    throw error;
+  }
+};
+
