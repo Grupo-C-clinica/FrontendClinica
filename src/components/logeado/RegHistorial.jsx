@@ -55,7 +55,7 @@ const HistorialClinico = () => {
       console.log('Historial clínico agregado:', historialData);
       setShowSuccessMessage(true);
       setError(''); // Limpia errores previos
-      setTimeout(() => setShowSuccessMessage(false), 3000); // Oculta el mensaje después de 3 segundos
+      setTimeout(() => setShowSuccessMessage(false), 5000); // Oculta el mensaje después de 3 segundos
     } catch (error) {
       console.error('Error al agregar el historial clínico:', error);
       setError('Ocurrió un error al registrar el historial clínico.');
@@ -79,6 +79,12 @@ const HistorialClinico = () => {
         {showSuccessMessage && (
           <div className="text-center p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
             Historial clínico registrado con éxito.
+            <button
+              onClick={() => agregarTratamiento()}
+              className="absolute top-0 right-0 p-2"
+            >
+              Agregar Tratamiento
+            </button>
           </div>
         )}
         {error && (

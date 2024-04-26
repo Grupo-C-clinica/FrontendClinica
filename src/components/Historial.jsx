@@ -8,6 +8,10 @@ const HistorialClinico = ({ historialId }) => {
   const [tratamiento, ] = useState('');
   const [multimedia, ] = useState('');
 
+  const agregarTratamiento = () => {
+    window.location.href = `/regTratamiento/${historialId}`;
+  }
+
   useEffect(() => {
     // Aquí podrías hacer una solicitud para obtener el historial clínico del paciente
     // Supongamos que tienes una función fetchHistorialClinico que obtiene el historial clínico de la API
@@ -24,6 +28,21 @@ const HistorialClinico = ({ historialId }) => {
     fetchHistorialClinico();
   }, [pacienteId]);
 
+  useEffect(() => {
+    // Aquí podrías hacer una solicitud para obtener el tratamiento del historial clínico
+    // Supongamos que tienes una función fetchTratamiento que obtiene el tratamiento de la API
+    const fetchTratamiento = async () => {
+      try {
+        const response = await fetch(`/api/tratamiento/${historialId}`);
+        const data = await response.json();
+        setTratamiento(data);
+      } catch (error) {
+        console.error('Error al obtener el tratamiento:', error);
+      }
+    };
+
+    fetchTratamiento();
+  }, [historialId]);
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
@@ -47,15 +66,25 @@ const HistorialClinico = ({ historialId }) => {
             </div>
           ))}
         </div>
-        {/* Información del tratamiento */}
+        {/* Información del tratamiento si hay se muestra, si esta vacio agregar*/}
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2">Tratamiento</h3>
-          <textarea
-            className="border border-gray-300 rounded-md w-full h-32 p-2 resize-none"
-            value={tratamiento}
-            readOnly
-          />
+          {tratamiento!="" ? (
+            <div>
+              <p><strong>Contenido:</strong> {tratamiento.CONTENIDO}</p>
+              <p><strong>Estatus:</strong> {tratamiento.STATUS ? 'Activo' : 'Inactivo'}</p>
+            </div>
+          ) : (
+            <button
+              className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
+              onClick={agregarTratamiento}
+            >
+              Agregar Tratamiento
+            </button>
+          )}
         </div>
+
+        
 
         {/* Información multimedia clínica */}
         <div>
@@ -68,6 +97,7 @@ const HistorialClinico = ({ historialId }) => {
           />
         </div>
       </div>
+     
     </motion.div>
   );
 };

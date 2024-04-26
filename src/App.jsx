@@ -23,6 +23,8 @@ import ModificarPaciente from './components/Doctor/ModificarPaciente'
 import Citas from './components/logeado/Citas'
 import RegHistorial from './components/logeado/RegHistorial'
 import HistorialMultimedia from './components/logeado/HistorialMultimedia'
+import RegTratamiento from './components/logeado/RegTratamiento'
+
 function App() {
   // Asumo que isLoggedIn se determinará por algún método de autenticación real
   const isLoggedIn = true;
@@ -51,6 +53,7 @@ function App() {
         <Route path="/citas" element={<Citas />} />
         <Route path="/regHistorial" element={<RegHistorial />} />
         <Route path="/historialMultimedia" element={<HistorialMultimedia />} />
+        <Route path="/regTratamiento/:historialId" element={RegTratamiento} />
         <Route path="*" element={<div>404</div>} />
         {/* Aquí puedes agregar más rutas según sea necesario */}
       </Routes>
