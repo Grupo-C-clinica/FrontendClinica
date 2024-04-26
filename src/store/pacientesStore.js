@@ -31,16 +31,25 @@ const usePacientesStore = create((set) => ({
       }
   },
 
+  // In your Zustand store
   fetchHistorialesClinicos: async (idPaciente) => {
     try {
-      const data = await fetchHistorialByPaciente(idPaciente);
-      // Asegúrate de que data contiene los datos correctos, de lo contrario, ajusta según lo que recibes
-      set({ historialesClinicos: data });
+      const response = await fetchHistorialByPaciente(idPaciente);
+      if (response && response.data) {
+        set({ historialesClinicos: response.data });
+        console.log('Data set in store:', response.data); // Verifica que esto muestra los datos correctamente
+      } else {
+        set({ historialesClinicos: [] });
+        console.error('No data received');
+      }
     } catch (error) {
       console.error('Error al cargar los historiales clínicos:', error);
       set({ historialesClinicos: [] });
     }
   },
+  
+
+  
   updatePaciente: async (idPaciente, pacienteData) => {
     try {
       const result = await updatePaciente(idPaciente, pacienteData);
