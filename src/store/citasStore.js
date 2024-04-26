@@ -1,17 +1,21 @@
-import { create } from "zustand";import { create } from 'zustand';
+import { create } from "zustand";
 import { fetchCitasByFecha, addCita } from '../services/apiService';
 
 const useCitasStore = create((set) => ({
   citas: [],
-  fetchCitasByFecha: async (fecha) => {
+  paginaActual: 0,
+  totalPaginas: 0,
+  pageSize: 6,
+
+  fetchCitasPorFecha: async (fecha) => {
     try {
-      const citas = await fetchCitasByFecha(fecha);
-      set({ citas });
+      const data = await fetchCitasByFecha(fecha);
+      set({ citas: data.data });
     } catch (error) {
       console.error('Error fetching citas:', error);
     }
   },
-  addCita: async (pacienteId, citaData) => {
+  addCitas: async (pacienteId, citaData) => {
     try {
       const newCita = await addCita(pacienteId, citaData);
       set((state) => ({

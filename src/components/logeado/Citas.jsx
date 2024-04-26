@@ -1,27 +1,18 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion'; 
 import { fadeIn } from '../../variants';
-import useCitasStore from '../../store/pacientesStore'; // Asumiendo que tienes un store similar para citas
+import useCitasStore from '../../store/citasStore'; // Asumiendo que tienes un store similar para citas
 import user from '../../assets/user.png';
 
 const Citas = () => {
-  const {
-    citas,
-    paginaActual,
-    totalPaginas,
-    
-    setPaginaActual,
-    fetchCitasByName,
-    fetchCitasByFecha,
-    fetchCitasByStatus
-  } = useCitasStore(); // Cambiando a citas
+  const {citas, fetchCitasByFecha} = useCitasStore();
+  
   const [busqueda, setBusqueda] = useState('');
   const [fechaRegistro, setFechaRegistro] = useState('');
   const [mostrarActivos, setMostrarActivos] = useState(true);
   const [mensajeNoEncontrado, ] = useState('No se encontraron citas.');
-  const [dataLoaded, setDataLoaded] = useState(false);
-  
-  useEffect(() => {
+  const [dataLoaded, setDataLoaded] = useState(false);  
+  /*useEffect(() => {
     const loadData = async () => {
       await fetchCitasByStatus(mostrarActivos, paginaActual);
       setDataLoaded(true);
@@ -34,11 +25,23 @@ const Citas = () => {
 
   useEffect(() => {
     setDataLoaded(false);
-  }, [paginaActual, busqueda, fechaRegistro, mostrarActivos]);
+  }, [paginaActual, busqueda, fechaRegistro, mostrarActivos]);*/
 
-  const handleSearchByName = () => {
+  useEffect(() =>{
+    const fetchCitasDelDia = async() => {
+      const fechaActual = new Date();
+      const fechaActualString = fechaActual.toISOString().split('T')[0];
+      await fetchCitasByFecha(fechaActualString);
+      setDataLoaded(true);
+    };
+    fetchCitasDelDia();
+  },
+  [fetchCitasByFecha]
+);
+
+  /*const handleSearchByName = () => {
     fetchCitasByName(busqueda.toLowerCase());
-  };
+  };*/
 
   const handleSearchByDate = () => {
     fetchCitasByFecha(fechaRegistro);
@@ -50,7 +53,7 @@ const Citas = () => {
     setDataLoaded(false);  // Forzar la recarga de datos
   };
 
-  const handleNextPage = () => {
+  /*const handleNextPage = () => {
     if (paginaActual < totalPaginas - 1) {
       setPaginaActual(paginaActual + 1);
       setDataLoaded(false); // Forzar la recarga
@@ -80,7 +83,7 @@ const Citas = () => {
       );
     }
     return paginas;
-  };
+  };*/
 
   const citasSeguras = citas || [];
 
@@ -104,7 +107,7 @@ const Citas = () => {
             className="border-2 border-gray-200 rounded px-4 py-2 mb-4 md:mb-0"
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSearchByName()}
+           // onKeyPress={(e) => e.key === 'Enter' && handleSearchByName()}
           />
           <input
             type="date"
@@ -154,26 +157,6 @@ const Citas = () => {
           )}
         </div>
         )}
-
-        <motion.div 
-          variants={fadeIn('right',0.3)}
-          initial='hidden'
-          whileInView={'show'}
-          viewport={{once:false,amount:0.7}}
-          className="paginacion flex justify-center mt-6"
-        >
-          <div>
-          <button className='btn2' onClick={handlePreviousPage} disabled={paginaActual <= 0}>
-            Anterior
-          </button>
-
-          {renderPaginacion()}
-
-          <button className='btn2' onClick={handleNextPage} disabled={paginaActual >= totalPaginas - 1}>
-            Siguiente
-          </button>
-          </div>
-        </motion.div>
       </div>
     </motion.div>
   );
