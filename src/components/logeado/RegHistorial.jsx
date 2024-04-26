@@ -47,15 +47,13 @@ const RegHistorialClinico = () => {
     if (!validateForm()) {
       return;
     }
-  
+
     const historialData = {
       fecha,
       observaciones: observacion,
       status: estatus
     };
-  
-    console.log('Sending historialData:', historialData); // Debug: ver los datos antes de enviar
-    
+
     try {
       const newHistorial = await addHistorialToPaciente(idPaciente, historialData);
       if (imagenes.length > 0) {
@@ -65,14 +63,15 @@ const RegHistorialClinico = () => {
       }
 
       setShowSuccessMessage(true);
-      setError('');
-      setTimeout(() => setShowSuccessMessage(false), 5000);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+        window.location.href = '/pacientes'; // Redirigir a /pacientes
+      }, 3000);
     } catch (error) {
       console.error('Error al agregar el historial clínico:', error);
       setError('Ocurrió un error al registrar el historial clínico.');
     }
   };
-
   const handleFileInputClick = () => {
     fileInputRef.current.click();
   };
@@ -81,8 +80,8 @@ const RegHistorialClinico = () => {
     <motion.div
       variants={fadeIn('up', 0.3)}
       initial='hidden'
-      whileInView={'show'}
-      
+      whileInView='show'
+      viewport={{ once: false, amount: 0.7 }}
       className="container mx-auto mt-32"
     >
       <div className="bg-white shadow-xl rounded-lg p-6 max-w-md mx-auto">
@@ -108,7 +107,6 @@ const RegHistorialClinico = () => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             />
           </div>
-
           <div>
             <label htmlFor="observacion" className="block text-sm font-medium text-gray-700">Observación</label>
             <textarea
@@ -119,7 +117,6 @@ const RegHistorialClinico = () => {
               rows="3"
             ></textarea>
           </div>
-
           <div>
             <label htmlFor="imagenes" className="block text-sm font-medium text-gray-700">Imágenes (opcional)</label>
             <input
@@ -146,7 +143,6 @@ const RegHistorialClinico = () => {
               </div>
             )}
           </div>
-
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-gray-700">Estatus</span>
             <button
@@ -157,7 +153,6 @@ const RegHistorialClinico = () => {
               {estatus ? 'Activo' : 'Inactivo'}
             </button>
           </div>
-          
           <button
             type="submit"
             className="w-full py-2 px-8 bg-secondary font-semibold text-white rounded hover:bg-primary transition-all duration-300"
