@@ -2,12 +2,34 @@ import { create } from 'zustand';
 import { fetchPacientesPaginated, fetchPacientesByName, fetchPacientesByFecha, fetchPacientesByStatus, addPaciente } from '../services/apiService';
 import { fetchHistorialByPaciente } from '../services/apiService';
 import { updatePaciente } from '../services/apiService'; 
+
+import { addHistorialToPaciente, listHistorialByPaciente } from '../services/apiService';
+
 const usePacientesStore = create((set) => ({
   pacientes: [],
   paginaActual: 0, // Comenzar la paginación desde 0
   totalPaginas: 0,
   pageSize: 6,
   historialesClinicos: [],
+  listHistorialesbyPaciente: async (idPaciente) => {
+    try{
+        const historial = await listHistorialByPaciente(idPaciente);
+        set({ historial });
+    }catch(error){
+        console.error("Error al obtener historiales del paciente")
+    }
+  },
+  addHistorialToPaciente: async(idPaciente, historialData) =>{
+      try{
+          const newHistorial = await addHistorialToPaciente(idPaciente, historialData);
+          set((state) => ({
+              historiales: [...state.historiales, newHistorial]
+          }));
+          console.log('Paciente agregado con éxito');
+      } catch (error) {
+          console.error('Error al agregar historial', error);
+      }
+  },
 
   fetchHistorialesClinicos: async (idPaciente) => {
     try {

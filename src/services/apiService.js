@@ -108,7 +108,7 @@ export const listHistorialByPaciente = async (idPaciente) =>{
 };*/
 export const fetchHistorialByPaciente = async (idPaciente) => {
   try {
-    const response = await axios.get(`http://localhost:8805/api/v1/historial/${idPaciente}`);
+    const response = await axios.get(`http://localhost:8805/api/v1/historial/paciente/${idPaciente}`);
     // Asegúrate de acceder a `response.data.data`, ya que tu backend envuelve los datos en un objeto con `code`, `data` y `message`.
     return response.data.data;
   } catch (error) {
