@@ -15,7 +15,7 @@ const ListaHistorialesClinicos = () => {
   }, [idPaciente, fetchHistorialesClinicos]); 
 
   const goToHistorial = (historialId) => {
-    window.location.href = `/regHistorial/${historialId}`;
+    window.location.href = `/regHistorial`;
   };
   const goToHistorial2 = (historialId) => {
     window.location.href = `/historialMultimedia/${historialId}`;

@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
+import { useParams } from 'react-router-dom';
 
-const HistorialClinico = () => {
+const RegHistorialClinico = () => {
+  const [idPaciente] = useParams(); // Obtiene el idPaciente de la URL
   const [estatus, setEstatus] = useState(false);
   const [fecha, setFecha] = useState('');
   const [observacion, setObservacion] = useState('');
@@ -46,6 +48,7 @@ const HistorialClinico = () => {
     
     const historialData = {
       estatus,
+      idPaciente,
       fecha,
       observacion,
       imagenes, // Asumiendo que esto se manejará adecuadamente en tu backend o lógica de estado
@@ -163,4 +166,4 @@ const HistorialClinico = () => {
   );
 }
 
-export default HistorialClinico;
+export default RegHistorialClinico;

@@ -51,7 +51,7 @@ function App() {
         <Route path="/listaHistorial/:idPaciente" element={<ListaHistorialesClinicos />} />
         <Route path="/modificarPaciente/:idPaciente" element={<ModificarPaciente />} />
         <Route path="/citas" element={<Citas />} />
-        <Route path="/regHistorial" element={<RegHistorial />} />
+        <Route path="/regHistorial/:idPaciente" element={<RegHistorial />} />
         <Route path="/historialMultimedia" element={<HistorialMultimedia />} />
         <Route path="/regTratamiento/:historialId" element={RegTratamiento} />
         <Route path="*" element={<div>404</div>} />
