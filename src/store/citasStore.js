@@ -3,17 +3,9 @@ import { fetchCitasByFecha, addCita } from '../services/apiService';
 
 const useCitasStore = create((set) => ({
   citas: [],
-  paginaActual: 0,
-  totalPaginas: 0,
-  pageSize: 6,
-
-  fetchCitasPorFecha: async (fecha) => {
-    try {
+  fetchCitasByFecha: async (fecha) => {
       const data = await fetchCitasByFecha(fecha);
       set({ citas: data.data });
-    } catch (error) {
-      console.error('Error fetching citas:', error);
-    }
   },
   addCitas: async (pacienteId, citaData) => {
     try {

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { error } from 'pdf-lib';
 
 const API_URL = 'http://localhost:8090/api/v1';
+const API_URL1 = 'http://localhost:8006/api/v1';
 
 export const fetchPacientesPaginated = async (page, pageSize) => {
   const params = { page, size: pageSize };
@@ -140,7 +141,7 @@ export const addHistorialToPaciente = async (idPaciente, historialData) => {
 
 export const fetchCitasByFecha = async (fecha) => {
   try{
-    const response = await axios.get(`${API_URL}/cita/all/${fecha}`);
+    const response = await axios.get(`http://localhost:8806/api/v1/cita/all/${fecha}`);
     return response.data;
   }catch (error) {
     console.error("Error fetching citas by fecha", error);
@@ -150,7 +151,7 @@ export const fetchCitasByFecha = async (fecha) => {
 
 export const addCita = async (pacienteId, citaData) => {
   try {
-    const response = await axios.post(`${API_URL}/cita/create/${pacienteId}`, citaData);
+    const response = await axios.post(`${API_URL1}/cita/create/${pacienteId}`, citaData);
     return response.data;
   } catch (error) {
     console.error('Error adding cita:', error);

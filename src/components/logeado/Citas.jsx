@@ -30,7 +30,10 @@ const Citas = () => {
   useEffect(() =>{
     const fetchCitasDelDia = async() => {
       const fechaActual = new Date();
-      const fechaActualString = fechaActual.toISOString().split('T')[0];
+      const year = fechaActual.getFullYear();
+      const month = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Suma 1 porque los meses van de 0 a 11
+      const day = String(fechaActual.getDate()).padStart(2, '0');
+      const fechaActualString = `${year}-${month}-${day}`;
       await fetchCitasByFecha(fechaActualString);
       setDataLoaded(true);
     };
@@ -38,6 +41,7 @@ const Citas = () => {
   },
   [fetchCitasByFecha]
 );
+
 
   /*const handleSearchByName = () => {
     fetchCitasByName(busqueda.toLowerCase());
@@ -139,13 +143,9 @@ const Citas = () => {
               <div className="flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full">
                 <img src={user} alt="Cita" className="w-20 rounded-full" />
                 <div>
-                  <h2 className="text-lg font-semibold">{`${cita.nombre} ${cita.apellidoP} ${cita.apellidoM}`}</h2>
                   <p className="text-gray-600">{`Fecha de la cita: ${cita.fecha}`}</p>
                   <p className="text-gray-600">{`Hora: ${cita.hora}`}</p>
-
-                  <button className="btn3" onClick={() => console.log('Ir a detalles de la cita', cita.idCita)}>
-                    Ver Detalles
-                  </button>
+                  
                   <button className="btn3" onClick={() => console.log('Modificar cita', cita.idCita)}>
                     Modificar
                   </button>
