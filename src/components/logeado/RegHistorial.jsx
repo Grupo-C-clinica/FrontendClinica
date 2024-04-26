@@ -79,12 +79,7 @@ const HistorialClinico = () => {
         {showSuccessMessage && (
           <div className="text-center p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
             Historial clínico registrado con éxito.
-            <button
-              onClick={() => agregarTratamiento()}
-              className="absolute top-0 right-0 p-2"
-            >
-              Agregar Tratamiento
-            </button>
+            
           </div>
         )}
         {error && (
@@ -155,7 +150,7 @@ const HistorialClinico = () => {
               {estatus ? 'Activo' : 'Inactivo'}
             </button>
           </div>
-
+          
           <button
             type="submit"
             className="w-full py-2 px-8 bg-secondary font-semibold text-white rounded hover:bg-primary transition-all duration-300"
