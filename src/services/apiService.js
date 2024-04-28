@@ -16,7 +16,15 @@ export const fetchPacientesPaginated = async (page, pageSize) => {
     throw error;
   }
 };
- 
+export const fetchPaciente = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/paciente/all`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching pacientes:', error);
+    throw error;
+  }
+};
 export const fetchPacientesByName = async (nombre) => {
   try {
     const response = await axios.get(`${API_URL}/paciente/nombre`, { params: { nombre } });

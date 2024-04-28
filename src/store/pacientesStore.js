@@ -126,7 +126,10 @@ const usePacientesStore = create((set) => ({
       });
     }
   },
-  
+  fetchPaciente: async () => {
+    const data = await fetchPaciente();
+    set({ paciente: data.data });
+  },
   setPaginaActual: (pagina) => set(() => ({ paginaActual: pagina })),
 }));
 
