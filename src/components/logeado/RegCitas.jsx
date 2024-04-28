@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
+import usePacientesStore from '../../store/pacientesStore';
 
-const RegistroCita = () => {
+const RegistroCita = (idAsistenteP) => {
   // Estados para almacenar los datos del formulario
-  const [tipoCita, setTipoCita] = useState('');
-  const [horario, setHorario] = useState('');
-  const [paciente, setPaciente] = useState('');
-  const [asistente, setAsistente] = useState('');
+  const [idtipoCita, setTipoCita] = useState('');
+  const [idhorario, setHorario] = useState('');
+  const [idpaciente, setPaciente] = useState('');
+  const [idasistente, setAsistente] = useState('');
   const [hora, setHora] = useState('');
   const [fecha, setFecha] = useState('');
   const [razon, setRazon] = useState('');
@@ -18,10 +19,10 @@ const RegistroCita = () => {
     e.preventDefault();
     // Construir el objeto de datos de la cita
     const citaData = {
-      tipoCita,
-      horario,
-      paciente,
-      asistente,
+      idtipoCita,
+      idhorario,
+      idpaciente,
+      idasistente,
       hora,
       fecha,
       razon,
@@ -47,6 +48,19 @@ const RegistroCita = () => {
       alert('Ocurrió un error al registrar la cita');
     }
   };
+  //obtener Tipos de citas, doctor y horarios
+  const [tiposCitas, fetchTiposCitas] = usePacientesStore();
+  const [doctores, fetchDoctores] = usePacientesStore();
+  const [horarios, fetchHorarios] = usePacientesStore();
+  const [pacientes, fetchPaciente] = usePacientesStore();
+  useEffect(() => {
+    fetchTiposCitas();
+    fetchDoctores();
+    fetchPaciente();
+  }, []);
+  const handleDoctorChange = (doctorID) => {
+    fetchHorarios(doctorID);
+  };
 
   return (
     <motion.div
@@ -65,42 +79,62 @@ const RegistroCita = () => {
             <label htmlFor="tipoCita" className="block text-sm font-medium text-gray-700">Tipo de Cita</label>
             <select
               id="tipoCita"
-              value={tipoCita}
+              value={idtipoCita}
               onChange={(e) => setTipoCita(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             >
-              {/* Aquí deberías mapear los tipos de cita desde tu backend */}
-              <option value="">Seleccione un tipo de cita</option>
-              <option value="1">Tipo de Cita 1</option>
-              <option value="2">Tipo de Cita 2</option>
-              {/* Agregar más opciones según los tipos de cita disponibles */}
+              <option value="">Selecciona un tipo de cita</option>
+              {tiposCitas.map((tipoCita) => (
+                <option key={tipoCita.id} value={tipoCita.id}>{tipoCita.nombre}</option>
+              ))}
             </select>
           </div>
-          
+          {/* Doctor */}
+          <div>
+            <label htmlFor="doctor" className="block text-sm font-medium text-gray-700">Doctor</label>
+            <select
+              id="doctor"
+              value={iddoctor}
+              onChange={(e) => handleDoctorChange(e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            >
+              <option value="">Selecciona un doctor</option>
+              {doctores.map((doctor) => (
+                <option key={doctor.id} value={doctor.id}>{doctor.nombre}</option>
+              ))}
+            </select>
+          </div>
           {/* Horario */}
           <div>
             <label htmlFor="horario" className="block text-sm font-medium text-gray-700">Horario</label>
-            <input
-              type="text"
+            <select
               id="horario"
-              value={horario}
+              value={idhorario}
               onChange={(e) => setHorario(e.target.value)}
-              placeholder="Ingrese el horario de la cita"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            />
+            >
+              <option value="">Selecciona un horario</option>
+              {horarios.map((horario) => (
+                <option key={horario.id} value={horario.id}>{horario.hora}</option>
+              ))}
+            </select>
+
           </div>
           
           {/* Paciente */}
           <div>
             <label htmlFor="paciente" className="block text-sm font-medium text-gray-700">Paciente</label>
-            <input
-              type="text"
+            <select
               id="paciente"
-              value={paciente}
+              value={idpaciente}
               onChange={(e) => setPaciente(e.target.value)}
-              placeholder="Ingrese el nombre del paciente"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            />
+            >
+              <option value="">Selecciona un paciente</option>
+              {pacientes.map((paciente) => (
+                <option key={paciente.id} value={paciente.id}>{paciente.nombre}</option>
+              ))}
+            </select>
           </div>
           
           {/* Asistente */}

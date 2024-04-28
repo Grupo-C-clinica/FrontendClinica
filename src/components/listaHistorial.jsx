@@ -32,6 +32,9 @@ const ListaHistorialesClinicos = () => {
   const goToHistorial2 = (historialId) => {
     window.location.href = `/historial/${historialId}`;
   };
+  const addTreatment = (historialId) => {
+    window.location.href = `/regTratamiento/${historialId}`;
+  };
 
   return (
     <motion.div
@@ -60,9 +63,10 @@ const ListaHistorialesClinicos = () => {
                   <h3 className="text-lg font-semibold">{`Historial #${historial.idHistorial}`}</h3>
                   <p className="text-justify"><strong>Fecha:</strong> {historial.fecha ? new Date(historial.fecha).toLocaleDateString() : 'Fecha no disponible'}</p>
                   <p className="text-justify"><strong>Observaciones:</strong> {historial.observaciones}</p>
-<p className="text-justify"><strong>Estado:</strong> {'Activo'}</p>
-
+                  <p className="text-justify"><strong>Estado:</strong> {'Activo'}</p>
+                  
                   <button onClick={() => goToHistorial2(historial.idHistorial)}>Ver Historial</button>
+                  <button onClick={() => addTreatment(historial.idHistorial)}>Agregar Tratamiento</button>
                 </div>
               </li>
             ))}

@@ -90,6 +90,11 @@ const Citas = () => {
   };*/
 
   const citasSeguras = citas || [];
+  //Asistente sera estatico sin sesion iniciada sino por parametro habria que pasar el id del asistente
+  const asistente = '1';
+  const addCita = (historialId) => {
+    window.location.href = `/regCita/${asistente}`;
+  };
 
   return (
     <motion.div 
@@ -102,6 +107,13 @@ const Citas = () => {
         <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Lista de Citas</h2>
         <p className="text-tartiary md:w-1/3 mx-auto px-4">Lista de todas las citas registradas:</p>    
       </div>
+
+      <button 
+        className="absolute top-20 right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
+        onClick={() => console.log('Agregar cita')}
+      >
+        Agregar Cita
+      </button>
 
       <div className="bg-white shadow-xl rounded-lg p-6">
         <div className="flex flex-col md:flex-row justify-between mb-6">
