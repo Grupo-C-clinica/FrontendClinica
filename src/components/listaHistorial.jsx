@@ -30,7 +30,7 @@ const ListaHistorialesClinicos = () => {
   };
   
   const goToHistorial2 = (historialId) => {
-    window.location.href = `/historialMultimedia/${historialId}`;
+    window.location.href = `/historial/${historialId}`;
   };
 
   return (
@@ -59,7 +59,7 @@ const ListaHistorialesClinicos = () => {
                 <div className="historial-item flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full">
                   <h3 className="text-lg font-semibold">{`Historial #${historial.idHistorial}`}</h3>
                   <p className="text-justify"><strong>Fecha:</strong> {historial.fecha ? new Date(historial.fecha).toLocaleDateString() : 'Fecha no disponible'}</p>
-                  <p className="text-justify"><strong>Observaciones:</strong> {'Texto de prueba simple'}</p>
+                  <p className="text-justify"><strong>Observaciones:</strong> {historial.observaciones}</p>
 <p className="text-justify"><strong>Estado:</strong> {'Activo'}</p>
 
                   <button onClick={() => goToHistorial2(historial.idHistorial)}>Ver Historial</button>

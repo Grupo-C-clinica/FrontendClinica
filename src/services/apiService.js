@@ -142,13 +142,6 @@ export const addCita = async (pacienteId, citaData) => {
   }
 };
 
-<<<<<<< HEAD
-=======
-
-
-//HISTORIALES
-// API call function in apiService.js
->>>>>>> 2b13cef1c1dcb8ab500da321d41fb8e371c48dff
 export const fetchHistorialByPaciente = async (idPaciente) => {
   try {
     const response = await axios.get(`http://localhost:8805/api/v1/historial/paciente/${idPaciente}`);

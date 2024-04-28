@@ -4,7 +4,7 @@ import { fadeIn } from '../../variants';
 import usePacientesStore from '../../store/pacientesStore';
 import { useParams } from 'react-router-dom';
 
-const ListaHistorialesClinicos = (idHistorial) => {
+const ListaHistorialesClinicos = (idPaciente) => {
   const { historialesClinicos, fetchHistorialesClinicos } = usePacientesStore();
 
   useEffect(() => {
