@@ -54,7 +54,7 @@ function App() {
         <Route path="/citas" element={<Citas />} />
         <Route path="/regHistorial/:idPaciente" element={<RegHistorial />} />
         <Route path="/historialMultimedia" element={<HistorialMultimedia />} />
-        <Route path="/regTratamiento/:idHistorial" element={<RegTratamiento />} />
+        <Route path="/regTratamiento/:historialClinicoId" element={<RegTratamiento />} />
         {/*Registrar cita */}
         <Route path="/regCita/:idAsistenteP" element={<RegistrarCita/>} />
         <Route path="*" element={<div>404</div>} />

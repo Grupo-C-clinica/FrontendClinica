@@ -37,6 +37,9 @@ const RegistroTratamiento = () => {
       setError('Ocurrió un error al registrar el tratamiento.');
     }
   };
+  useEffect(() => {
+    console.log('historialClinicoId:', historialClinicoId);
+  }, [historialClinicoId]);
 
   return (
     <motion.div
