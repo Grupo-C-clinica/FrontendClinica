@@ -141,12 +141,7 @@ export const addCita = async (pacienteId, citaData) => {
     throw error;
   }
 };
-<<<<<<< HEAD
-=======
 
-
-
-//HISTORIALES
 export const fetchHistorialByPaciente = async (idPaciente) => {
   try {
     const response = await axios.get(`http://localhost:8805/api/v1/historial/paciente/${idPaciente}`);
@@ -177,4 +172,3 @@ export const createMultimediaForHistorial = async (historialId, multimediaData) 
     throw error;
   }
 };
->>>>>>> e2bd5018387a0e1cba951bd407463fe53084be10
