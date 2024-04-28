@@ -1,19 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
+import { useParams } from 'react-router-dom';
 
-const RegistroTratamiento = ({ historialClinicoId }) => {
+const RegistroTratamiento = ({}) => {
+
+  const {idHistorial} = useParams();
   const [contenido, setContenido] = useState('');
   const [estatus, setEstatus] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [error, setError] = useState('');
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const tratamientoData = {
       contenido,
       estatus,
-      historialClinicoId,
+      idHistorial,
     };
     try {
       // Aquí puedes realizar una llamada a tu backend para registrar el tratamiento
@@ -26,7 +28,9 @@ const RegistroTratamiento = ({ historialClinicoId }) => {
       setError('Ocurrió un error al registrar el tratamiento.');
     }
   };
-
+  useEffect(() => {
+    console.log('Historial Clinico ID:', idHistorial);
+  }, [idHistorial]);
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
@@ -73,7 +77,7 @@ const RegistroTratamiento = ({ historialClinicoId }) => {
           <input
             type="hidden"
             id="historialClinicoId"
-            value={historialClinicoId}
+            value={idHistorial}
           />
 
           <button
