@@ -1,14 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 import usePacientesStore from '../../store/pacientesStore';
+import useCitasStore from '../../store/citasStore';
+import useHorarioStore from '../../store/horarioStore';
 
 const RegistroCita = (idAsistenteP) => {
   // Estados para almacenar los datos del formulario
+  const ListaTiposCitas=[
+    {id:1, nombre:'Consulta'},
+    {id:2, nombre:'Examen'},
+    {id:3, nombre:'Operación'}
+  ];
+  const listaDoctores=[
+    {id:1, nombre:'Dr. Juan Pérez'},
+    {id:2, nombre:'Dra. María González'},
+    {id:3, nombre:'Dr. José López'}
+  ];
+  const listaHorarios=[
+    {id:1, hora:'08:00'},
+    {id:2, hora:'09:00'},
+    {id:3, hora:'10:00'}
+  ];
+  const listaPacientes=[
+    {id:1, nombre:'Juan Pérez'},
+    {id:2, nombre:'María González'},
+    {id:3, nombre:'José López'}
+  ];
+  const [iddoctor, setDoctor] = useState('');
+
+
   const [idtipoCita, setTipoCita] = useState('');
   const [idhorario, setHorario] = useState('');
   const [idpaciente, setPaciente] = useState('');
   const [idasistente, setAsistente] = useState('');
+
   const [hora, setHora] = useState('');
   const [fecha, setFecha] = useState('');
   const [razon, setRazon] = useState('');
@@ -49,18 +75,23 @@ const RegistroCita = (idAsistenteP) => {
     }
   };
   //obtener Tipos de citas, doctor y horarios
-  const [tiposCitas, fetchTiposCitas] = usePacientesStore();
-  const [doctores, fetchDoctores] = usePacientesStore();
-  const [horarios, fetchHorarios] = usePacientesStore();
-  const [pacientes, fetchPaciente] = usePacientesStore();
+  /*
+  const [doctores, fetchDoctores] = useDoctorStore();
+  const [horarios, fetchHorarios] = useHorarioStore();
+  const [pacientes, fetchPacientes] = usePacientesStore();
+  */
+  /*
   useEffect(() => {
     fetchTiposCitas();
     fetchDoctores();
-    fetchPaciente();
-  }, []);
+    fetchPacientes();
+  }, [fetchTiposCitas, fetchDoctores, fetchPacientes]);
+  
+
+
   const handleDoctorChange = (doctorID) => {
     fetchHorarios(doctorID);
-  };
+  };*/
 
   return (
     <motion.div
@@ -84,7 +115,7 @@ const RegistroCita = (idAsistenteP) => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             >
               <option value="">Selecciona un tipo de cita</option>
-              {tiposCitas.map((tipoCita) => (
+              {ListaTiposCitas.map((tipoCita) => (
                 <option key={tipoCita.id} value={tipoCita.id}>{tipoCita.nombre}</option>
               ))}
             </select>
@@ -99,7 +130,7 @@ const RegistroCita = (idAsistenteP) => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             >
               <option value="">Selecciona un doctor</option>
-              {doctores.map((doctor) => (
+              {listaDoctores.map((doctor) => (
                 <option key={doctor.id} value={doctor.id}>{doctor.nombre}</option>
               ))}
             </select>
@@ -114,7 +145,7 @@ const RegistroCita = (idAsistenteP) => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             >
               <option value="">Selecciona un horario</option>
-              {horarios.map((horario) => (
+              {listaHorarios.map((horario) => (
                 <option key={horario.id} value={horario.id}>{horario.hora}</option>
               ))}
             </select>
@@ -131,7 +162,7 @@ const RegistroCita = (idAsistenteP) => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             >
               <option value="">Selecciona un paciente</option>
-              {pacientes.map((paciente) => (
+              {listaPacientes.map((paciente) => (
                 <option key={paciente.id} value={paciente.id}>{paciente.nombre}</option>
               ))}
             </select>
@@ -143,7 +174,7 @@ const RegistroCita = (idAsistenteP) => {
             <input
               type="text"
               id="asistente"
-              value={asistente}
+              value={idasistente}
               onChange={(e) => setAsistente(e.target.value)}
               placeholder="Ingrese el nombre del asistente"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
