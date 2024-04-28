@@ -142,11 +142,18 @@ export const addCita = async (pacienteId, citaData) => {
   }
 };
 
+<<<<<<< HEAD
+=======
+
+
+//HISTORIALES
+// API call function in apiService.js
+>>>>>>> 2b13cef1c1dcb8ab500da321d41fb8e371c48dff
 export const fetchHistorialByPaciente = async (idPaciente) => {
   try {
     const response = await axios.get(`http://localhost:8805/api/v1/historial/paciente/${idPaciente}`);
-    // Asegúrate de acceder a `response.data.data`, ya que tu backend envuelve los datos en un objeto con `code`, `data` y `message`.
-    return response.data.data;
+    console.log('Received data:', response.data);  // This should log the actual response object
+    return response.data;  // Make sure this matches the actual data structure
   } catch (error) {
     console.error('Error fetching historial by paciente:', error);
     throw error;
