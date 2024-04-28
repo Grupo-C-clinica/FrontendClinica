@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
+import useTratamientoStore from '../../store/tratamientoStore';
 import { useParams } from 'react-router-dom';
 
-const RegistroTratamiento = ({}) => {
-
-  const {idHistorial} = useParams();
+const RegistroTratamiento = () => {
+  const {historialClinicoId } = useParams();
   const [contenido, setContenido] = useState('');
   const [estatus, setEstatus] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -13,7 +13,6 @@ const RegistroTratamiento = ({}) => {
 
   const { addTratamiento } = useTratamientoStore();
 
-  console.log("historialid: ", historialClinicoId);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!historialClinicoId) {
@@ -38,9 +37,7 @@ const RegistroTratamiento = ({}) => {
       setError('Ocurrió un error al registrar el tratamiento.');
     }
   };
-  useEffect(() => {
-    console.log('Historial Clinico ID:', idHistorial);
-  }, [idHistorial]);
+
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
@@ -87,7 +84,7 @@ const RegistroTratamiento = ({}) => {
           <input
             type="hidden"
             id="historialClinicoId"
-            value={idHistorial}
+            value={historialClinicoId}
           />
 
           <button
