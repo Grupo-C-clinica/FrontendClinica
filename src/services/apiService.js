@@ -172,3 +172,24 @@ export const createMultimediaForHistorial = async (historialId, multimediaData) 
     throw error;
   }
 };
+
+export const addTratamiento = async(historialId, tratamientoData) => {
+  console.log ('API sending TratamientoData', tratamientoData);
+  try{
+    const response = await axios.post(`http://localhost:8805/api/v1/tratamiento/agregar/${historialId}`, tratamientoData);
+    return response.data;
+  }catch(error){
+    console.error("Error al crear un tratamiento", error);
+    throw error;
+  }
+};
+
+export const listaTratamientoByHistorial = async(historialId) =>{
+  try{
+    const response = await axios.get(`http://localhost:8805/api/v1/tratamiento/historial/${historialId}`);
+    return response.data;
+  }catch(error){
+    console.error("Error en la lista de tratamientos por historiales" , error);
+    throw error;
+  }
+};
