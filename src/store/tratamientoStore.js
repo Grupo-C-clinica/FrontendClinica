@@ -4,9 +4,9 @@ import { addTratamiento, listaTratamientoByHistorial} from "../services/apiServi
 const useTratamientoStore = create((set) => ({
     tratamientos: [],
     historiales: [],
-    addTratamiento: async(idHistorial, tratamientoData) => {
+    addTratamiento: async(tratamientoData, idHistorial) => {
         try{
-            const response = await addTratamiento(idHistorial, tratamientoData);
+            const response = await addTratamiento(tratamientoData, idHistorial);
             const newTratamiento = response.data;
             set(state => ({
                 tratamientos: [...state.tratamientos, newTratamiento]

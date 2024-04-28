@@ -1,26 +1,39 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
+import useTratamientoStore from '../../store/tratamientoStore';
+import { useParams } from 'react-router-dom';
 
-const RegistroTratamiento = ({ historialClinicoId }) => {
+const RegistroTratamiento = () => {
+  const {historialClinicoId } = useParams();
   const [contenido, setContenido] = useState('');
   const [estatus, setEstatus] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [error, setError] = useState('');
 
+  const { addTratamiento } = useTratamientoStore();
+
+  console.log("historialid: ", historialClinicoId);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!historialClinicoId) {
+      console.error('No se ha proporcionado historialClinicoId');
+      return;
+    }  
     const tratamientoData = {
       contenido,
-      estatus,
-      historialClinicoId,
+      estatus
     };
     try {
       // Aquí puedes realizar una llamada a tu backend para registrar el tratamiento
+      await addTratamiento(tratamientoData, historialClinicoId);
       console.log('Tratamiento registrado:', tratamientoData);
       setShowSuccessMessage(true);
-      setError('');
-      setTimeout(() => setShowSuccessMessage(false), 3000);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+        window.location.href = '/historial';
+      }, 3000);
     } catch (error) {
       console.error('Error al registrar el tratamiento:', error);
       setError('Ocurrió un error al registrar el tratamiento.');

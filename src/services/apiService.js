@@ -181,7 +181,7 @@ export const createMultimediaForHistorial = async (historialId, multimediaData) 
   }
 };
 
-export const addTratamiento = async(historialId, tratamientoData) => {
+export const addTratamiento = async(tratamientoData, historialId) => {
   console.log ('API sending TratamientoData', tratamientoData);
   try{
     const response = await axios.post(`http://localhost:8805/api/v1/tratamiento/agregar/${historialId}`, tratamientoData);
