@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 
 const RegistroTratamiento = () => {
   const {historialClinicoId } = useParams();
+  console.log(historialClinicoId);
   const [contenido, setContenido] = useState('');
   const [estatus, setEstatus] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -20,8 +21,8 @@ const RegistroTratamiento = () => {
       return;
     }  
     const tratamientoData = {
-      contenido,
-      estatus
+      constenido: contenido,
+      status: estatus
     };
     try {
       // Aquí puedes realizar una llamada a tu backend para registrar el tratamiento
