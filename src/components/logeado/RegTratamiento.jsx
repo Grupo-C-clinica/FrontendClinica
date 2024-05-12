@@ -26,6 +26,7 @@ const RegistroTratamiento = () => {
     };
     try {
       // Aquí puedes realizar una llamada a tu backend para registrar el tratamiento
+      console.log('tramamientoData:', tratamientoData, historialClinicoId);
       await addTratamiento(tratamientoData, historialClinicoId);
       console.log('Tratamiento registrado:', tratamientoData);
       setShowSuccessMessage(true);
