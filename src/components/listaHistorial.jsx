@@ -54,7 +54,7 @@ const ListaHistorialesClinicos = () => {
         Añadir Historial Clínico
       </button>
       
-      <button onClick={() => addTreatment(1)}>Agregar Tratamiento</button>
+      
 
       <div className="bg-white shadow-xl rounded-lg p-6">
         {historialesClinicos && historialesClinicos.length > 0 ? (

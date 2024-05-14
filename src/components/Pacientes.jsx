@@ -123,6 +123,9 @@ const Pacientes = () => {
   const goToModificar = (id) => {
     window.location.href = `/modificarPaciente/${id}`;
   };
+  const goToAlergias = (id) => {
+    window.location.href = `/modificarPaciente/${id}`;
+  };
   const pacientesSeguros = pacientes || [];
 
   return (
@@ -186,6 +189,9 @@ const Pacientes = () => {
                   </button>
                   <button className="btn3" onClick={() => goToModificar(paciente.idPaciente)}>
                     Modificar
+                  </button>
+                  <button className="btn3" onClick={() => goToAlergias(paciente.idPaciente)}>
+                    Alergias
                   </button>
                 </div>
               </div>
