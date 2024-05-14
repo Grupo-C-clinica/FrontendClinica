@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
+import { useParams, useNavigate } from 'react-router-dom'; // Importar useNavigate
 import useAlergiasStore from '../store/alergiasStore';
 
 const Alergias = () => {
+  const { idPaciente } = useParams();
+  const navigate = useNavigate(); // Hook para manejar la navegación
   const [alergiaActiva, setAlergiaActiva] = useState(false);
   const [tipoAlergia, setTipoAlergia] = useState('');
   const [causa, setCausa] = useState('');
@@ -31,7 +34,7 @@ const Alergias = () => {
     if (!validateForm()) {
       return;
     }
-    
+
     const alergiaData = {
       tipoAlergia,
       causa,
@@ -39,10 +42,13 @@ const Alergias = () => {
     };
 
     try {
-      await addAlergia(1, alergiaData); // Asumiendo que 1 es el ID del paciente
+      await addAlergia(idPaciente, alergiaData);
       setShowSuccessMessage(true);
       setError(''); // Limpia errores previos
-      setTimeout(() => setShowSuccessMessage(false), 3000); // Oculta el mensaje después de 3 segundos
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+        navigate(-1); // Navega a la página anterior después de 3 segundos
+      }, 3000);
     } catch (error) {
       console.error('Error al agregar alergia:', error);
       setError('Ocurrió un error al registrar la alergia.');

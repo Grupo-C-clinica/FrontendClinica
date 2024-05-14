@@ -45,7 +45,7 @@ function App() {
           <Wrapper id="contacts" heading="Contactos" textCenter="center"><Contacts/></Wrapper>
         </>} />
         <Route path="/pacientes" element={<Pacientes />} />
-        <Route path="/alergias" element={<Alergias />} />
+        <Route path="/alergias/:idPaciente" element={<Alergias />} />
         <Route path="/registroPacientes" element={<RegistroPacientes />} />
         <Route path="/historialClinico" element={<HistorialClinico />} />
         <Route path="/login" element={<Login />} />

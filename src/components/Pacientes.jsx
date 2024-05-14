@@ -124,7 +124,7 @@ const Pacientes = () => {
     window.location.href = `/modificarPaciente/${id}`;
   };
   const goToAlergias = (id) => {
-    window.location.href = `/modificarPaciente/${id}`;
+    window.location.href = `/alergias/${id}`;
   };
   const pacientesSeguros = pacientes || [];
 
