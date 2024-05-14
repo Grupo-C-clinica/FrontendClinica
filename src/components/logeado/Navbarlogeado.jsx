@@ -12,7 +12,7 @@ const Navbar = () => {
   const navItems = [
     {link: "Registrar nuevo paciente", path: "/registroPacientes"},
     {link: "Lista Pacientes", path: "/pacientes"},
-    {link: "Alergias", path: "/alergias"},
+    
     {link: "Citas", path: "/citas"},
   ];
 
