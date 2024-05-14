@@ -24,6 +24,9 @@ const usePacientesStore = create((set) => ({
       console.error('Error al crear multimedia:', error);
       throw error;
     }
+  },
+  historialToIdHistorial: async (idHistorial) =>{
+    
   }
 }));
 

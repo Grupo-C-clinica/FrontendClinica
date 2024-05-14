@@ -1,20 +1,31 @@
 import  { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
+import { useParams } from 'react-router-dom';
+import useTratamientoStore from '../store/tratamientoStore';
 
 
-const HistorialClinico = ({ historialId }) => {
+const HistorialClinico = () => {
+  const { idHistorial } = useParams();
   const [historialClinico, setHistorialClinico] = useState([]);
-  const [tratamiento, ] = useState('');
+  const { listaTratamientoByHisotrial} = useTratamientoStore();
+  const [tratamientos, setTratamientos] = useState([]);
   const [multimedia, ] = useState('');
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const agregarTratamiento = () => {
     window.location.href = `/regTratamiento/${historialId}`;
   }
 
+  useEffect(() =>{
+    const listaTratamiento = async() =>{
+      await listaTratamientoByHisotrial(idHistorial);
+      setDataLoaded(true);
+    };
+    listaTratamiento();
+  }, [listaTratamientoByHisotrial]);
+
   useEffect(() => {
-    // Aquí podrías hacer una solicitud para obtener el historial clínico del paciente
-    // Supongamos que tienes una función fetchHistorialClinico que obtiene el historial clínico de la API
     const fetchHistorialClinico = async () => {
       try {
         const response = await fetch(`/api/historialClinico/${historialId}`);
@@ -24,6 +35,8 @@ const HistorialClinico = ({ historialId }) => {
         console.error('Error al obtener el historial clínico:', error);
       }
     };
+
+
 
     fetchHistorialClinico();
   }, [pacienteId]);
@@ -69,11 +82,13 @@ const HistorialClinico = ({ historialId }) => {
         {/* Información del tratamiento si hay se muestra, si esta vacio agregar*/}
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2">Tratamiento</h3>
-          {tratamiento!="" ? (
-            <div>
+          {tratamientos.length > 0 ?(
+            tratamientos.map(tratamiento => (
+              <div>
               <p><strong>Contenido:</strong> {tratamiento.CONTENIDO}</p>
               <p><strong>Estatus:</strong> {tratamiento.STATUS ? 'Activo' : 'Inactivo'}</p>
             </div>
+            ))
           ) : (
             <button
               className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
