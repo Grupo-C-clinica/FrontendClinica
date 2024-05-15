@@ -92,10 +92,12 @@ const Citas = () => {
   const citasSeguras = citas || [];
   //Asistente sera estatico sin sesion iniciada sino por parametro habria que pasar el id del asistente
   const asistente = '1';
-  const addCita = (historialId) => {
+  const addCita = () => {
     window.location.href = `/regCita/${asistente}`;
   };
-
+  const ModificarCita =(historialId)=>{
+    window.location.href=`/actualizarCita/${historialId}`;
+  };
   return (
     <motion.div 
       variants={fadeIn('up', 0.3)}
@@ -110,7 +112,7 @@ const Citas = () => {
 
       <button 
         className="absolute top-20 right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
-        onClick={() => console.log('Agregar cita')}
+        onClick={() => addCita()}
       >
         Agregar Cita
       </button>
@@ -158,7 +160,7 @@ const Citas = () => {
                   <p className="text-gray-600">{`Fecha de la cita: ${cita.fecha}`}</p>
                   <p className="text-gray-600">{`Hora: ${cita.hora}`}</p>
                   
-                  <button className="btn3" onClick={() => console.log('Modificar cita', cita.idCita)}>
+                  <button className="btn3" onClick={() => ModificarCita()}>
                     Modificar
                   </button>
                 </div>

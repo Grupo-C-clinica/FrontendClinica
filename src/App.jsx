@@ -57,6 +57,7 @@ function App() {
         <Route path="/regTratamiento/:historialClinicoId" element={<RegTratamiento />} />
         {/*Registrar cita */}
         <Route path="/regCita/:idAsistenteP" element={<RegistrarCita/>} />
+        <Route path='/actualizarCita/:idCita' element={<RegistrarCita/>} />
         <Route path="*" element={<div>404</div>} />
         {/* Aquí puedes agregar más rutas según sea necesario */}
       </Routes>
