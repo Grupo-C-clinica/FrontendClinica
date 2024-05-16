@@ -140,9 +140,9 @@ export const fetchCitasByFecha = async (fecha) => {
   }
 }
 
-export const addCita = async (pacienteId, citaData) => {
+export const addCita = async (asistenteId, citaData) => {
   try {
-    const response = await axios.post(`${API_URL1}/cita/create/${pacienteId}`, citaData);
+    const response = await axios.post(`http://localhost:8806/api/v1/cita/create/${asistenteId}`, citaData);
     return response.data;
   } catch (error) {
     console.error('Error adding cita:', error);
@@ -201,3 +201,4 @@ export const listaTratamientoByHistorial = async(historialId) =>{
     throw error;
   }
 };
+

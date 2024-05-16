@@ -8,9 +8,9 @@ const useCitasStore = create((set) => ({
       const data = await fetchCitasByFecha(fecha);
       set({ citas: data.data });
   },
-  addCitas: async (pacienteId, citaData) => {
+  addCitas: async (asistenteId, citaData) => {
     try {
-      const newCita = await addCita(pacienteId, citaData);
+      const newCita = await addCita(asistenteId, citaData);
       set((state) => ({
         citas: [...state.citas, newCita]
       }));

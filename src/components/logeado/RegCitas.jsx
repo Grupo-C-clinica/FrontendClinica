@@ -4,76 +4,82 @@ import { fadeIn } from '../../variants';
 import usePacientesStore from '../../store/pacientesStore';
 import useCitasStore from '../../store/citasStore';
 import useHorarioStore from '../../store/horarioStore';
+import { useParams } from 'react-router-dom';
 
-const RegistroCita = (idAsistenteP) => {
-  // Estados para almacenar los datos del formulario
+const RegistroCita = () => {
   const ListaTiposCitas=[
     {id:1, nombre:'Consulta'},
     {id:2, nombre:'Examen'},
     {id:3, nombre:'Operación'}
   ];
   const listaDoctores=[
-    {id:1, nombre:'Dr. Juan Pérez'},
-    {id:2, nombre:'Dra. María González'},
-    {id:3, nombre:'Dr. José López'}
+    {id:7, nombre:'Dr. Juan Pérez'},
+    {id:8, nombre:'Dra. María González'},
+    {id:9, nombre:'Dr. José López'}
   ];
   const listaHorarios=[
-    {id:1, hora:'08:00'},
-    {id:2, hora:'09:00'},
-    {id:3, hora:'10:00'}
+    {id:13, hora:'08:00'},
+    {id:14, hora:'09:00'},
+    {id:15, hora:'10:00'}
   ];
   const listaPacientes=[
-    {id:1, nombre:'Juan Pérez'},
-    {id:2, nombre:'María González'},
-    {id:3, nombre:'José López'}
+    {id:16, nombre:'Juan Pérez'},
+    {id:17, nombre:'María González'},
+    {id:18, nombre:'José López'}
   ];
+
+  const idAsistenteP = 27
+
   const [iddoctor, setDoctor] = useState('');
-
-
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [idtipoCita, setTipoCita] = useState('');
   const [idhorario, setHorario] = useState('');
   const [idpaciente, setPaciente] = useState('');
   const [idasistente, setAsistente] = useState('');
-
+  const [error, setError] = useState('');
   const [hora, setHora] = useState('');
   const [fecha, setFecha] = useState('');
   const [razon, setRazon] = useState('');
-  const [estatus, setEstatus] = useState(false); // Estado de la cita
+  const [estatus, setEstatus] = useState(true); // Estado de la cita
+  const {addCitas} = useCitasStore();
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!idAsistenteP){
+      console.error('No se ha proporcionado citaId');
+      return;
+    }
+    const formattedHora = `${hora}:00`;
     // Construir el objeto de datos de la cita
     const citaData = {
-      idtipoCita,
-      idhorario,
-      idpaciente,
-      idasistente,
-      hora,
-      fecha,
-      razon,
-      estatus,
+      idTipoCita: idtipoCita,
+      idHorario: idhorario,
+      idPaciente: idpaciente,
+      idAsistente: idAsistenteP,
+      fecha: fecha,
+      hora: formattedHora ,
+      razon: razon,
+      status: estatus,
     };
     try {
       // Aquí puedes realizar una llamada a tu backend para registrar la cita
       console.log('Cita registrada:', citaData);
-      // Mostrar un mensaje de éxito
-      alert('Cita registrada exitosamente');
-      // Limpiar el formulario después del registro exitoso
-      setTipoCita('');
-      setHorario('');
-      setPaciente('');
-      setAsistente('');
-      setHora('');
-      setFecha('');
-      setRazon('');
-      setEstatus(false);
+      await addCitas(idAsistenteP, citaData);
+      console.log('Cita regsitrada: ', citaData);
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+       window.location.href = '/citas';
+      }, 3000);
     } catch (error) {
       console.error('Error al registrar la cita:', error);
-      // Mostrar un mensaje de error si ocurrió algún problema durante el registro
-      alert('Ocurrió un error al registrar la cita');
+      setError('Ocurrio un error al registrar de la cita');
     }
   };
+  useEffect(() => {
+    console.log('AsistenteId: ', idAsistenteP);
+  }, [idAsistenteP]);
   //obtener Tipos de citas, doctor y horarios
   /*
   const [doctores, fetchDoctores] = useDoctorStore();
@@ -103,6 +109,16 @@ const RegistroCita = (idAsistenteP) => {
     >
       <div className="bg-white shadow-xl rounded-lg p-6 max-w-md mx-auto">
         <h2 className="text-center text-3xl font-extrabold mb-4 text-primary">Registro de Cita</h2>
+        {showSuccessMessage && (
+          <div className="text-center p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+            Cita registrada con éxito.
+          </div>
+        )}
+        {error && (
+          <div className="text-center p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+            {error}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Campos del formulario */}
           {/* Tipo de cita */}
@@ -126,7 +142,7 @@ const RegistroCita = (idAsistenteP) => {
             <select
               id="doctor"
               value={iddoctor}
-              onChange={(e) => handleDoctorChange(e.target.value)}
+              onChange={(e) => setDoctor(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             >
               <option value="">Selecciona un doctor</option>
@@ -166,19 +182,6 @@ const RegistroCita = (idAsistenteP) => {
                 <option key={paciente.id} value={paciente.id}>{paciente.nombre}</option>
               ))}
             </select>
-          </div>
-          
-          {/* Asistente */}
-          <div>
-            <label htmlFor="asistente" className="block text-sm font-medium text-gray-700">Asistente</label>
-            <input
-              type="text"
-              id="asistente"
-              value={idasistente}
-              onChange={(e) => setAsistente(e.target.value)}
-              placeholder="Ingrese el nombre del asistente"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            />
           </div>
           
           {/* Hora */}
@@ -229,6 +232,12 @@ const RegistroCita = (idAsistenteP) => {
               {estatus ? 'Activo' : 'Inactivo'}
             </button>
           </div>
+
+          <input
+            type="hidden"
+            id="historialClinicoId"
+            value={idAsistenteP}
+          />
           
           {/* Botón de registro */}
           <button
