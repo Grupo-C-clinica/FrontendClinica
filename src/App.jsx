@@ -24,6 +24,7 @@ import RegHistorial from './components/logeado/RegHistorial'
 import HistorialMultimedia from './components/logeado/HistorialMultimedia'
 import RegTratamiento from './components/logeado/RegTratamiento'
 import RegistrarCita from './components/logeado/RegCitas'
+import ActualizarCita from './components/logeado/ActualizarCita'
 import Registromultimedia from './components/logeado/Registromultimedia'
 import Multimedia from './components/Historial'
 function App() {
@@ -59,7 +60,7 @@ function App() {
         <Route path="/regTratamiento/:historialClinicoId" element={<RegTratamiento />} />
         {/*Registrar cita */}
         <Route path="/regCita/:idAsistenteP" element={<RegistrarCita/>} />
-        <Route path='/actualizarCita/:idCita' element={<RegistrarCita/>} />
+        <Route path='/actualizarCita/:idCita' element={<ActualizarCita/>} />
         <Route path="*" element={<div>404</div>} />
         {/* Aquí puedes agregar más rutas según sea necesario */}
       </Routes>

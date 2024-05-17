@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
@@ -7,7 +8,9 @@ import useHorarioStore from '../../store/horarioStore';
 import { error } from 'pdf-lib';
 import { useParams } from 'react-router-dom';
 
-const RegistroCita = () => {
+import Select from 'react-select';
+
+const ActualizarCita = () => {
   // Estados para almacenar los datos del formulario
   const ListaTiposCitas=[
     {id:1, nombre:'Consulta'},
@@ -159,7 +162,7 @@ const RegistroCita = () => {
       className="container mx-auto mt-32"
     >
       <div className="bg-white shadow-xl rounded-lg p-6 max-w-md mx-auto">
-        <h2 className="text-center text-3xl font-extrabold mb-4 text-primary">Registro de Cita</h2>
+        <h2 className="text-center text-3xl font-extrabold mb-4 text-primary">Actualizar Cita</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Campos del formulario */}
           {/* Tipo de cita */}
@@ -298,4 +301,4 @@ const RegistroCita = () => {
   );
 }
 
-export default RegistroCita;
+export default ActualizarCita;
