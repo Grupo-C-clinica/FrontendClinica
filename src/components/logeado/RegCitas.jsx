@@ -42,30 +42,14 @@ const RegistroCita = () => {
   const [razon, setRazon] = useState('');
   const [estatus, setEstatus] = useState(true); // Estado de la cita
   const {addCitas} = useCitasStore();
-  const {fetchPacientes, pacientes} = usePacientesStore();
+  const {allPacientes, pacientes} = usePacientesStore();
+  const [selectedPaciente, setSelectedPaciente] = useState(null);
 
   // Cargar lista de pacientes al montar el componente
 
-  const loadAllPacientes = async () => {
-    let allPacientes = [];
-    let page = 0;
-    let hasNextPage = true;
-    while (hasNextPage) {
-      const response = await fetchPacientes(page);
-      if (response && response.data && response.data.content && response.data.content.length > 0) {
-        allPacientes = [...allPacientes, ...response.data.content];
-        hasNextPage = page < response.data.totalPages - 1;
-        page++;
-      } else {
-        hasNextPage = false;
-      }
-    }
-    setPaciente(allPacientes);
-  };
-
   useEffect(() => {
-    loadAllPacientes();
-  }, []);
+    allPacientes('');
+  }, [allPacientes]);
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
@@ -75,11 +59,12 @@ const RegistroCita = () => {
       return;
     }
     const formattedHora = `${hora}:00`;
+    const idPacienteSeleccionado = selectedPaciente ? selectedPaciente.value : ''; // Obtener el ID del paciente seleccionado
     // Construir el objeto de datos de la cita
     const citaData = {
       idTipoCita: idtipoCita,
       idHorario: idhorario,
-      idPaciente: idpaciente,
+      idPaciente: idPacienteSeleccionado,
       idAsistente: idAsistenteP,
       fecha: fecha,
       hora: formattedHora ,
@@ -125,12 +110,12 @@ const RegistroCita = () => {
   };*/
    // Mapea la lista de pacientes al formato esperado por react-select
    const opcionesPacientes = pacientes.map(paciente => ({
-    value: paciente.id,
-    label: paciente.nombre,
+    value: paciente.idpaciente,
+    label: `${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}`
   }));
 
-  const handleChange = selectedOption => {
-    setPaciente(selectedOption ? selectedOption.value : '');
+  const handleChangePaciente = (selectedOption) => {
+    setSelectedPaciente(selectedOption);
   };
   return (
     <motion.div
@@ -206,9 +191,9 @@ const RegistroCita = () => {
             <label htmlFor="paciente" className="block text-sm font-medium text-gray-700">Paciente</label>
             <Select
               id="paciente"
-              value={opcionesPacientes.find(option => option.value === idpaciente)}
-              onChange={handleChange}
-              options={opcionesPacientes}
+              value={selectedPaciente}
+              onChange={handleChangePaciente}
+              options={pacientes.map(paciente => ({ value: paciente.idPaciente, label: `${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}` }))}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               placeholder="Selecciona un paciente"
               isClearable

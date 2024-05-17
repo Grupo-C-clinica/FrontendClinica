@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { fetchPacientesPaginated, fetchPacientesByName, fetchPacientesByFecha, fetchPacientesByStatus, addPaciente } from '../services/apiService';
+import { fetchPacientesPaginated, fetchPacientesByName, fetchPacientesByFecha, fetchPacientesByStatus, addPaciente, allPacientes } from '../services/apiService';
 import { fetchHistorialByPaciente } from '../services/apiService';
 import { updatePaciente } from '../services/apiService'; 
 
@@ -105,6 +105,11 @@ const usePacientesStore = create((set) => ({
   fetchPacientesByFecha: async (fecha) => {
     const data = await fetchPacientesByFecha(fecha);
     set({ pacientes: data.data });
+  },
+
+  allPacientes: async () => {
+    const data = await allPacientes();
+    set({pacientes: data.data})
   },
 
   fetchPacientesByStatus: async (activo, pagina = 0, pageSize = 6) => {

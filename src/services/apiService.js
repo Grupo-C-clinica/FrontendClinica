@@ -25,6 +25,15 @@ export const fetchPaciente = async () => {
     throw error;
   }
 };
+export const allPacientes = async () => {
+  try{
+    const response = await axios.get(`${API_URL}/paciente/todos`);
+    return response.data;
+  }catch(error){
+    console.error('Error fetching pacientes:', error);
+    throw error;
+  }
+};
 export const fetchPacientesByName = async (nombre) => {
   try {
     const response = await axios.get(`${API_URL}/paciente/nombre`, { params: { nombre } });
