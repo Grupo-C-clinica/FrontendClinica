@@ -25,7 +25,8 @@ import RegHistorial from './components/logeado/RegHistorial'
 import HistorialMultimedia from './components/logeado/HistorialMultimedia'
 import RegTratamiento from './components/logeado/RegTratamiento'
 import RegistrarCita from './components/logeado/RegCitas'
-
+import Registromultimedia from './components/logeado/Registromultimedia'
+import Multimedia from './components/Historial'
 function App() {
   // Asumo que isLoggedIn se determinará por algún método de autenticación real
   const isLoggedIn = true;
@@ -53,7 +54,9 @@ function App() {
         <Route path="/modificarPaciente/:idPaciente" element={<ModificarPaciente />} />
         <Route path="/citas" element={<Citas />} />
         <Route path="/regHistorial/:idPaciente" element={<RegHistorial />} />
+        <Route path="/regmultimedia/:idHistorial" element={<Registromultimedia />} />
         <Route path="/historialMultimedia" element={<HistorialMultimedia />} />
+        <Route path="/multimedia/:idHistorial" element={<Multimedia />} />
         <Route path="/regTratamiento/:historialClinicoId" element={<RegTratamiento />} />
         {/*Registrar cita */}
         <Route path="/regCita/:idAsistenteP" element={<RegistrarCita/>} />
