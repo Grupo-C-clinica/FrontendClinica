@@ -41,7 +41,7 @@ function App() {
     
       {showNavbar && (isLoggedIn ? <NavbarL /> : <Navbar />)}
       <Routes>
-        <Route path="/" element={<>
+        <Route path="/FrontendClinica/" element={<>
           <Home/><Informacion/><About/><Princing/><Newsletter/><Reviews/>
           <Wrapper id="referencias" heading="Referencias" textCenter="center"><Referencias/></Wrapper>
           <Wrapper id="contacts" heading="Contactos" textCenter="center"><Contacts/></Wrapper>
