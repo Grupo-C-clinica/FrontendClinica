@@ -6,6 +6,7 @@ import useCitasStore from '../../store/citasStore';
 import Select from 'react-select';
 import useHorarioStore from '../../store/horarioStore';
 import { useParams } from 'react-router-dom';
+import { fetchPacientesByName } from '../../services/apiService';
 
 
 const RegistroCita = () => {
@@ -25,9 +26,6 @@ const RegistroCita = () => {
     {id:15, hora:'10:00'}
   ];
   const listaPacientes=[
-    {id:16, nombre:'Juan Pérez'},
-    {id:17, nombre:'María González'},
-    {id:18, nombre:'José López'}
   ];
 
   const idAsistenteP = 27
@@ -44,6 +42,30 @@ const RegistroCita = () => {
   const [razon, setRazon] = useState('');
   const [estatus, setEstatus] = useState(true); // Estado de la cita
   const {addCitas} = useCitasStore();
+  const {fetchPacientes, pacientes} = usePacientesStore();
+
+  // Cargar lista de pacientes al montar el componente
+
+  const loadAllPacientes = async () => {
+    let allPacientes = [];
+    let page = 0;
+    let hasNextPage = true;
+    while (hasNextPage) {
+      const response = await fetchPacientes(page);
+      if (response && response.data && response.data.content && response.data.content.length > 0) {
+        allPacientes = [...allPacientes, ...response.data.content];
+        hasNextPage = page < response.data.totalPages - 1;
+        page++;
+      } else {
+        hasNextPage = false;
+      }
+    }
+    setPaciente(allPacientes);
+  };
+
+  useEffect(() => {
+    loadAllPacientes();
+  }, []);
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
@@ -72,13 +94,14 @@ const RegistroCita = () => {
       setShowSuccessMessage(true);
       setTimeout(() => {
         setShowSuccessMessage(false);
-       window.location.href = '/citas';
+       //window.location.href = '/citas';
       }, 3000);
     } catch (error) {
       console.error('Error al registrar la cita:', error);
       setError('Ocurrio un error al registrar de la cita');
     }
   };
+  
   useEffect(() => {
     console.log('AsistenteId: ', idAsistenteP);
   }, [idAsistenteP]);
@@ -101,7 +124,7 @@ const RegistroCita = () => {
     fetchHorarios(doctorID);
   };*/
    // Mapea la lista de pacientes al formato esperado por react-select
-   const opcionesPacientes = listaPacientes.map(paciente => ({
+   const opcionesPacientes = pacientes.map(paciente => ({
     value: paciente.id,
     label: paciente.nombre,
   }));
