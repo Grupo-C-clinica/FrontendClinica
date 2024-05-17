@@ -2,7 +2,7 @@ import axios from 'axios';
 import {  } from 'pdf-lib';
 
 const API_URL = 'http://localhost:8090/api/v1';
-const API_URL1 = 'http://localhost:8006/api/v1';
+//const API_URL1 = 'http://localhost:8006/api/v1';
 
 export const fetchPacientesPaginated = async (page, pageSize) => {
   const params = { page, size: pageSize };

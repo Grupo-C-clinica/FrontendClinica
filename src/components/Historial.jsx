@@ -1,120 +1,119 @@
-import  { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
+import useMultimediaStore from '../store/multimediaStore';
 import { useParams } from 'react-router-dom';
-import useTratamientoStore from '../store/tratamientoStore';
 
-
-const HistorialClinico = () => {
+const ListaImagenes = () => {
   const { idHistorial } = useParams();
-  const [historialClinico, setHistorialClinico] = useState([]);
-  const { listaTratamientoByHisotrial} = useTratamientoStore();
-  const [tratamientos, setTratamientos] = useState([]);
-  const [multimedia, ] = useState('');
-  const [dataLoaded, setDataLoaded] = useState(false);
-
-  const agregarTratamiento = () => {
-    window.location.href = `/regTratamiento/${historialId}`;
-  }
-
-  useEffect(() =>{
-    const listaTratamiento = async() =>{
-      await listaTratamientoByHisotrial(idHistorial);
-      setDataLoaded(true);
-    };
-    listaTratamiento();
-  }, [listaTratamientoByHisotrial]);
+  const { multimedia, fetchMultimedia } = useMultimediaStore();
+  const [update, setUpdate] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+  const [selectedMedia, setSelectedMedia] = useState(null);
 
   useEffect(() => {
-    const fetchHistorialClinico = async () => {
-      try {
-        const response = await fetch(`/api/historialClinico/${historialId}`);
-        const data = await response.json();
-        setHistorialClinico(data);
-      } catch (error) {
-        console.error('Error al obtener el historial clínico:', error);
-      }
-    };
-
-
-
-    fetchHistorialClinico();
-  }, [pacienteId]);
+    if (idHistorial) {
+      fetchMultimedia(idHistorial).then(() => {
+        setUpdate(true);
+      });
+    }
+  }, [idHistorial, fetchMultimedia]);
 
   useEffect(() => {
-    // Aquí podrías hacer una solicitud para obtener el tratamiento del historial clínico
-    // Supongamos que tienes una función fetchTratamiento que obtiene el tratamiento de la API
-    const fetchTratamiento = async () => {
-      try {
-        const response = await fetch(`/api/tratamiento/${historialId}`);
-        const data = await response.json();
-        setTratamiento(data);
-      } catch (error) {
-        console.error('Error al obtener el tratamiento:', error);
-      }
-    };
+    if (update) {
+      console.log('Datos actualizados y componente re-renderizado');
+      multimedia.forEach((media, index) => {
+        console.log(`Multimedia ${index + 1}:`, `data:${media.contentType};base64,${media.bytes}`);
+      });
+    }
+  }, [update, multimedia]);
 
-    fetchTratamiento();
-  }, [historialId]);
+  const goToAddImage = () => {
+    window.location.href = `/regmultimedia/${idHistorial}`;
+  };
+
+  const handleDeleteClick = (media) => {
+    setSelectedMedia(media);
+    setShowDialog(true);
+  };
+
+  const handleConfirmDelete = () => {
+    // Aquí añadirás la lógica para eliminar la imagen
+    console.log('Deleting:', selectedMedia);
+    setShowDialog(false);
+    setSelectedMedia(null);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDialog(false);
+    setSelectedMedia(null);
+  };
+
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
-      initial='hidden'
+      initial="hidden"
       whileInView={'show'}
-      viewport={{ once: false, amount: 0.7 }}
       className="container mx-auto mt-32"
     >
       <div className="text-center">
-        <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Historial Clínico</h2>
+        <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Lista de Imágenes</h2>
       </div>
+      <button
+        className="absolute top-20 right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
+        onClick={goToAddImage}
+      >
+        Añadir Imagen
+      </button>
       <div className="bg-white shadow-xl rounded-lg p-6">
-        {/* Información del historial clínico */}
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-2">Historial Clínico</h3>
-          {historialClinico.map(item => (
-            <div key={item.HISTORIAL_CLINICO_ID} className="mb-4">
-              <p><strong>Fecha:</strong> {item.FECHA}</p>
-              <p><strong>Observaciones:</strong> {item.OBSERVACIONES}</p>
-              <p><strong>Estado:</strong> {item.STATUS ? 'Activo' : 'Inactivo'}</p>
-            </div>
-          ))}
-        </div>
-        {/* Información del tratamiento si hay se muestra, si esta vacio agregar*/}
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-2">Tratamiento</h3>
-          {tratamientos.length > 0 ?(
-            tratamientos.map(tratamiento => (
-              <div>
-              <p><strong>Contenido:</strong> {tratamiento.CONTENIDO}</p>
-              <p><strong>Estatus:</strong> {tratamiento.STATUS ? 'Activo' : 'Inactivo'}</p>
-            </div>
-            ))
-          ) : (
-            <button
-              className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
-              onClick={agregarTratamiento}
-            >
-              Agregar Tratamiento
-            </button>
-          )}
-        </div>
-
-        
-
-        {/* Información multimedia clínica */}
-        <div>
-          <h3 className="text-lg font-semibold mb-2">Multimedia Clínica</h3>
-          <input
-            type="text"
-            className="border border-gray-300 rounded-md w-full p-2"
-            value={multimedia}
-            readOnly
-          />
-        </div>
+        {multimedia && multimedia.length > 0 ? (
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {multimedia.map((media, index) => (
+              <li key={index} className="relative">
+                <div className="multimedia-item flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full h-200px">
+                  <button className="absolute top-2 right-2 text-gray-600 hover:text-gray-900" onClick={() => handleDeleteClick(media)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 6L18 18M6 18L18 6" />
+                    </svg>
+                  </button>
+                  <img
+                    src={`data:${media.contentType};base64,${media.bytes}`}
+                    alt={media.originalFilename}
+                    className="w-full h-full object-cover"
+                  />
+                  <p className="text-center mt-2">{media.originalFilename}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-center">No se encontraron imágenes.</p>
+        )}
       </div>
-     
+      {showDialog && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold mb-4">Confirmar Borrado</h2>
+            <p>¿Estás seguro de que deseas borrar esta imagen?</p>
+            <div className="mt-6 flex justify-end space-x-4">
+              <button
+                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                onClick={handleCancelDelete}
+              >
+                Cancelar
+              </button>
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleConfirmDelete}
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 };
 
-export default HistorialClinico;
+export default ListaImagenes;

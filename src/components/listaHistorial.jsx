@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
 import usePacientesStore from '../store/pacientesStore';
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
 
 const ListaHistorialesClinicos = () => {
   const { idPaciente } = useParams();
   const { historialesClinicos, fetchHistorialesClinicos } = usePacientesStore();
   const [update, setUpdate] = useState(false);
+  const [sortedHistoriales, setSortedHistoriales] = useState([]);
 
   useEffect(() => {
     if (idPaciente) {
@@ -20,28 +20,30 @@ const ListaHistorialesClinicos = () => {
 
   useEffect(() => {
     if (update) {
+      const sorted = [...historialesClinicos].sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+      setSortedHistoriales(sorted);
       console.log('Datos actualizados y componente re-renderizado');
-      console.log('Historiales Clinicos en el componente:', historialesClinicos);
+      console.log('Historiales Clinicos en el componente:', sorted);
     }
   }, [update, historialesClinicos]);
 
   const goToHistorial = () => {
     window.location.href = `/regHistorial/${idPaciente}`;
   };
-  
-  const goToHistorial2 = (historialId) => {
-    window.location.href = `/historial/${historialId}`;
+
+  const goToHistorial2 = (idHistorial) => {
+    window.location.href = `/multimedia/${idHistorial}`;
   };
-  const addTreatment = (historialId) => {
-    window.location.href = `/regTratamiento/${historialId}`;
+
+  const addTreatment = (idHistorial) => {
+    window.location.href = `/regTratamiento/${idHistorial}`;
   };
 
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
-      initial='hidden'
+      initial="hidden"
       whileInView={'show'}
-      
       className="container mx-auto mt-32"
     >
       <div className="text-center">
@@ -53,22 +55,18 @@ const ListaHistorialesClinicos = () => {
       >
         Añadir Historial Clínico
       </button>
-      
-      
-
       <div className="bg-white shadow-xl rounded-lg p-6">
-        {historialesClinicos && historialesClinicos.length > 0 ? (
+        {sortedHistoriales && sortedHistoriales.length > 0 ? (
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {historialesClinicos.map(historial => (
+            {sortedHistoriales.map(historial => (
               <li key={historial.idHistorial}>
-                <div className="historial-item flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full">
+                <div className="historial-item flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full ">
                   <h3 className="text-lg font-semibold">{`Historial #${historial.idHistorial}`}</h3>
                   <p className="text-justify"><strong>Fecha:</strong> {historial.fecha ? new Date(historial.fecha).toLocaleDateString() : 'Fecha no disponible'}</p>
                   <p className="text-justify"><strong>Observaciones:</strong> {historial.observaciones}</p>
                   <p className="text-justify"><strong>Estado:</strong> {'Activo'}</p>
-                  
-                  <button onClick={() => goToHistorial2(historial.idHistorial)}>Ver Historial</button>
-                  <button onClick={() => addTreatment(historial.idHistorial)}>Agregar Tratamiento</button>
+                  <button onClick={() => goToHistorial2(historial.idHistorial)}>Historial multimedia</button>
+                  <button onClick={() => addTreatment(historial.idHistorial)}>Tratamientos</button>
                 </div>
               </li>
             ))}

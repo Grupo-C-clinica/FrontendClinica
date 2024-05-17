@@ -25,9 +25,7 @@ const usePacientesStore = create((set) => ({
       throw error;
     }
   },
-  historialToIdHistorial: async (idHistorial) =>{
-    
-  }
+ 
 }));
 
 export default usePacientesStore;
