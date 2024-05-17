@@ -12,9 +12,9 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { link: "Registrar nuevo paciente", path: "/registroPacientes" },
-    { link: "Lista Pacientes", path: "/pacientes" },
-    { link: "Citas", path: "/citas" },
+    { link: "Registrar nuevo paciente", path: "/FrontendClinica/registroPacientes" },
+    { link: "Lista Pacientes", path: "/FrontendClinica/pacientes" },
+    { link: "Citas", path: "/FrontendClinica/citas" },
   ];
 
   const toggleProfileMenu = () => {
@@ -72,5 +72,6 @@ const Navbar = () => {
     </>
   );
 };
+
 
 export default Navbar;
