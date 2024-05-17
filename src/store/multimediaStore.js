@@ -4,13 +4,13 @@ import { fetchMultimedia, createMultimedia } from '../services/multimediaService
 
 const useMultimediaStore = create((set) => ({
   multimedia: [],
-  fetchMultimedia: async (historialId) => {
-    const multimedia = await fetchMultimedia(historialId);
+  fetchMultimedia: async (idHistorial) => {
+    const multimedia = await fetchMultimedia(idHistorial);
     set({ multimedia });
   },
-  createMultimedia: async (historialId, formData) => {
-    await createMultimedia(historialId, formData);
-    const multimedia = await fetchMultimedia(historialId);
+  createMultimedia: async (idHistorial, formData) => {
+    await createMultimedia(idHistorial, formData);
+    const multimedia = await fetchMultimedia(idHistorial);
     set({ multimedia });
   },
 }));

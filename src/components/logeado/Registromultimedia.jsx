@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import useMultimediaStore from '../../store/multimediaStore';
 
 const RegImagenes = () => {
-  const { historialId } = useParams();
+  const { idHistorial } = useParams();
   const [imagenes, setImagenes] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [error, setError] = useState('');
@@ -41,11 +41,11 @@ const RegImagenes = () => {
     imagenes.forEach(image => formData.append('file', image));
 
     try {
-      await createMultimedia(historialId, formData);
+      await createMultimedia(idHistorial, formData);
       setShowSuccessMessage(true);
       setTimeout(() => {
         setShowSuccessMessage(false);
-        window.location.href = `/multimedia/${historialId}`; // Redirigir a la lista de imágenes
+        window.location.href = `/multimedia/${idHistorial}`; // Redirigir a la lista de imágenes
       }, 3000);
     } catch (error) {
       console.error('Error al agregar las imágenes:', error);
