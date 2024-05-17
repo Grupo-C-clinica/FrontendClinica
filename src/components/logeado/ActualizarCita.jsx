@@ -7,7 +7,6 @@ import useCitasStore from '../../store/citasStore';
 import useHorarioStore from '../../store/horarioStore';
 import { error } from 'pdf-lib';
 import { useParams } from 'react-router-dom';
-
 import Select from 'react-select';
 
 const ActualizarCita = () => {
@@ -18,17 +17,28 @@ const ActualizarCita = () => {
     {id:3, nombre:'Operación'}
   ];
   const listaDoctores=[
-    {id:1, nombre:'Dr. Juan Pérez'},
-    {id:2, nombre:'Dra. María González'},
-    {id:3, nombre:'Dr. José López'}
+    {id:7, nombre:'Dr. Juan Pérez'},
+    {id:8, nombre:'Dra. María González'},
+    {id:9, nombre:'Dr. José López'}
   ];
   const listaHorarios=[
-    {id:1, hora:'08:00'},
-    {id:2, hora:'09:00'},
-    {id:3, hora:'10:00'}
+    {id:13, hora:'08:00'},
+    {id:14, hora:'09:00'},
+    {id:15, hora:'10:00'}
   ];
   const listaPacientes=[
   ];
+
+  const [cita, setCita] = useState({
+    idtipoCita: '',
+    idhorario: '',
+    paciente: '',
+    idAsistenteP: 27,
+    fecha: '',
+    hora: '',
+    razon: '',
+    status: false
+  });
 
   const idAsistenteP = 27
   const [iddoctor, setDoctor] = useState('');
@@ -46,31 +56,26 @@ const ActualizarCita = () => {
   const {allPacientes, pacientes} = usePacientesStore();
   const [selectedPaciente, setSelectedPaciente] = useState(null);
   const {idCita} = useParams();
+  console.log('Id cita: ', idCita);
 
   useEffect(() => {
     allPacientes('');
   }, [allPacientes]);
 
   useEffect(() => {
-    if(idCita){
-      const getCitas = async () => {
-        try{
-          const cita = await citaById(idCita);
-          setTipoCita(cita.tipoCita);
-          setHorario(cita.idHorario);
-          setPaciente(cita.paciente);
-          setAsistente(cita.idAsistenteP);
-          setFecha(cita.fecha);
-          setHora(cita.hora);
-          setRazon(cita.razon);
-          setEstatus(cita.status);
-        }catch{
-          console.error('Error al obtener a la cita', error);
-        }
-      };
-      getCitas();
+    const fetchCita = async () => {
+      try {
+        const fetchedCita = await citaById(idCita);
+        setCita(fetchedCita);
+      } catch (error) {
+        console.error('Error al obtener la cita', error);
+        setError('Error al obtener la cita');
+      }
+    };
+    if (idCita) {
+      fetchCita();
     }
-  },[idCita, citaById]);
+  }, [idCita, citaById]);
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
@@ -82,30 +87,26 @@ const ActualizarCita = () => {
   const formattedHora = `${hora}:00`;
   const idPacienteSeleccionado = selectedPaciente ? selectedPaciente.value : '';
   const citaData = {
-    idTipoCita: idtipoCita,
-      idHorario: idhorario,
-      idPaciente: idPacienteSeleccionado,
-      idAsistente: idAsistenteP,
-      fecha: fecha,
-      hora: formattedHora ,
-      razon: razon,
-      status: estatus,
+    idTipoCita: parseInt(idtipoCita),
+    idHorario: parseInt(idhorario),
+    idPaciente: idPacienteSeleccionado,
+    idAsistente: idAsistenteP,
+    fecha: fecha,
+    hora: formattedHora ,
+    razon: razon,
+    estado: estatus,
   };
   //Validar que todos los campos estén llenos
-  if (
-    !idtipoCita ||
-    !idhorario ||
-    !idPacienteSeleccionado ||
-    !idasistente ||
-    !hora ||
-    !fecha ||
-    !razon
-  ) {
+  if (!idtipoCita || !idhorario || !idPacienteSeleccionado || !fecha || !hora || !razon) {
     setError('Todos los campos son obligatorios');
     return;
   }
   if(razon.length < 10){
-    setError('La razón debe tener al menos 10 caracteres');
+    setError('La razón de la cita debe tener al menos 10 caracteres');
+    return;
+  }
+  if(!selectedPaciente){
+    setError('Selecciona un paciente');
     return;
   }
 
@@ -113,11 +114,11 @@ const ActualizarCita = () => {
      // Aquí puedes realizar una llamada a tu backend para registrar la cita
     console.log('Cita Actualizada:', citaData);
     await updateCita(idCita, citaData);
-    console.log('Cita regsitrada: ', citaData);
+    console.log('Cita Actualizada: ', citaData);
     setShowSuccessMessage(true);
     setTimeout(() => {
       setShowSuccessMessage(false);
-     window.location.href = '/citas';
+     //window.location.href = '/citas';
     }, 3000);
   } catch (error) {
     console.error('Error al actualizar la cita:', error);
@@ -163,6 +164,16 @@ const ActualizarCita = () => {
     >
       <div className="bg-white shadow-xl rounded-lg p-6 max-w-md mx-auto">
         <h2 className="text-center text-3xl font-extrabold mb-4 text-primary">Actualizar Cita</h2>
+        {showSuccessMessage && (
+          <div className="text-center p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+            Cita Modificada con éxito.
+          </div>
+        )}
+        {error && (
+          <div className="text-center p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+            {error}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Campos del formulario */}
           {/* Tipo de cita */}
@@ -186,7 +197,7 @@ const ActualizarCita = () => {
             <select
               id="doctor"
               value={iddoctor}
-              onChange={(e) => handleDoctorChange(e.target.value)}
+              onChange={(e) => setDoctor(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             >
               <option value="">Selecciona un doctor</option>
@@ -219,25 +230,13 @@ const ActualizarCita = () => {
               id="paciente"
               value={selectedPaciente}
               onChange={handleChangePaciente}
-              option={pacientes.map(paciente => ({ value: paciente.idPaciente, label: `${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}` }))}
+              options={pacientes.map(paciente => ({ value: paciente.idPaciente, label: `${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}` }))}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               placeholder="Selecciona un paciente"
               isClearable
             />
           </div>
-          
-          {/* Asistente */}
-          <div>
-            <label htmlFor="asistente" className="block text-sm font-medium text-gray-700">Asistente</label>
-            <input
-              type="text"
-              id="asistente"
-              value={idasistente}
-              onChange={(e) => setAsistente(e.target.value)}
-              placeholder="Ingrese el nombre del asistente"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            />
-          </div>
+        
           
           {/* Hora */}
           <div>
@@ -293,7 +292,7 @@ const ActualizarCita = () => {
             type="submit"
             className="w-full py-2 px-8 bg-secondary font-semibold text-white rounded hover:bg-primary transition-all duration-300"
           >
-            Registrar
+            Modificar
           </button>
         </form>
       </div>

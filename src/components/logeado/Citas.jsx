@@ -161,7 +161,7 @@ const Citas = () => {
                   <p className="text-gray-600">{`Fecha de la cita: ${cita.fecha}`}</p>
                   <p className="text-gray-600">{`Hora: ${cita.hora}`}</p>
                   
-                  <button className="btn3" onClick={() => modificarCita(cita.citaId)}>
+                  <button className="btn3" onClick={() => modificarCita(cita.idCita)}>
                     Modificar 
                   </button>
                 </div>

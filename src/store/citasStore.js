@@ -33,16 +33,21 @@ const useCitasStore = create((set) => ({
   updateCita: async (idCita, citaData) => {
     try{
       const result = await updateCita(idCita, citaData);
-      alert(result.message);
+      //alert(result.message);
     }catch (error) {
       console.error('Error al actualizar cita:', error);
-      alert('Error al actualizar cita');
+      //alert('Error al actualizar cita');
     }
   },
 
   citaById: async(idCita) => {
-    const data = await citaById(idCita);
-    set({citas: data.data});
+    try{
+      const data = await citaById(idCita);
+      set({cita: data});
+    }catch (error){
+      console.log("Error al encontrar cita", error);
+      throw error;
+    }
   }
 
 }));
