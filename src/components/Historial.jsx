@@ -6,18 +6,26 @@ import useMultimediaStore from '../store/multimediaStore';
 import { useParams } from 'react-router-dom';
 
 const ListaImagenes = () => {
-  const { idHistorial } = useParams(); // Cambiado a historialId
+  const { idHistorial } = useParams(); // Asegurarse de que coincide con el nombre en RegImagenes
   const { multimedia, fetchMultimedia } = useMultimediaStore();
   const [update, setUpdate] = useState(false);
-  
+
   useEffect(() => {
     if (idHistorial) {
       fetchMultimedia(idHistorial).then(() => {
         setUpdate(true); // Cambia el estado para forzar la renderización
       });
     }
-  }, [idHistorial, fetchMultimedia]); // Cambiado a historialId
-
+  }, [idHistorial, fetchMultimedia]);
+  useEffect(() => {
+    if (update) {
+      console.log('Datos actualizados y componente re-renderizado');
+      multimedia.forEach((media, index) => {
+        console.log(`Multimedia ${index + 1}:`, `data:${media.contentType};base64,${media.bytes}`);
+      });
+    }
+  }, [update, multimedia]);
+  
   useEffect(() => {
     if (update) {
       console.log('Datos actualizados y componente re-renderizado');
@@ -26,17 +34,10 @@ const ListaImagenes = () => {
   }, [update, multimedia]);
 
   const goToAddImage = () => {
-    window.location.href = `/regmultimedia/${idHistorial}`; // Cambiado a historialId
+    window.location.href = `/regmultimedia/${idHistorial}`;
   };
 
-  const arrayBufferToBase64 = (buffer) => {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    for (let i = 0; i < bytes.byteLength; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return window.btoa(binary);
-  };
+ 
 
   return (
     <motion.div
@@ -61,7 +62,7 @@ const ListaImagenes = () => {
               <li key={index}>
                 <div className="multimedia-item flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full h-200px">
                   <img
-                    src={`data:${media.contentType};base64,${arrayBufferToBase64(media.bytes)}`}
+                    src={`data:${media.contentType};base64,${media.bytes}`}
                     alt={media.originalFilename}
                     className="w-full h-full object-cover"
                   />
