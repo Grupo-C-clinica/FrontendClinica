@@ -1,4 +1,3 @@
-
 import './App.css'
 import Home from './components/HomeA'
 import Informacion from './components/Informacion'
@@ -68,5 +67,4 @@ function App() {
     </>
   );
 }
-
 export default App;
