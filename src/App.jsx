@@ -1,4 +1,3 @@
-
 import './App.css'
 import Home from './components/HomeA'
 import Informacion from './components/Informacion'
@@ -38,10 +37,9 @@ function App() {
 
   return (
     <>
-    
       {showNavbar && (isLoggedIn ? <NavbarL /> : <Navbar />)}
       <Routes>
-        <Route path="/FrontendClinica/" element={<>
+        <Route path="/" element={<>
           <Home/><Informacion/><About/><Princing/><Newsletter/><Reviews/>
           <Wrapper id="referencias" heading="Referencias" textCenter="center"><Referencias/></Wrapper>
           <Wrapper id="contacts" heading="Contactos" textCenter="center"><Contacts/></Wrapper>
@@ -69,5 +67,4 @@ function App() {
     </>
   );
 }
-
 export default App;
