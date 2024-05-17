@@ -19,7 +19,7 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   }
   const navItems = [
-    { link: "Registrar nuevo paciente", path: "/FrontendClinica/registroPacientes" },
+    { link: "Registrar nuevo cliente", path: "/FrontendClinica/registroPacientes" },
     { link: "Lista Pacientes", path: "/FrontendClinica/pacientes" },
     { link: "Citas", path: "/FrontendClinica/citas" },
   ];
