@@ -6,11 +6,7 @@ import About from './components/About';
 import Princing from './components/Pricing';
 import Newsletter from './components/Newsletter';
 import Fotter from './components/Fotter';
-import {
-  Routes,
-  Route,
-  useLocation
-} from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Pacientes from './components/Pacientes'; 
 import Alergias from './components/Alergias';
 import RegistroPacientes from './components/Doctor/Formulario';
@@ -32,8 +28,11 @@ import Registromultimedia from './components/logeado/Registromultimedia';
 import Multimedia from './components/Historial';
 
 function App() {
+  // Asumo que isLoggedIn se determinará por algún método de autenticación real
   const isLoggedIn = true;
   let location = useLocation();
+
+  // Ahora incluye la comprobación para mostrar el navbar y el footer
   const showNavbar = isLoggedIn || location.pathname !== '/login';
   const showFooter = location.pathname !== '/login' && !isLoggedIn;
 
