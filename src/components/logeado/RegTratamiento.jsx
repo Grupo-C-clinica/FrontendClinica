@@ -24,6 +24,16 @@ const RegistroTratamiento = () => {
       constenido: contenido,
       status: estatus
     };
+    //Validar que el contenido no esté vacío
+    if (!tratamientoData.contenido) {
+      setError('El contenido del tratamiento es requerido.');
+      return;
+    }
+    //Validar Status
+    if (tratamientoData.status === undefined) {
+      setError('El estatus del tratamiento es requerido.');
+      return;
+    }
     try {
       // Aquí puedes realizar una llamada a tu backend para registrar el tratamiento
       console.log('tramamientoData:', tratamientoData, historialClinicoId);
