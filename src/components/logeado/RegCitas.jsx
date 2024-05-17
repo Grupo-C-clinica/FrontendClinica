@@ -71,6 +71,21 @@ const RegistroCita = () => {
       razon: razon,
       status: estatus,
     };
+    //Validar que los campos obligatorios no estén vacíos
+    if (!idtipoCita || !idhorario || !idPacienteSeleccionado || !fecha || !hora || !razon) {
+      setError('Todos los campos son obligatorios');
+      return;
+    }
+    if(razon.length < 10){
+      setError('La razón de la cita debe tener al menos 10 caracteres');
+      return;
+    }
+    if(!selectedPaciente){
+      setError('Selecciona un paciente');
+      return;
+    }
+    
+
     try {
       // Aquí puedes realizar una llamada a tu backend para registrar la cita
       console.log('Cita registrada:', citaData);
