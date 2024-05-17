@@ -94,7 +94,7 @@ const RegistroCita = () => {
       setShowSuccessMessage(true);
       setTimeout(() => {
         setShowSuccessMessage(false);
-       //window.location.href = '/citas';
+       window.location.href = '/citas';
       }, 3000);
     } catch (error) {
       console.error('Error al registrar la cita:', error);

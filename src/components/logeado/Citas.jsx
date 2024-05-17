@@ -95,8 +95,9 @@ const Citas = () => {
   const addCita = () => {
     window.location.href = `/regCita/${asistente}`;
   };
-  const ModificarCita =(historialId)=>{
-    window.location.href=`/actualizarCita/${historialId}`;
+  const modificarCita =(citaId)=>{
+    console.log('Id de cita: ', citaId)
+    window.location.href=`/actualizarCita/${citaId}`;
   };
   return (
     <motion.div 
@@ -160,8 +161,8 @@ const Citas = () => {
                   <p className="text-gray-600">{`Fecha de la cita: ${cita.fecha}`}</p>
                   <p className="text-gray-600">{`Hora: ${cita.hora}`}</p>
                   
-                  <button className="btn3" onClick={() => ModificarCita()}>
-                    Modificar
+                  <button className="btn3" onClick={() => modificarCita(cita.citaId)}>
+                    Modificar 
                   </button>
                 </div>
               </div>

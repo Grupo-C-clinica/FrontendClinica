@@ -39,18 +39,40 @@ const RegistroCita = () => {
   const [fecha, setFecha] = useState('');
   const [razon, setRazon] = useState('');
   const [estatus, setEstatus] = useState(false); // Estado de la cita
-  const {updateCita} = useCitasStore();
+  const {updateCita, citaById} = useCitasStore();
   const {allPacientes, pacientes} = usePacientesStore();
+  const [selectedPaciente, setSelectedPaciente] = useState(null);
   const {idCita} = useParams();
 
-  seEffect(() => {
+  useEffect(() => {
     allPacientes('');
   }, [allPacientes]);
+
+  useEffect(() => {
+    if(idCita){
+      const getCitas = async () => {
+        try{
+          const cita = await citaById(idCita);
+          setTipoCita(cita.tipoCita);
+          setHorario(cita.idHorario);
+          setPaciente(cita.paciente);
+          setAsistente(cita.idAsistenteP);
+          setFecha(cita.fecha);
+          setHora(cita.hora);
+          setRazon(cita.razon);
+          setEstatus(cita.status);
+        }catch{
+          console.error('Error al obtener a la cita', error);
+        }
+      };
+      getCitas();
+    }
+  },[idCita, citaById]);
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!idAsistenteP){
+    if(!idCita){
       console.error('No se ha proporcionado citaId');
       return;
   }
@@ -87,24 +109,28 @@ const RegistroCita = () => {
   try {
      // Aquí puedes realizar una llamada a tu backend para registrar la cita
     console.log('Cita Actualizada:', citaData);
-    await updateCita()
-      // Mostrar un mensaje de éxito
-      alert('Cita registrada exitosamente');
-      // Limpiar el formulario después del registro exitoso
-      setTipoCita('');
-      setHorario('');
-      setPaciente('');
-      setAsistente('');
-      setHora('');
-      setFecha('');
-      setRazon('');
-      setEstatus(false);
-    } catch (error) {
-      console.error('Error al registrar la cita:', error);
-      // Mostrar un mensaje de error si ocurrió algún problema durante el registro
-      alert('Ocurrió un error al registrar la cita');
+    await updateCita(idCita, citaData);
+    console.log('Cita regsitrada: ', citaData);
+    setShowSuccessMessage(true);
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+     window.location.href = '/citas';
+    }, 3000);
+  } catch (error) {
+    console.error('Error al actualizar la cita:', error);
+    setError('Ocurrio un error al actualizar la cita');
     }
   };
+
+  const opcionesPacientes = pacientes.map(paciente => ({
+    value: paciente.idpaciente,
+    label: `${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}`
+  }));
+
+  const handleChangePaciente = (selectedOption) => {
+    setSelectedPaciente(selectedOption);
+  };
+
   //obtener Tipos de citas, doctor y horarios
   /*
   const [doctores, fetchDoctores] = useDoctorStore();
@@ -186,17 +212,15 @@ const RegistroCita = () => {
           {/* Paciente */}
           <div>
             <label htmlFor="paciente" className="block text-sm font-medium text-gray-700">Paciente</label>
-            <select
+            <Select
               id="paciente"
-              value={idpaciente}
-              onChange={(e) => setPaciente(e.target.value)}
+              value={selectedPaciente}
+              onChange={handleChangePaciente}
+              option={pacientes.map(paciente => ({ value: paciente.idPaciente, label: `${paciente.nombre} ${paciente.apellidoP} ${paciente.apellidoM}` }))}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            >
-              <option value="">Selecciona un paciente</option>
-              {listaPacientes.map((paciente) => (
-                <option key={paciente.id} value={paciente.id}>{paciente.nombre}</option>
-              ))}
-            </select>
+              placeholder="Selecciona un paciente"
+              isClearable
+            />
           </div>
           
           {/* Asistente */}

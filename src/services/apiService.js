@@ -221,3 +221,12 @@ export const listaTratamientoByHistorial = async(historialId) =>{
   }
 };
 
+export const citaById = async(citaId) => {
+  try{
+    const response = await axios.get(`http://localhost:8806/api/v1/cita/${citaId}`);
+    return response.data;
+  }catch(error){
+    console.error("Error al encontrar la cita")
+  }
+}
+
