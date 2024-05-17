@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 import usePacientesStore from '../../store/pacientesStore';
 import useCitasStore from '../../store/citasStore';
+import Select from 'react-select';
 import useHorarioStore from '../../store/horarioStore';
 import { useParams } from 'react-router-dom';
+
 
 const RegistroCita = () => {
   const ListaTiposCitas=[
@@ -98,7 +100,15 @@ const RegistroCita = () => {
   const handleDoctorChange = (doctorID) => {
     fetchHorarios(doctorID);
   };*/
+   // Mapea la lista de pacientes al formato esperado por react-select
+   const opcionesPacientes = listaPacientes.map(paciente => ({
+    value: paciente.id,
+    label: paciente.nombre,
+  }));
 
+  const handleChange = selectedOption => {
+    setPaciente(selectedOption ? selectedOption.value : '');
+  };
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
@@ -171,17 +181,15 @@ const RegistroCita = () => {
           {/* Paciente */}
           <div>
             <label htmlFor="paciente" className="block text-sm font-medium text-gray-700">Paciente</label>
-            <select
+            <Select
               id="paciente"
-              value={idpaciente}
-              onChange={(e) => setPaciente(e.target.value)}
+              value={opcionesPacientes.find(option => option.value === idpaciente)}
+              onChange={handleChange}
+              options={opcionesPacientes}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            >
-              <option value="">Selecciona un paciente</option>
-              {listaPacientes.map((paciente) => (
-                <option key={paciente.id} value={paciente.id}>{paciente.nombre}</option>
-              ))}
-            </select>
+              placeholder="Selecciona un paciente"
+              isClearable
+            />
           </div>
           
           {/* Hora */}
