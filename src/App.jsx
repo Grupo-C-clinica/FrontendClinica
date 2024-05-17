@@ -1,32 +1,32 @@
-import './App.css';
-import Home from './components/HomeA';
-import Informacion from './components/Informacion';
-import Navbar from './components/NavbarA';
-import About from './components/About';
-import Princing from './components/Pricing';
-import Newsletter from './components/Newsletter';
-import Fotter from './components/Fotter';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import Pacientes from './components/Pacientes'; 
-import Alergias from './components/Alergias';
-import RegistroPacientes from './components/Doctor/Formulario';
-import Contacts from './components/Contacts/contacts';
-import Wrapper from './components/ContenedorGlobal/Contenedor';
-import Referencias from './components/Referencias';
-import Reviews from './components/Reviews';
-import NavbarL from './components/logeado/Navbarlogeado';
-import Login from './components/logeado/Login';
-import HistorialClinico from './components/Historial';
-import ListaHistorialesClinicos from './components/listaHistorial';
-import ModificarPaciente from './components/Doctor/ModificarPaciente';
-import Citas from './components/logeado/Citas';
-import RegHistorial from './components/logeado/RegHistorial';
-import HistorialMultimedia from './components/logeado/HistorialMultimedia';
-import RegTratamiento from './components/logeado/RegTratamiento';
-import RegistrarCita from './components/logeado/RegCitas';
-import Registromultimedia from './components/logeado/Registromultimedia';
-import Multimedia from './components/Historial';
 
+import './App.css'
+import Home from './components/HomeA'
+import Informacion from './components/Informacion'
+import Navbar from './components/NavbarA'
+import About from './components/About'
+import Princing from './components/Pricing'
+import Newsletter from './components/Newsletter'
+import Fotter from './components/Fotter'
+import { Routes, Route, useLocation } from 'react-router-dom';// Importa Routes y Route
+import Pacientes from './components/Pacientes'; 
+import Alergias from './components/Alergias'
+import RegistroPacientes from './components/Doctor/Formulario'
+import Contacts from './components/Contacts/contacts'
+import Wrapper from './components/ContenedorGlobal/Contenedor'
+import Referencias from './components/Referencias'
+import Reviews from './components/Reviews'
+import NavbarL from './components/logeado/Navbarlogeado'
+import Login from './components/logeado/Login'
+import HistorialClinico from './components/Historial'
+import ListaHistorialesClinicos from './components/listaHistorial'
+import ModificarPaciente from './components/Doctor/ModificarPaciente'
+import Citas from './components/logeado/Citas'
+import RegHistorial from './components/logeado/RegHistorial'
+import HistorialMultimedia from './components/logeado/HistorialMultimedia'
+import RegTratamiento from './components/logeado/RegTratamiento'
+import RegistrarCita from './components/logeado/RegCitas'
+import Registromultimedia from './components/logeado/Registromultimedia'
+import Multimedia from './components/Historial'
 function App() {
   // Asumo que isLoggedIn se determinará por algún método de autenticación real
   const isLoggedIn = true;
@@ -38,6 +38,7 @@ function App() {
 
   return (
     <>
+    
       {showNavbar && (isLoggedIn ? <NavbarL /> : <Navbar />)}
       <Routes>
         <Route path="/" element={<>
@@ -58,11 +59,13 @@ function App() {
         <Route path="/historialMultimedia" element={<HistorialMultimedia />} />
         <Route path="/multimedia/:idHistorial" element={<Multimedia />} />
         <Route path="/regTratamiento/:historialClinicoId" element={<RegTratamiento />} />
-        <Route path="/regCita/:idAsistenteP" element={<RegistrarCita />} />
-        <Route path='/actualizarCita/:idCita' element={<RegistrarCita />} />
+        {/*Registrar cita */}
+        <Route path="/regCita/:idAsistenteP" element={<RegistrarCita/>} />
+        <Route path='/actualizarCita/:idCita' element={<RegistrarCita/>} />
         <Route path="*" element={<div>404</div>} />
+        {/* Aquí puedes agregar más rutas según sea necesario */}
       </Routes>
-      {showFooter && <Fotter />}
+      {showFooter && <Fotter/>}
     </>
   );
 }
