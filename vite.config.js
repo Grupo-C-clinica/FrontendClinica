@@ -1,11 +1,10 @@
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/FrontendClinica/', // Cambia esto a tu repositorio
+  base: '/FrontendClinica/', // Asegúrate de que esto coincide con el nombre de tu repositorio
   plugins: [react()],
   build: {
-    outDir: 'dist' // Cambia esto si tu directorio de salida es diferente
+    outDir: 'dist', // Asegúrate de que el directorio de salida es correcto
   }
 });
