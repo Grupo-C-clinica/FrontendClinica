@@ -12,3 +12,15 @@ export const fetchMultimedia = async (historialId) => {
     return [];
   }
 };
+
+export const createMultimedia = async (historialId, formData) => {
+  try {
+    await axios.post(`${API_URL}/create/${historialId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } catch (error) {
+    console.error('Error creating multimedia:', error);
+  }
+};

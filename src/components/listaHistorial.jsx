@@ -31,12 +31,12 @@ const ListaHistorialesClinicos = () => {
     window.location.href = `/regHistorial/${idPaciente}`;
   };
 
-  const goToHistorial2 = (historialId) => {
-    window.location.href = `/multimedia/${historialId}`;
+  const goToHistorial2 = (idHistorial) => {
+    window.location.href = `/multimedia/${idHistorial}`;
   };
 
-  const addTreatment = (historialId) => {
-    window.location.href = `/regTratamiento/${historialId}`;
+  const addTreatment = (idHistorial) => {
+    window.location.href = `/regTratamiento/${idHistorial}`;
   };
 
   return (

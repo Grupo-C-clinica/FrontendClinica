@@ -6,17 +6,17 @@ import useMultimediaStore from '../store/multimediaStore';
 import { useParams } from 'react-router-dom';
 
 const ListaImagenes = () => {
-  const { idPaciente } = useParams();
+  const { idHistorial } = useParams(); // Cambiado a historialId
   const { multimedia, fetchMultimedia } = useMultimediaStore();
   const [update, setUpdate] = useState(false);
-
+  
   useEffect(() => {
-    if (idPaciente) {
-      fetchMultimedia(idPaciente).then(() => {
+    if (idHistorial) {
+      fetchMultimedia(idHistorial).then(() => {
         setUpdate(true); // Cambia el estado para forzar la renderización
       });
     }
-  }, [idPaciente, fetchMultimedia]);
+  }, [idHistorial, fetchMultimedia]); // Cambiado a historialId
 
   useEffect(() => {
     if (update) {
@@ -26,7 +26,7 @@ const ListaImagenes = () => {
   }, [update, multimedia]);
 
   const goToAddImage = () => {
-    window.location.href = `/regImagen/${idPaciente}`;
+    window.location.href = `/regmultimedia/${idHistorial}`; // Cambiado a historialId
   };
 
   const arrayBufferToBase64 = (buffer) => {
