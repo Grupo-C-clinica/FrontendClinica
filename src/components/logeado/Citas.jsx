@@ -43,6 +43,7 @@ const Citas = () => {
 );
 
 
+
   /*const handleSearchByName = () => {
     fetchCitasByName(busqueda.toLowerCase());
   };*/
@@ -89,7 +90,7 @@ const Citas = () => {
     return paginas;
   };*/
 
-  const citasSeguras = citas || [];
+  const citasActivas = citas.filter(cita => cita.estado === true);
   //Asistente sera estatico sin sesion iniciada sino por parametro habria que pasar el id del asistente
   const asistente = '1';
   const addCita = () => {
