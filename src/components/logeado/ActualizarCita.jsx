@@ -4,8 +4,10 @@ import { fadeIn } from '../../variants';
 import usePacientesStore from '../../store/pacientesStore';
 import useCitasStore from '../../store/citasStore';
 import useHorarioStore from '../../store/horarioStore';
+import { error } from 'pdf-lib';
+import { useParams } from 'react-router-dom';
 
-const RegistroCita = (idAsistenteP) => {
+const RegistroCita = () => {
   // Estados para almacenar los datos del formulario
   const ListaTiposCitas=[
     {id:1, nombre:'Consulta'},
@@ -23,40 +25,51 @@ const RegistroCita = (idAsistenteP) => {
     {id:3, hora:'10:00'}
   ];
   const listaPacientes=[
-    {id:1, nombre:'Juan Pérez'},
-    {id:2, nombre:'María González'},
-    {id:3, nombre:'José López'}
   ];
+
+  const idAsistenteP = 27
   const [iddoctor, setDoctor] = useState('');
-
-
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [idtipoCita, setTipoCita] = useState('');
   const [idhorario, setHorario] = useState('');
   const [idpaciente, setPaciente] = useState('');
   const [idasistente, setAsistente] = useState('');
-
+  const [error, setError] = useState('');
   const [hora, setHora] = useState('');
   const [fecha, setFecha] = useState('');
   const [razon, setRazon] = useState('');
   const [estatus, setEstatus] = useState(false); // Estado de la cita
+  const {updateCita} = useCitasStore();
+  const {allPacientes, pacientes} = usePacientesStore();
+  const {idCita} = useParams();
+
+  seEffect(() => {
+    allPacientes('');
+  }, [allPacientes]);
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Construir el objeto de datos de la cita
-    const citaData = {
-      idtipoCita,
-      idhorario,
-      idpaciente,
-      idasistente,
-      hora,
-      fecha,
-      razon,
-      estatus,
-    };
-    try {
-      // Aquí puedes realizar una llamada a tu backend para registrar la cita
-      console.log('Cita registrada:', citaData);
+    if(!idAsistenteP){
+      console.error('No se ha proporcionado citaId');
+      return;
+  }
+  const formattedHora = `${hora}:00`;
+  const idPacienteSeleccionado = selectedPaciente ? selectedPaciente.value : '';
+  const citaData = {
+    idTipoCita: idtipoCita,
+      idHorario: idhorario,
+      idPaciente: idPacienteSeleccionado,
+      idAsistente: idAsistenteP,
+      fecha: fecha,
+      hora: formattedHora ,
+      razon: razon,
+      status: estatus,
+  };
+  try {
+     // Aquí puedes realizar una llamada a tu backend para registrar la cita
+    console.log('Cita Actualizada:', citaData);
+    await updateCita()
       // Mostrar un mensaje de éxito
       alert('Cita registrada exitosamente');
       // Limpiar el formulario después del registro exitoso

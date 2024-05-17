@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { fetchCitasByFecha, addCita } from '../services/apiService';
+import { fetchCitasByFecha, addCita, updateCita } from '../services/apiService';
 
 const useCitasStore = create((set) => ({
   citas: [],
@@ -29,6 +29,16 @@ const useCitasStore = create((set) => ({
 
 
   },
+
+  updateCita: async (idCita, citaData) => {
+    try{
+      const result = await updateCita(idCita, citaData);
+      alert(result.message);
+    }catch (error) {
+      console.error('Error al actualizar cita:', error);
+      alert('Error al actualizar cita');
+    }
+  }
 
 }));
 

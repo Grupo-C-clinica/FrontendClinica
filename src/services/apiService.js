@@ -137,7 +137,17 @@ export const updatePaciente = async (idPaciente, pacienteData) => {
   }
 };
 
-
+export const updateCita = async(idCita, citaData) => {
+  console.log("Datos enviados para actualizar: ", citaData);
+  try{
+    const response = await axios.put(`http://localhost:8806/api/v1/cita/modificar/${idCita}`);
+    console.log("Respuesta de actualización:", response.data);
+    return response.data;
+  }catch (error) {
+    console.error('Error updating cita:', error.response ? error.response.data : error);
+    throw error;
+  }
+};
 
 export const fetchCitasByFecha = async (fecha) => {
   try{
