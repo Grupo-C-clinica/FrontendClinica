@@ -91,7 +91,7 @@ const RegistroUsuarios = () => {
       initial='hidden'
       whileInView={'show'}
       viewport={{ once: false, amount: 0.7 }}
-      className="container mx-auto mt-32"
+      className="container mx-auto mt-32 mb-10"
     >
       <div className="bg-white shadow-xl rounded-lg p-6 max-w-md mx-auto">
         <h2 className="text-center text-3xl font-extrabold mb-4 text-primary">Registro de Usuarios</h2>

@@ -28,9 +28,10 @@ import ActualizarCita from './components/logeado/ActualizarCita'
 import Registromultimedia from './components/logeado/Registromultimedia'
 import Multimedia from './components/Historial'
 
-
+import NavbarL from './components/logeado/Navbarlogeado'
 import RegistroUsuarios from './components/admin/registroUser'
-import NavbarL from './components/admin/navbarAdmin'
+import NavbarL2 from './components/admin/navbarAdmin'
+import ListaUsers from './components/admin/ListaUser'
 
 function App() {
   // Asumo que isLoggedIn se determinará por algún método de autenticación real
@@ -43,7 +44,7 @@ function App() {
 
   return (
     <>
-      {showNavbar && (isLoggedIn ? <NavbarL /> : <Navbar />)}
+      {showNavbar && (isLoggedIn ? <NavbarL2 /> : <Navbar />)}
       <Routes>
         <Route path="/" element={<>
           <Home/><Informacion/><About/><Princing/><Newsletter/><Reviews/>
@@ -70,6 +71,7 @@ function App() {
         {/* Aquí puedes agregar más rutas según sea necesario */}
         {/* Rutas de administrador */}
         <Route path="/registroUsuarios" element={<RegistroUsuarios />} />
+        <Route path="/listaUsuarios" element={<ListaUsers />} />
       </Routes>
       {showFooter && <Fotter/>}
     </>

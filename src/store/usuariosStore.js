@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { fetchUsuarios, createUsuario } from '../services/usuarioService';
+import { fetchUsuarios, createUsuario, changeUsuarioStatus } from '../services/usuarioService';
 
 const useUsuariosStore = create((set) => ({
   usuarios: [],
@@ -9,6 +9,11 @@ const useUsuariosStore = create((set) => ({
   },
   createUsuario: async (usuarioData) => {
     await createUsuario(usuarioData);
+    const usuarios = await fetchUsuarios();
+    set({ usuarios });
+  },
+  changeStatus: async (userId, status, ) => {
+    await changeUsuarioStatus(userId, status, );
     const usuarios = await fetchUsuarios();
     set({ usuarios });
   },
