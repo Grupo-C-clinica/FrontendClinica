@@ -14,7 +14,7 @@ import Contacts from './components/Contacts/contacts'
 import Wrapper from './components/ContenedorGlobal/Contenedor'
 import Referencias from './components/Referencias'
 import Reviews from './components/Reviews'
-import NavbarL from './components/logeado/Navbarlogeado'
+
 import Login from './components/logeado/Login'
 import HistorialClinico from './components/Historial'
 import ListaHistorialesClinicos from './components/listaHistorial'
@@ -30,7 +30,7 @@ import Multimedia from './components/Historial'
 
 
 import RegistroUsuarios from './components/admin/registroUser'
-import NavbarAdmin from './components/admin/navbarAdmin'
+import NavbarL from './components/admin/navbarAdmin'
 
 function App() {
   // Asumo que isLoggedIn se determinará por algún método de autenticación real
@@ -68,6 +68,8 @@ function App() {
         <Route path='/actualizarCita/:idCita' element={<ActualizarCita/>} />
         <Route path="*" element={<div>404</div>} />
         {/* Aquí puedes agregar más rutas según sea necesario */}
+        {/* Rutas de administrador */}
+        <Route path="/registroUsuarios" element={<RegistroUsuarios />} />
       </Routes>
       {showFooter && <Fotter/>}
     </>

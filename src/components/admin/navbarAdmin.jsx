@@ -26,7 +26,7 @@ const Navbar = () => {
 
   
   */ },
-    {link: "Registrar nuevo Usuario", path: "/registroPacientes"},
+    {link: "Registrar nuevo Usuario", path: "/registroUsuarios"},
     {link: "Lista de Usuarios", path: "/pacientes"},
     
   ];
