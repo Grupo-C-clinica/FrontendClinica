@@ -26,10 +26,9 @@ const Navbar = () => {
 
   
   */ },
-    {link: "Registrar nuevo paciente", path: "/registroPacientes"},
-    {link: "Lista Pacientes", path: "/pacientes"},
+    {link: "Registrar nuevo Usuario", path: "/registroPacientes"},
+    {link: "Lista de Usuarios", path: "/pacientes"},
     
-    {link: "Citas", path: "/citas"},
   ];
 
   const toggleProfileMenu = () => {
@@ -37,19 +36,19 @@ const Navbar = () => {
   };
   const handleLogout = () => {
     
-    window.location.href = `/`; // O redireccionar a la página que consideres adecuada
+    window.location.href = `/`; 
   };
 
   return (
     <>
       <nav className='bg-white md:px-14 p-4 max-w-screen-2xl border-b mx-auto text-primary fixed top-0 right-0 left-0 z-10'>
         <div className='text-lg container mx-auto flex justify-between items-center font-medium'>
-          <div className='flex space-x-14 items-center'>
+          <div className='flex space-x-8 items-center'>
             <a href="/" className='text-2xl font-semibold flex items-center space-x-3 text-primary'>
               <img src={logo} alt="UCB Logo" className='w-10 inline-block items-center'/>
               <span>Clinica Otorrinolaringologo</span>
             </a>
-            <ul className="md:flex space-x-12 hidden">
+            <ul className="md:flex space-x-8 hidden">
               {navItems.map(({link, path}) => (
                 <a href={path} key={link} className='block hover:text-gray-300 cursor-pointer'>{link}</a>
               ))}

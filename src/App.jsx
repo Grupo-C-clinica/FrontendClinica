@@ -27,6 +27,11 @@ import RegistrarCita from './components/logeado/RegCitas'
 import ActualizarCita from './components/logeado/ActualizarCita'
 import Registromultimedia from './components/logeado/Registromultimedia'
 import Multimedia from './components/Historial'
+
+
+import RegistroUsuarios from './components/admin/registroUser'
+import NavbarAdmin from './components/admin/navbarAdmin'
+
 function App() {
   // Asumo que isLoggedIn se determinará por algún método de autenticación real
   const isLoggedIn = true;
