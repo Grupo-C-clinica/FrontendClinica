@@ -1,13 +1,15 @@
 import axios from 'axios';
 import {  } from 'pdf-lib';
 
-const API_URL = 'http://localhost:8090/api/v1';
-//const API_URL1 = 'http://localhost:8006/api/v1';
+//const API_URL = 'https://bountiful-clarity-production.up.railway.app/api/v1';
+const API_URL = 'http://localhost:8805/api/v1';
+
 
 export const fetchPacientesPaginated = async (page, pageSize) => {
   const params = { page, size: pageSize };
   console.log("Sending params:", params);  // Agrega esta línea para ver qué estás enviando
   try {
+    //const response = await axios.get(`${API_URL2}/paciente/all`, { params });
     const response = await axios.get(`${API_URL}/paciente/all`, { params });
     console.log("Received data:", response.data);  // Ver la respuesta completa
     return response.data;
@@ -124,7 +126,6 @@ export const listHistorialByPaciente = async (idPaciente) =>{
       throw error;
     }
 };*/
-
 export const updatePaciente = async (idPaciente, pacienteData) => {
   console.log("Datos enviados para actualizar:", pacienteData);
   try {
@@ -137,11 +138,10 @@ export const updatePaciente = async (idPaciente, pacienteData) => {
   }
 };
 
-
-export const updateCita = async(idCita, citaData) => {
+export const updateCita = async (idCita, citaData) => {
   console.log("Datos enviados para actualizar: ", citaData);
   try {
-    const response = await axios.put(`http://localhost:8806/api/v1/cita/modificar/${idCita}`, citaData);
+    const response = await axios.put(`${API_URL}/cita/modificar/${idCita}`, citaData);
     console.log("Respuesta de actualización:", response.data);
     return response.data;
   } catch (error) {
@@ -150,20 +150,19 @@ export const updateCita = async(idCita, citaData) => {
   }
 };
 
-
 export const fetchCitasByFecha = async (fecha) => {
-  try{
-    const response = await axios.get(`http://localhost:8806/api/v1/cita/all/${fecha}`);
+  try {
+    const response = await axios.get(`${API_URL}/cita/all/${fecha}`);
     return response.data;
-  }catch (error) {
+  } catch (error) {
     console.error("Error fetching citas by fecha", error);
     throw error;
   }
-}
+};
 
 export const addCita = async (asistenteId, citaData) => {
   try {
-    const response = await axios.post(`http://localhost:8806/api/v1/cita/create/${asistenteId}`, citaData);
+    const response = await axios.post(`${API_URL}/cita/create/${asistenteId}`, citaData);
     return response.data;
   } catch (error) {
     console.error('Error adding cita:', error);
@@ -173,9 +172,9 @@ export const addCita = async (asistenteId, citaData) => {
 
 export const fetchHistorialByPaciente = async (idPaciente) => {
   try {
-    const response = await axios.get(`http://localhost:8805/api/v1/historial/paciente/${idPaciente}`);
-    console.log('Received data:', response.data);  // This should log the actual response object
-    return response.data;  // Make sure this matches the actual data structure
+    const response = await axios.get(`${API_URL}/historial/paciente/${idPaciente}`);
+    console.log('Received data:', response.data);  
+    return response.data;  
   } catch (error) {
     console.error('Error fetching historial by paciente:', error);
     throw error;
@@ -183,18 +182,19 @@ export const fetchHistorialByPaciente = async (idPaciente) => {
 };
 
 export const addHistorialToPaciente = async (idPaciente, historialData) => {
-  console.log('API sending historialData:', historialData); // Debug: confirmar datos antes de la solicitud
+  console.log('API sending historialData:', historialData); 
   try {
-    const response = await axios.post(`http://localhost:8805/api/v1/historial/agregar/${idPaciente}`, historialData);
+    const response = await axios.post(`${API_URL}/historial/agregar/${idPaciente}`, historialData);
     return response.data;
   } catch (error) {
     console.error('Error al agregar historial:', error);
     throw error;
   }
 };
+
 export const createMultimediaForHistorial = async (historialId, multimediaData) => {
   try {
-    const response = await axios.post(`http://localhost:8805/api/v1/multimedia/create/${historialId}`, multimediaData);
+    const response = await axios.post(`${API_URL}/multimedia/create/${historialId}`, multimediaData);
     return response.data;
   } catch (error) {
     console.error('Error al crear multimedia:', error);
@@ -202,34 +202,33 @@ export const createMultimediaForHistorial = async (historialId, multimediaData) 
   }
 };
 
-export const addTratamiento = async(tratamientoData, historialId) => {
+export const addTratamiento = async (tratamientoData, historialId) => {
   console.log ('API sending TratamientoData', tratamientoData);
-  try{
-    const response = await axios.post(`http://localhost:8805/api/v1/tratamiento/agregar/${historialId}`, tratamientoData);
+  try {
+    const response = await axios.post(`${API_URL}/tratamiento/agregar/${historialId}`, tratamientoData);
     return response.data;
-  }catch(error){
+  } catch (error) {
     console.error("Error al crear un tratamiento", error);
     throw error;
   }
 };
 
-export const listaTratamientoByHistorial = async(historialId) =>{
-  try{
-    const response = await axios.get(`http://localhost:8805/api/v1/tratamiento/historial/${historialId}`);
+export const listaTratamientoByHistorial = async (historialId) => {
+  try {
+    const response = await axios.get(`${API_URL}/tratamiento/historial/${historialId}`);
     return response.data;
-  }catch(error){
+  } catch (error) {
     console.error("Error en la lista de tratamientos por historiales" , error);
     throw error;
   }
 };
 
-export const citaById = async(citaId) => {
-  try{
-    const response = await axios.get(`http://localhost:8806/api/v1/cita/${citaId}`);
+export const citaById = async (citaId) => {
+  try {
+    const response = await axios.get(`${API_URL}/cita/${citaId}`);
     return response.data;
-  }catch(error){
-    console.error("Error al encontrar la cita")
+  } catch (error) {
+    console.error("Error al encontrar la cita");
     throw error;
   }
-}
-
+};

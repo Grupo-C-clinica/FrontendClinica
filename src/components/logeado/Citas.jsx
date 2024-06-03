@@ -90,7 +90,7 @@ const Citas = () => {
     return paginas;
   };*/
 
-  const citasActivas = citas.filter(cita => cita.estado === true);
+  const citasSeguras = citas || [];
   //Asistente sera estatico sin sesion iniciada sino por parametro habria que pasar el id del asistente
   const asistente = '1';
   const addCita = () => {

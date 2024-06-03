@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8805/api/v1/multimedia';
+//const API_URL = 'https://bountiful-clarity-production.up.railway.app/api/v1';
 
 export const fetchMultimedia = async (idHistorial) => {
   try {
