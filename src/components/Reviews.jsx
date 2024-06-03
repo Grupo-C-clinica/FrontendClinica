@@ -48,7 +48,8 @@ const reviews = [
 
 const Reviews = () => {
   return (
-    <div className="md:px-14 p-4 max-w-s mx-auto py-10" id='precios'>
+  <div className="bg-white p-3 relative">
+    <div className="md:px-14 p-4 max-w-s mx-auto py-10 no-background"  id='precios'>
       <div className="text-center">
           <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Nuestras Reseñas</h2>
           <p className="text-tartiary md:w-1/3 mx-auto px-4">Mira lo que nuestros pacientes tienen que decir sobre nosotros.
@@ -77,6 +78,10 @@ const Reviews = () => {
     </div>
 
   </div>
+  
+  </div>
+
+    
   );
 };
 

@@ -1,4 +1,4 @@
-import {  useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 import useUsuariosStore from '../../store/usuariosStore';
@@ -34,8 +34,9 @@ const Usuarios = () => {
                     <span className="col-span-2 font-bold">Apellido Paterno</span>
                     <span className="col-span-2 font-bold">Apellido Materno</span>
                     <span className="col-span-2 font-bold">Correo</span>
+                    <span className="col-span-1 font-bold text-center">Rol</span>
                     <span className="col-span-2 font-bold text-center">Estado</span>
-                    <span className="col-span-2 font-bold text-center">Teléfono</span>
+                    <span className="col-span-1 font-bold text-center">Teléfono</span>
                     <span className="col-span-1 font-bold text-right">Acciones</span>
                 </li>
                 {usuarios.map(usuario => (
@@ -45,10 +46,11 @@ const Usuarios = () => {
                             <span className="col-span-2">{usuario.apellidoP}</span>
                             <span className="col-span-2">{usuario.apellidoM}</span>
                             <span className="col-span-2">{usuario.correo}</span>
+                            <span className="col-span-1 text-center">{usuario.rol}</span>
                             <span className={`col-span-2 text-center ${usuario.status ? 'text-green-500' : 'text-red-500'}`}>
                                 {usuario.status ? 'Activo' : 'Inactivo'}
                             </span>
-                            <span className="col-span-2 text-center">{usuario.telefono}</span>
+                            <span className="col-span-1 text-center">{usuario.telefono}</span>
                             <div className="col-span-1 flex justify-end space-x-2">
                                 <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => handleStatusChange(usuario)}>
                                     {usuario.status ? 'Eliminar' : 'Alta'}

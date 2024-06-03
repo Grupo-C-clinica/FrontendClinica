@@ -11,7 +11,8 @@ const Princing = () => {
         {name:"Consulta Postquirúrgico",monthlyPrice: 100, yearlyPrice: 100, description: "Atención enfocada en su recuperación después de la cirugía, con seguimiento personalizado para monitorear su progreso y adaptar el tratamiento a la evolución de su salud."},
     ]
     return (
-        <div className="md:px-14 p-4 max-w-s mx-auto py-10" id='precios'>
+        <div className="bg-white p-3 relative">
+            <div className="md:px-14 p-4 max-w-s mx-auto py-10 " id='precios'>
             {/*toggle*/ }
             <div className="text-center">
                 <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Nuestros servicios</h2>
@@ -51,6 +52,7 @@ const Princing = () => {
                 }
             </motion.div>
 
+        </div>
         </div>
     );
 };

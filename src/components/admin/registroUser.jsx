@@ -14,11 +14,13 @@ const RegistroUsuarios = () => {
   const [ci, setCi] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [rol, setRol] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const generos = ["Masculino", "Femenino"];
+  const roles = ["Doctor", "Secretaria"];
 
-  const { addUsuario } = useUsuariosStore();
+  const { createUsuario } = useUsuariosStore();
 
   const handleFechaNacimientoChange = (e) => {
     const selectedDate = new Date(e.target.value);
@@ -45,13 +47,14 @@ const RegistroUsuarios = () => {
       ci,
       username,
       password,
+      rol,
     };
 
     const regexNombre = /^[a-zA-Z\s]*$/;
     const regexTelefono = /^(\+591\s)?[67]\d{7}$/;
     const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!nombre || !apellidoP || !apellidoM || !fechaNacimiento || !genero || !correo || !telefono || !ci || !username || !password) {
+    if (!nombre || !apellidoP || !apellidoM || !fechaNacimiento || !genero || !correo || !telefono || !ci || !username || !password || !rol) {
       alert('Por favor, llena todos los campos');
       return;
     }
@@ -69,7 +72,7 @@ const RegistroUsuarios = () => {
     }
 
     try {
-      await addUsuario(usuarioData);
+      await createUsuario(usuarioData);
       alert('Usuario registrado con éxito');
     } catch (error) {
       console.error('Error al registrar usuario:', error);
@@ -149,6 +152,20 @@ const RegistroUsuarios = () => {
                 <option value="">Seleccione un género</option>
                 {generos.map((gen) => (
                   <option key={gen} value={gen}>{gen}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="rol" className="block text-sm font-medium text-gray-700">Rol</label>
+              <select
+                id="rol"
+                value={rol}
+                onChange={(e) => setRol(e.target.value)}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              >
+                <option value="">Seleccione un rol</option>
+                {roles.map((role) => (
+                  <option key={role} value={role}>{role}</option>
                 ))}
               </select>
             </div>

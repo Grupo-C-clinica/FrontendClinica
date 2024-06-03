@@ -5,7 +5,8 @@ import {fadeIn } from '../variants';
 const About = () => {
     
     return (
-        <div className="md:px-14 p-4 max-w-s mx-auto space-y-10" id="informacion">
+        <div className="bg-white p-3 relative">
+            <div className="md:px-14 p-4 max-w-s mx-auto space-y-10" id="informacion">
             <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                 <motion.div 
                 variants={fadeIn('right',0.2)}
@@ -30,6 +31,7 @@ const About = () => {
                 </motion.div>
             </div>
            
+        </div>
         </div>
     );
 };

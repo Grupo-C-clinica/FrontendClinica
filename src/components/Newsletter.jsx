@@ -4,7 +4,8 @@ import doc from "../assets/doctor1.jpg";
 
 const Newsletter = () => {
   return (
-    <div className="md:px-14 p-4 max-w-screen-2xl mx-auto my-12">
+    <div className="bg-white p-3 relative">
+      <div className="md:px-14 p-4 max-w-screen-2xl mx-auto my-12">
         <Banner
 
          banner={doc} heading="Dr. Eduardo Torrelio" subheading={
@@ -16,6 +17,7 @@ const Newsletter = () => {
             
           </p>
         } />
+    </div>
     </div>
   );
 }

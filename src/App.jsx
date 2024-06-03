@@ -44,7 +44,7 @@ function App() {
 
   return (
     <>
-      {showNavbar && (isLoggedIn ? <NavbarL2 /> : <Navbar />)}
+      {showNavbar && (isLoggedIn ? <NavbarL /> : <Navbar />)}
       <Routes>
         <Route path="/" element={<>
           <Home/><Informacion/><About/><Princing/><Newsletter/><Reviews/>
