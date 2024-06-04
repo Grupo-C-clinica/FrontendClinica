@@ -32,6 +32,7 @@ import NavbarL from './components/logeado/Navbarlogeado'
 import RegistroUsuarios from './components/admin/registroUser'
 import NavbarL2 from './components/admin/navbarAdmin'
 import ListaUsers from './components/admin/ListaUser'
+import ActualizarUsuarios from './components/admin/ActualizarUser'
 
 function App() {
   // Asumo que isLoggedIn se determinará por algún método de autenticación real
@@ -72,6 +73,7 @@ function App() {
         {/* Rutas de administrador */}
         <Route path="/registroUsuarios" element={<RegistroUsuarios />} />
         <Route path="/listaUsuarios" element={<ListaUsers />} />
+        <Route path="/actualizarUsuario/:idUsuario" element={<ActualizarUsuarios />} />
       </Routes>
       {showFooter && <Fotter/>}
     </>
