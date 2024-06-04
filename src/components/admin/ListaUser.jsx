@@ -15,6 +15,10 @@ const Usuarios = () => {
             console.error('Error al cambiar estado del usuario: ', error);
         }
     };
+    const redirigirEditar = (userId) => {
+        window.location.href = `/editarUsuario/${userId}`;
+    }
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -55,6 +59,10 @@ const Usuarios = () => {
                                 <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => handleStatusChange(usuario)}>
                                     {usuario.status ? 'Eliminar' : 'Alta'}
                                 </button>
+                                <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => redirigirEditar(usuario.userId)}>
+                                    Editar
+                                </button>
+
                             </div>
                         </div>
                     </li>
