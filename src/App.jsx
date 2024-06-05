@@ -119,7 +119,7 @@ function App() {
       <Route path="*" element={<div>404</div>} />
       <Route path="/registroUsuarios" element={<RegistroUsuarios />} />
       <Route path="/listaUsuarios" element={<ListaUsers />} />
-      <Route path="/actualizarUsuario/:idUsuario" element={<ActualizarUsuarios />} />
+      <Route path="/editarUsuario/:usuarioId/:usuarioRol" element={<ActualizarUsuarios />} />
 
       {/* nuevo*/}
       <Route path="/logout" element={<><Navbar /><Home/><Informacion/><About/><Princing/><Newsletter/><Reviews/>
