@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import logo from '../../assets/logo.png';
+import useAuthStore from '../../store/useAuthStore'; 
 
 //iconos
 import { FaTimes, FaBars, FaUserCircle } from 'react-icons/fa';
@@ -8,7 +9,7 @@ const Navbar = () => {
   
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const logout = useAuthStore((state) => state.logout); 
   // Obtener los detalles del usuario al montar el componente
   useEffect(() => {
     
@@ -27,7 +28,7 @@ const Navbar = () => {
   
   */ },
     {link: "Registrar nuevo paciente", path: "/registroPacientes"},
-    {link: "Lista Pacientes", path: "/pacientes"},
+    {link: "Lista Pacientes", path: "/pacientesecre"},
     
     {link: "Citas", path: "/citas"},
   ];
@@ -36,8 +37,8 @@ const Navbar = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   };
   const handleLogout = () => {
-    
-    window.location.href = `/`; // O redireccionar a la página que consideres adecuada
+    logout(); // Llama a la función logout
+    window.location.href = '/'; // Redirige a la página principal
   };
 
   return (

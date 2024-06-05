@@ -32,7 +32,12 @@ import NavbarL2 from './components/admin/navbarAdmin';
 import ListaUsers from './components/admin/ListaUser';
 import ActualizarUsuarios from './components/admin/ActualizarUser';
 import Login from './components/Login/Login';
+
+
+//secre
 import NavbarSecre from './components/secretaria/NavbarSecre';
+import PacientesSecre from './components/secretaria/PacientesSecre';
+
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -74,7 +79,7 @@ function App() {
           return <NavbarL />;
         case 'admin':
           return <NavbarL2 />;
-        case 'secretaria':
+        case 'asistente':
           return <NavbarSecre />;
         default:
           return <Navbar />;
@@ -115,6 +120,7 @@ function App() {
         <Wrapper id="contacts" heading="Contactos" textCenter="center"><Contacts/></Wrapper>
       
       </>} />
+      <Route path="/pacientesecre" element={<PacientesSecre />} />
        
     </Routes>
   );
