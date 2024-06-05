@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { Routes, Route, useLocation, HashRouter } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './components/HomeA';
 import Informacion from './components/Informacion';
 import Navbar from './components/NavbarA';
@@ -33,14 +33,16 @@ import ListaUsers from './components/admin/ListaUser';
 import ActualizarUsuarios from './components/admin/ActualizarUser';
 import Login from './components/Login/Login';
 
+
 //secre
 import NavbarSecre from './components/secretaria/NavbarSecre';
 import PacientesSecre from './components/secretaria/PacientesSecre';
 
+
 //admin
 import RegistroUsuarios from './components/admin/registroUser';
 
-import ListaTratamientos from './components/logeado/listaTratamientos';
+import ListaTratamientos from './components/logeado/listaTratamientos'
 import Recuperar from './components/Login/recuperar';
 
 function App() {
@@ -132,11 +134,11 @@ function App() {
   );
 
   return (
-    <HashRouter>
+    <>
       {renderNavbar()}
       {renderRoutes()}
       {location.pathname !== '/login' && <Fotter />}
-    </HashRouter>
+    </>
   );
 }
 
