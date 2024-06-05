@@ -78,7 +78,7 @@ const Navbar = () => {
           <a href={path} key={link} className='block hover:text-gray-300 text-primary mb-4' onClick={togglerMenu}>{link}</a>
         ))}
         <div className=''>
-          <a href="/historial" className='text-primary hover:bg-gray-100 display-block'>Historial</a>
+         
           <button onClick={openLogoutModal} className='text-primary hover:bg-gray-100 display-block w-full text-left mt-2'>Cerrar sesión</button>
         </div>
       </div>
