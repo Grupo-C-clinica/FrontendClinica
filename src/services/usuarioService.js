@@ -5,10 +5,10 @@ import axios from 'axios';
 const API_URL = 'https://bountiful-clarity-production.up.railway.app/api/v1';
 export const fetchUsuarios = async (token) => {
   try {
-    const response = await axios.get(`${API_URL}/usuarios/all`, {
+    const response = await axios.get(`${API_URL}/doctor/allUsers`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
-    return response.data.data;
+    return response.data;
   } catch (error) {
     console.error('Error fetching usuarios:', error);
     return [];

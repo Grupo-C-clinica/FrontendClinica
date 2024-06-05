@@ -3,8 +3,8 @@ import { fetchUsuarios, createUsuario, changeUsuarioStatus,updateUsuario} from '
 
 const useUsuariosStore = create((set) => ({
   usuarios: [],
-  fetchUsuarios: async () => {
-    const usuarios = await fetchUsuarios();
+  fetchUsuarios: async (token) => {
+    const usuarios = await fetchUsuarios(token);
     set({ usuarios });
   },
   createUsuario: async (usuarioData) => {

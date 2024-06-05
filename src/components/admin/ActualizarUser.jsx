@@ -25,6 +25,8 @@ const ActualizarUsuario = () => {
 
   const {updateUsuario} = useUsuariosStore();
 
+  
+
   const handleFechaNacimientoChange = (e) => {
     const selectedDate = new Date(e.target.value);
     const today = new Date();
