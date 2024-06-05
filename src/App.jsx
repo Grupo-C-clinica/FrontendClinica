@@ -33,6 +33,7 @@ import RegistroUsuarios from './components/admin/registroUser'
 import NavbarL2 from './components/admin/navbarAdmin'
 import ListaUsers from './components/admin/ListaUser'
 import ActualizarUsuarios from './components/admin/ActualizarUser'
+import ListaTratamientos from './components/logeado/listaTratamientos'
 
 //login
 import Login from './components/Login/Login'
@@ -78,6 +79,7 @@ function App() {
         <Route path="/registroUsuarios" element={<RegistroUsuarios />} />
         <Route path="/listaUsuarios" element={<ListaUsers />} />
         <Route path="/actualizarUsuario/:usuarioId/:usuarioRol" element={<ActualizarUsuarios />} />
+        <Route path="/listaTratamiento/:idHistorial" element={<ListaTratamientos />} />
       </Routes>
       {showFooter && <Fotter/>}
     </>

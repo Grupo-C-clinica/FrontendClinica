@@ -12,7 +12,7 @@ const ListaAlergias = () => {
 
   useEffect(() => {
     if (idPaciente) {
-      fetchAlergias(idPaciente).then(() => {gi
+      fetchAlergias(idPaciente).then(() => {
         setUpdate(true); // Cambia el estado para forzar la renderización
       });
     }
