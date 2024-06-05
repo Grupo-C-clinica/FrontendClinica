@@ -33,3 +33,13 @@ export const changeUsuarioStatus = async (userId, status, token) => {
     console.error('Error changing usuario status:', error);
   }
 };
+
+export const updateUsuario = async (usuarioId, usuarioData) => {
+  try{
+    const response = await axios.put(`http://localhost:8805/api/v1/doctor/${usuarioData.rol}/${usuarioId}`, usuarioData);
+    return response.data;
+  }catch (error) {
+    console.error("Error al actualizar usuario", error);
+    throw error;
+  }
+};
