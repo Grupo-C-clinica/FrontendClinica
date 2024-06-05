@@ -27,7 +27,7 @@ import ActualizarCita from './components/logeado/ActualizarCita';
 import Registromultimedia from './components/logeado/Registromultimedia';
 import Multimedia from './components/Historial';
 import NavbarL from './components/logeado/Navbarlogeado';
-import RegistroUsuarios from './components/admin/registroUser';
+
 import NavbarL2 from './components/admin/navbarAdmin';
 import ListaUsers from './components/admin/ListaUser';
 import ActualizarUsuarios from './components/admin/ActualizarUser';
@@ -39,8 +39,11 @@ import NavbarSecre from './components/secretaria/NavbarSecre';
 import PacientesSecre from './components/secretaria/PacientesSecre';
 
 
+//admin
+import RegistroUsuarios from './components/admin/registroUser';
 
 import ListaTratamientos from './components/logeado/listaTratamientos'
+import Recuperar from './components/Login/recuperar';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -125,6 +128,7 @@ function App() {
       
       </>} />
       <Route path="/pacientesecre" element={<PacientesSecre />} />
+      <Route path="/recuperar" element={<Recuperar />} />
        
     </Routes>
   );

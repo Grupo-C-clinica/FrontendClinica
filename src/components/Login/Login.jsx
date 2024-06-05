@@ -126,11 +126,7 @@ const Login = () => {
               {' '}
               <Link to="/recuperar" className="text-indigo-600 hover:text-indigo-500 font-medium">Recuperala</Link>
             </div>
-            <div className="mt-4 text-center">
-              <span className="text-gray-700">¿Eres estudiante de la UCB y aún no tienes cuenta?</span>
-              {' '}
-              <Link to="/register" className="text-indigo-600 hover:text-indigo-500 font-medium">Regístrate</Link>
-            </div>
+            
           </div>
         </div>
       </motion.div>
