@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "home":"https://grupo-c-clinica.github.io/FrontendClinica/",
+  "homepage":"https://grupo-c-clinica.github.io/FrontendClinica/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
