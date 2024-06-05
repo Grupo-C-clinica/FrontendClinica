@@ -68,7 +68,7 @@ const Usuarios = () => {
                                         <p><strong>Teléfono:</strong> {usuario.telefono}</p>
                                     </div>
                                     <div className="flex space-x-2">
-                                        <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => redirigirEditar(usuario.id, usuario.rol)}>
+                                        <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => redirigirEditar(usuario.idUser, usuario.rol)}>
                                             Editar
                                         </button>
                                     </div>
