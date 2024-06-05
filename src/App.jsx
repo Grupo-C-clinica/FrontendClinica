@@ -39,6 +39,9 @@ import NavbarSecre from './components/secretaria/NavbarSecre';
 import PacientesSecre from './components/secretaria/PacientesSecre';
 
 
+
+import ListaTratamientos from './components/logeado/listaTratamientos'
+
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [userId, setUserId] = useState(localStorage.getItem('userId'));
@@ -107,6 +110,7 @@ function App() {
       <Route path="/historialMultimedia" element={<HistorialMultimedia />} />
       <Route path="/multimedia/:idHistorial" element={<Multimedia />} />
       <Route path="/regTratamiento/:historialClinicoId" element={<RegTratamiento />} />
+      <Route path="/listaTratamiento/:idHistorial" element={<ListaTratamientos />} />
       <Route path="/regCita/:idAsistenteP" element={<RegistrarCita/>} />
       <Route path='/actualizarCita/:idCita' element={<ActualizarCita/>} />
       <Route path="*" element={<div>404</div>} />
