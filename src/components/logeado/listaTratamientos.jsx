@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { fadeIn } from '../variants';
-import useTratamientosStore from '../store/tratamientosStore';
+import { fadeIn } from '../../variants';
+import useTratamientosStore from '../../store/tratamientoStore';
 import { useParams } from 'react-router-dom';
 
 const ListaTratamientos = () => {
     const { idHistorial } = useParams();
-    const { tratamientos, listaTratamientoByHistorial } = useTratamientoStore();
+    const { tratamientos, listaTratamientoByHistorial } = useTratamientosStore();
     const [update, setUpdate] = useState(false);
     const [sortedTratamientos, setSortedTratamientos] = useState([]);
   
@@ -26,7 +26,7 @@ const ListaTratamientos = () => {
         console.log('Tratamientos en el componente:', sorted);
       }
     }, [update, tratamientos]);
-    
+
     const goToAgregarTratamiento = () => {
         window.location.href = `/regTratamiento/${idHistorial}`;
     };
