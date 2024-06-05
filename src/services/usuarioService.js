@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8805/api/v1';
+//const API_URL = 'http://localhost:8805/api/v1';
 
-//const API_URL = 'https://bountiful-clarity-production.up.railway.app/api/v1';
+const API_URL = 'https://bountiful-clarity-production.up.railway.app/api/v1';
 export const fetchUsuarios = async (token) => {
   try {
     const response = await axios.get(`${API_URL}/usuarios/all`, {
