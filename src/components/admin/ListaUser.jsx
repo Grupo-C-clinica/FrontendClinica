@@ -59,7 +59,7 @@ const Usuarios = () => {
                                 <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => handleStatusChange(usuario)}>
                                     {usuario.status ? 'Eliminar' : 'Alta'}
                                 </button>
-                                <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => redirigirEditar(usuario.userId)}>
+                                <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => redirigirEditar(usuario.userId+","+usuario.rol)}>
                                     Editar
                                 </button>
 
