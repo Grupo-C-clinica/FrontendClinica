@@ -18,7 +18,7 @@ const RegistroUsuarios = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const generos = ["Masculino", "Femenino"];
-  const roles = ["Doctor", "Secretaria"];
+  const roles = ["Doctor", "Asistente"];
 
   const { createUsuario } = useUsuariosStore();
 
@@ -93,7 +93,6 @@ const RegistroUsuarios = () => {
       variants={fadeIn('up', 0.3)}
       initial='hidden'
       whileInView={'show'}
-      viewport={{ once: false, amount: 0.7 }}
       className="container mx-auto mt-32 mb-10"
     >
       <div className="bg-white shadow-xl rounded-lg p-6 max-w-md mx-auto">

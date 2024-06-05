@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const logout = useAuthStore((state) => state.logout); 
-
+  const name = localStorage.getItem('name');
   useEffect(() => {}, []);
 
   const togglerMenu = () => {
@@ -54,6 +54,7 @@ const Navbar = () => {
           </div>
           <div className='hidden md:block relative'>
             <button onClick={toggleProfileMenu} className='flex items-center focus:outline-none'>
+            {name && <span className='mr-6'>{name}</span>}
               <FaUserCircle className='w-8 h-8 text-primary' />
             </button>
             {isProfileMenuOpen && (

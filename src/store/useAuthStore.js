@@ -30,6 +30,7 @@ const useAuthStore = create((set) => ({
         localStorage.setItem('userId', response.data.id);
         localStorage.setItem('userRol', response.data.rol);
         localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('name', response.data.name);
         console.log("Login successful, user data stored.");
       } else {
         console.error("Login failed with response:", response); // Detailed log when login fails
