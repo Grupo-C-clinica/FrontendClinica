@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:8805/api/v1';
 //const API_URL = 'https://bountiful-clarity-production.up.railway.app/api/v1';
 export const fetchUsuarios = async (token) => {
   try {
-    const response = await axios.get(`http://localhost:8805/api/v1/doctor/allUsers`, {
+    const response = await axios.get(`${API_URL}doctor/allUsers`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     return response.data.data;
