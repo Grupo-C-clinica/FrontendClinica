@@ -49,9 +49,6 @@ const Usuarios = () => {
                 <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Gestión de Usuarios</h2>
             </div>
             
-            <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => redirigirEditar("1", "admin")}>
-                Crear Usuario
-            </button>
             <div className="bg-white shadow-xl rounded-lg p-6">
                 {usuarios && usuarios.length > 0 ? (
                     <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
