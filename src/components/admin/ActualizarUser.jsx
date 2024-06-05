@@ -23,27 +23,7 @@ const ActualizarUsuario = () => {
   const {usuarioId}=useParams();
   const {usuarioRol}=useParams();
 
-  const { getUsuarioById, updateUsuario } = useUsuariosStore();
-
-  useEffect(() => {
-    // Cargar datos del usuario existente
-    const cargarDatosUsuario = async () => {
-      console.log(usuarioId+", "+usuarioRol);
-      const usuario = await getUsuarioById(usuarioId);
-      setNombre(usuario.nombre);
-      setApellidoP(usuario.apellidoP);
-      setApellidoM(usuario.apellidoM);
-      setFechaNacimiento(usuario.fechaNacimiento);
-      setGenero(usuario.genero);
-      setCorreo(usuario.correo);
-      setTelefono(usuario.telefono);
-      setCi(usuario.ci);
-      setUsername(usuario.username);
-      setRol(usuario.rol);
-    };
-
-    cargarDatosUsuario();
-  }, [usuarioId, getUsuarioById]);
+  const {updateUsuario} = useUsuariosStore();
 
   const handleFechaNacimientoChange = (e) => {
     const selectedDate = new Date(e.target.value);
