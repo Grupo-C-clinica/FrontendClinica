@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8805/api/v1/usuarios';
+const API_URL = 'http://localhost:8805/api/v1';
+
 //const API_URL = 'https://bountiful-clarity-production.up.railway.app/api/v1';
 export const fetchUsuarios = async (token) => {
   try {
@@ -16,7 +17,8 @@ export const fetchUsuarios = async (token) => {
 
 export const createUsuario = async (usuarioData) => {
   try {
-    await axios.post(`${API_URL}/create`, usuarioData, {
+    const endpoint = `${API_URL}/auth/register/${usuarioData.rol.toLowerCase()}`;
+    await axios.post(endpoint, usuarioData, {
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
@@ -26,7 +28,7 @@ export const createUsuario = async (usuarioData) => {
 
 export const changeUsuarioStatus = async (userId, status, token) => {
   try {
-    await axios.put(`${API_URL}/change-status/${userId}`, { status }, {
+    await axios.put(`${API_URL}/usuarios//change-status/${userId}`, { status }, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
   } catch (error) {
@@ -35,11 +37,11 @@ export const changeUsuarioStatus = async (userId, status, token) => {
 };
 
 export const updateUsuario = async (usuarioId, usuarioData) => {
-  try{
-    const response = await axios.put(`http://localhost:8805/api/v1/doctor/${usuarioData.rol}/${usuarioId}`, usuarioData);
+  try {
+    const response = await axios.put(`${API_URL}/usuarios/${usuarioData.rol.toLowerCase()}/${usuarioId}`, usuarioData);
     return response.data;
-  }catch (error) {
-    console.error("Error al actualizar usuario", error);
+  } catch (error) {
+    console.error('Error al actualizar usuario', error);
     throw error;
   }
 };
