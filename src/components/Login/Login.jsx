@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import ucb from '../assets/ucb.png';
-import { motion } from 'framer-motion';
-import { fadeIn } from '../variants';
+
 import { Link } from 'react-router-dom';
-import useAuthStore from '../store/useAuthStore';
+import useAuthStore from '../../store/useAuthStore';
 import { ClipLoader } from 'react-spinners';
+import ucb from '../../assets/lo1.png';
+import { motion } from 'framer-motion'; 
+import { fadeIn } from '../../variants';
+import { useState } from 'react';
 
 const Login = () => {
   const { login, error, isLoggedIn } = useAuthStore();
@@ -24,7 +25,7 @@ const Login = () => {
     setLoading(true); // Mostrar spinner
 
     try {
-      const result = await login({ userName: username, password: password });
+      const result = await login({ usuario: username, contrasena: password });
       setLoading(false); // Ocultar spinner
 
       if (result && result.code === 200) {

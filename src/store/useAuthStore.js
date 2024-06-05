@@ -1,9 +1,9 @@
 // En store/useAuthStore.js
 import { create } from 'zustand';
-import { loginUser, registerUser,resetPassword,forgotPassword } from '../service/authService';
+import { loginUser, registerUser,resetPassword,forgotPassword } from '../services/authService';
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8805/api/v1/multimedia';
+const API_BASE_URL = 'http://localhost:8805/api/v1';
 //const API_BASE_URL = 'https://bountiful-clarity-production.up.railway.app/api/v1';
 
 const useAuthStore = create((set) => ({

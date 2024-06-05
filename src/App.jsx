@@ -15,7 +15,7 @@ import Wrapper from './components/ContenedorGlobal/Contenedor'
 import Referencias from './components/Referencias'
 import Reviews from './components/Reviews'
 
-import Login from './components/logeado/Login'
+//import Login from './components/logeado/Login'
 import HistorialClinico from './components/Historial'
 import ListaHistorialesClinicos from './components/listaHistorial'
 import ModificarPaciente from './components/Doctor/ModificarPaciente'
@@ -34,9 +34,13 @@ import NavbarL2 from './components/admin/navbarAdmin'
 import ListaUsers from './components/admin/ListaUser'
 import ActualizarUsuarios from './components/admin/ActualizarUser'
 
+//login
+import Login from './components/Login/Login'
+
+
 function App() {
   // Asumo que isLoggedIn se determinará por algún método de autenticación real
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   let location = useLocation();
 
   // Ahora incluye la comprobación para mostrar el navbar y el footer
