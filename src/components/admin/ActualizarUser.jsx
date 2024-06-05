@@ -16,11 +16,9 @@ const ActualizarUsuario = () => {
   const [ci, setCi] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [rol, setRol] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const generos = ["Masculino", "Femenino"];
-  const roles = ["Doctor", "Secretaria"];
 
   const {usuarioId}=useParams();
   const {usuarioRol}=useParams();
@@ -97,8 +95,11 @@ const ActualizarUsuario = () => {
     }
 
     try {
-      await updateUsuario(usuarioId, usuarioData);
-      alert('Usuario actualizado con éxito');
+      if(usuarioRol==="doctor"){
+        await updateUsuario(usuarioId, usuarioData);
+      }else{
+        await updateUsuario(usuarioId, usuarioData);
+      }
     } catch (error) {
       console.error('Error al actualizar usuario:', error);
       alert('Error al actualizar usuario');
@@ -177,20 +178,6 @@ const ActualizarUsuario = () => {
                 <option value="">Seleccione un género</option>
                 {generos.map((gen) => (
                   <option key={gen} value={gen}>{gen}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="rol" className="block text-sm font-medium text-gray-700">Rol</label>
-              <select
-                id="rol"
-                value={rol}
-                onChange={(e) => setRol(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              >
-                <option value="">Seleccione un rol</option>
-                {roles.map((role) => (
-                  <option key={role} value={role}>{role}</option>
                 ))}
               </select>
             </div>
