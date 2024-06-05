@@ -35,8 +35,8 @@ const ListaHistorialesClinicos = () => {
     window.location.href = `/multimedia/${idHistorial}`;
   };
 
-  const addTreatment = (idHistorial) => {
-    window.location.href = `/regTratamiento/${idHistorial}`;
+  const gotoTreatment = (idHistorial) => {
+    window.location.href = `/listaTratamiento/${idHistorial}`;
   };
 
   return (
@@ -66,7 +66,7 @@ const ListaHistorialesClinicos = () => {
                   <p className="text-justify"><strong>Observaciones:</strong> {historial.observaciones}</p>
                   <p className="text-justify"><strong>Estado:</strong> {'Activo'}</p>
                   <button onClick={() => goToHistorial2(historial.idHistorial)}>Historial multimedia</button>
-                  <button onClick={() => addTreatment(historial.idHistorial)}>Tratamientos</button>
+                  <button onClick={() => gotoTreatment(historial.idHistorial)}>Tratamientos</button>
                 </div>
               </li>
             ))}
