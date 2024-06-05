@@ -73,7 +73,7 @@ function App() {
         {/* Rutas de administrador */}
         <Route path="/registroUsuarios" element={<RegistroUsuarios />} />
         <Route path="/listaUsuarios" element={<ListaUsers />} />
-        <Route path="/actualizarUsuario/:idUsuario" element={<ActualizarUsuarios />} />
+        <Route path="/actualizarUsuario/:usuarioId/:usuarioRol" element={<ActualizarUsuarios />} />
       </Routes>
       {showFooter && <Fotter/>}
     </>
