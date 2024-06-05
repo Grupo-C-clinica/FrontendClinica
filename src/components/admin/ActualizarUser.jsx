@@ -3,7 +3,9 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 import useUsuariosStore from '../../store/usuariosStore';
 
-const ActualizarUsuario = ({ usuarioId }) => {
+import { useParams } from 'react-router-dom';
+
+const ActualizarUsuario = () => {
   const [nombre, setNombre] = useState('');
   const [apellidoP, setApellidoP] = useState('');
   const [apellidoM, setApellidoM] = useState('');
@@ -20,11 +22,15 @@ const ActualizarUsuario = ({ usuarioId }) => {
   const generos = ["Masculino", "Femenino"];
   const roles = ["Doctor", "Secretaria"];
 
+  const {usuarioId}=useParams();
+  const {usuarioRol}=useParams();
+
   const { getUsuarioById, updateUsuario } = useUsuariosStore();
 
   useEffect(() => {
     // Cargar datos del usuario existente
     const cargarDatosUsuario = async () => {
+      console.log(usuarioId+", "+usuarioRol);
       const usuario = await getUsuarioById(usuarioId);
       setNombre(usuario.nombre);
       setApellidoP(usuario.apellidoP);
