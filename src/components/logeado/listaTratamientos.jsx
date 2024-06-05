@@ -12,7 +12,7 @@ const ListaTratamientos = () => {
   
     useEffect(() => {
       if (idHistorial) {
-        listaTratamientoByHistorial(  idHistorial).then(() => {
+        listaTratamientoByHistorial(idHistorial).then(() => {
           setUpdate(true); // Cambia el estado para forzar la renderización
         });
       }
