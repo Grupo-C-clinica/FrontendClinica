@@ -16,15 +16,15 @@ const Usuarios = () => {
     const handleStatusChange = async (user) => {
         const token = localStorage.getItem('token');
         try {
-            await changeStatus(user.username, !user.status, token);
+            await changeStatus(user.id, !user.status, token);
             console.log('Estado del usuario cambiado exitosamente');
         } catch (error) {
             console.error('Error al cambiar estado del usuario: ', error);
         }
     };
 
-    const redirigirEditar = (username, userRol) => {
-        window.location.href = `/editarUsuario/${username}/${userRol}`;
+    const redirigirEditar = (userId, userRol) => {
+        window.location.href = `/editarUsuario/${userId}/${userRol}`;
     };
 
     const handleDeleteClick = (usuario) => {
@@ -68,7 +68,7 @@ const Usuarios = () => {
                                         <p><strong>Teléfono:</strong> {usuario.telefono}</p>
                                     </div>
                                     <div className="flex space-x-2">
-                                        <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => redirigirEditar(usuario.username, usuario.rol)}>
+                                        <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => redirigirEditar(usuario.id, usuario.rol)}>
                                             Editar
                                         </button>
                                     </div>
