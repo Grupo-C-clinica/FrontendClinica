@@ -21,7 +21,7 @@ const RegistroTratamiento = () => {
       return;
     }  
     const tratamientoData = {
-      constenido: contenido,
+      contenido,
       status: estatus
     };
     //Validar que el contenido no esté vacío
