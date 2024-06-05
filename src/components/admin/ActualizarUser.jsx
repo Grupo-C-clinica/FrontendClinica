@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+/*import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 import useUsuariosStore from '../../store/usuariosStore';
@@ -234,3 +234,4 @@ const ActualizarUsuario = () => {
 }
 
 export default ActualizarUsuario;
+*/
