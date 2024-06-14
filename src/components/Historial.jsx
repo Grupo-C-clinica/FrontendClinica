@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 const ListaImagenes = () => {
   const { idHistorial } = useParams();
-  const { multimedia, fetchMultimedia } = useMultimediaStore();
+  const { multimedia, fetchMultimedia, deleteMultimedia } = useMultimediaStore();
   const [update, setUpdate] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
@@ -37,11 +37,14 @@ const ListaImagenes = () => {
     setShowDialog(true);
   };
 
-  const handleConfirmDelete = () => {
-    // Aquí añadirás la lógica para eliminar la imagen
-    console.log('Deleting:', selectedMedia);
-    setShowDialog(false);
-    setSelectedMedia(null);
+  const handleConfirmDelete = async () => {
+    if (selectedMedia && selectedMedia.idMultimedia) { // Verifica que selectedMedia tiene idMultimedia
+      await deleteMultimedia(selectedMedia.idMultimedia, idHistorial);
+      setShowDialog(false);
+      setSelectedMedia(null);
+    } else {
+      console.error('No se seleccionó ningún ID válido para eliminar.');
+    }
   };
 
   const handleCancelDelete = () => {

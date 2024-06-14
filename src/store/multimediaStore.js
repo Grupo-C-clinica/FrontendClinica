@@ -1,6 +1,6 @@
 // store/multimediaStore.js
 import create from 'zustand';
-import { fetchMultimedia, createMultimedia } from '../services/multimediaService';
+import { fetchMultimedia, createMultimedia,deleteMultimedia } from '../services/multimediaService';
 
 const useMultimediaStore = create((set) => ({
   multimedia: [],
@@ -10,6 +10,11 @@ const useMultimediaStore = create((set) => ({
   },
   createMultimedia: async (idHistorial, formData) => {
     await createMultimedia(idHistorial, formData);
+    const multimedia = await fetchMultimedia(idHistorial);
+    set({ multimedia });
+  },
+  deleteMultimedia: async (idMultimedia, idHistorial) => {
+    await deleteMultimedia(idMultimedia);
     const multimedia = await fetchMultimedia(idHistorial);
     set({ multimedia });
   },

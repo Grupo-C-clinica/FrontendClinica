@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {  } from 'pdf-lib';
 
-const API_URL = 'https://bountiful-clarity-production.up.railway.app/api/v1';
-//const API_URL = 'http://localhost:8805/api/v1';
+//const API_URL = 'https://bountiful-clarity-production.up.railway.app/api/v1';
+const API_URL = 'http://localhost:8805/api/v1';
 
 
 export const fetchPacientesPaginated = async (page, pageSize) => {
