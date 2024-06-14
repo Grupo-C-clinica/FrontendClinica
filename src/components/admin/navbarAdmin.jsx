@@ -78,22 +78,21 @@ const Navbar = () => {
           <a href={path} key={link} className='block hover:text-gray-300 text-primary mb-4' onClick={togglerMenu}>{link}</a>
         ))}
         <div className=''>
-         
           <button onClick={openLogoutModal} className='text-primary hover:bg-gray-100 display-block w-full text-left mt-2'>Cerrar sesión</button>
         </div>
       </div>
 
       {isLogoutModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg p-6 w-1/3 mx-auto relative text-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-auto relative text-center">
             <h3 className="text-lg font-bold mb-4">Confirmar Cierre de Sesión</h3>
             <p>¿Estás seguro de que quieres cerrar sesión?</p>
-            <div className="mt-4 flex justify-around">
-              <button onClick={closeLogoutModal} className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 transition-colors duration-300">
+            <div className="mt-4 flex flex-col md:flex-row justify-around space-y-2 md:space-y-0 md:space-x-4">
+              <button onClick={closeLogoutModal} className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 transition-colors duration-300 w-full md:w-auto">
                 Cancelar
               </button>
-              <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors duration-300">
-                Cerrar Sesión
+              <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors duration-300 w-full md:w-auto">
+                Cerrar Sesión 
               </button>
             </div>
             <button className="absolute top-2 right-2 text-2xl font-bold" onClick={closeLogoutModal}>&times;</button>
