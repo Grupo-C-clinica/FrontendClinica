@@ -14,6 +14,9 @@ const Navbar = () => {
   const togglerMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   }
+  const goToLogin = () => {
+    window.location.href = `/login`;
+  };
   const navItems = [
     {link: "Home", path: "/", type: "scroll"},
     {link: "Servicios", path: "servicios", type: "scroll"},
@@ -68,15 +71,20 @@ const Navbar = () => {
       </div>
     </nav>
 
-    <div className={`space-y-4 px-4 pt-24 pb-5 bg-secondary text-xl ${isMenuOpen ? "block fixed top-0 right-0 left-0":"hidden"}`}>
-      {
-            navItems.map(({link, path}) => <ScrollLink activeClass='active' spy={true} smooth={true} offset={-80} key={link} to={path} className='block 
-            hover:text-gray-300 text-white'
+    <div className={`space-y-4 px-4 pt-24 pb-5 bg-secondary text-xl fixed top-0 right-0 left-0 h-screen z-40 transition-transform transform ${isMenuOpen ? "translate-y-0" : "-translate-y-full"}`}>
+        {navItems.map(({ link, path }) => (
+          <ScrollLink
+            activeClass='active' spy={true} smooth={true} offset={-80} key={link}
+            to={path} className='block hover:text-gray-300 text-white'
             onClick={togglerMenu}
-            >{link}</ScrollLink>)
-      }
-
-    </div>
+          >
+            {link}
+          </ScrollLink>
+        ))}
+        <button onClick={goToLogin} className="w-full text-white bg-primary py-2 px-4 transition-all duration-300 rounded hover:bg-indigo-600 mt-4">
+          Iniciar sesión
+        </button>
+      </div>
 
     </>
 
