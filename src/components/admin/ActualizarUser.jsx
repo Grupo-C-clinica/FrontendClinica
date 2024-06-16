@@ -17,6 +17,7 @@ const ActualizarUsuario = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rol, setRol] = useState('');
 
   const generos = ["Masculino", "Femenino"];
 
@@ -41,6 +42,7 @@ const ActualizarUsuario = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setRol(usuarioRol);
     const usuarioData = {
       nombre,
       apellidoP,

@@ -61,14 +61,14 @@ const Usuarios = () => {
                                         </svg>
                                     </button>
                                     <div className="text-center mt-2">
-                                        <h3 className="text-lg font-semibold">{`${usuario.nombre} ${usuario.apellidoP} ${usuario.apellidoM}`}</h3>
+                                        <h3 className="text-lg font-semibold"> {usuario.nombre} {usuario.apellidoP} {usuario.apellidoM}</h3>
                                         <p><strong>Correo:</strong> {usuario.correo}</p>
                                         <p><strong>Username:</strong> {usuario.username}</p>
                                         <p><strong>Rol:</strong> {usuario.rol}</p>
                                         <p><strong>Teléfono:</strong> {usuario.telefono}</p>
                                     </div>
                                     <div className="flex space-x-2">
-                                        <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => redirigirEditar(usuario.id, usuario.rol)}>
+                                        <button className="bg-secondary py-2 px-3 transition-all duration-300 rounded hover:text-white hover:bg-indigo-600" onClick={() => redirigirEditar(usuario.idUser, usuario.rol)}>
                                             Editar
                                         </button>
                                     </div>

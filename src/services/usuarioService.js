@@ -38,10 +38,10 @@ export const changeUsuarioStatus = async (userId, status, token) => {
 
 export const updateUsuario = async (usuarioId, usuarioData) => {
   try {
-    const response = await axios.put(`${API_URL}/usuarios/${usuarioData.rol.toLowerCase()}/${usuarioId}`, usuarioData);
+    const response = await axios.put(`${API_URL}/doctor/${usuarioData.rol.toLowerCase()}/${usuarioId}`, usuarioData);
     return response.data;
   } catch (error) {
-    console.error('Error al actualizar usuario', error);
+    console.error('Error al actualizar usuario', error); 
     throw error;
   }
 };

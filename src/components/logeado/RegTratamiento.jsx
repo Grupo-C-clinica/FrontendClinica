@@ -42,7 +42,7 @@ const RegistroTratamiento = () => {
       setShowSuccessMessage(true);
       setTimeout(() => {
         setShowSuccessMessage(false);
-        window.location.href = '/historial';
+        window.history.back();
       }, 3000);
     } catch (error) {
       console.error('Error al registrar el tratamiento:', error);
