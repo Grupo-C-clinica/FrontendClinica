@@ -160,6 +160,16 @@ export const fetchCitasByFecha = async (fecha) => {
   }
 };
 
+export const fetchCitasFalse = async () => {
+  try{
+    const response = await axios.get(`${API_URL}/cita/status/false`);
+    return response.data;
+  } catch (error){
+    console.error("Error fetching citas con status false", error);
+    throw error;
+  }
+}
+
 export const addCita = async (asistenteId, citaData) => {
   try {
     const response = await axios.post(`${API_URL}/cita/create/${asistenteId}`, citaData);

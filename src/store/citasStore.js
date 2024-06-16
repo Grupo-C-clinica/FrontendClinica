@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { fetchCitasByFecha, addCita, updateCita, citaById } from '../services/apiService';
+import { fetchCitasByFecha, addCita, updateCita, citaById, fetchCitasFalse } from '../services/apiService';
 
 const useCitasStore = create((set) => ({
   citas: [],
@@ -7,6 +7,10 @@ const useCitasStore = create((set) => ({
   fetchCitasByFecha: async (fecha) => {
       const data = await fetchCitasByFecha(fecha);
       set({ citas: data.data });
+  },
+  fetchCitasFalse: async () =>{
+    const data = await fetchCitasFalse();
+    set({ citas: data.data});
   },
   addCitas: async (asistenteId, citaData) => {
     try {
