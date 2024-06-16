@@ -77,7 +77,8 @@ const RegistroPacientes = () => {
       await addPaciente(pacienteData);
       setSuccessMessage('Paciente registrado con éxito');
       setTimeout(() => {
-        navigate('/pacientes');
+        window.location.href = '/pacientes';
+
       }, 1000);
     } catch (error) {
       console.error('Error al registrar paciente:', error);

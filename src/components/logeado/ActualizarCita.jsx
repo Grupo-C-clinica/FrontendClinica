@@ -21,10 +21,10 @@ const ActualizarCita = () => {
     {id:8, nombre:'Dra. María González'},
     {id:9, nombre:'Dr. José López'}
   ];
-  const listaHorarios=[
-    {id:13, hora:'08:00'},
-    {id:14, hora:'09:00'},
-    {id:15, hora:'10:00'}
+    const listaHorarios=[
+    {id:13, hora:'08:00 - 12:00'},
+    {id:14, hora:'13:00 - 16:00'},
+    {id:15, hora:'17:00 - 19:00'}
   ];
   const listaPacientes=[
   ];
