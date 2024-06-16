@@ -25,3 +25,10 @@ export const createMultimedia = async (idHistorial, formData) => {
     console.error('Error creating multimedia:', error);
   }
 };
+export const deleteMultimedia = async (idMultimedia) => {
+  try {
+    await axios.delete(`${API_URL}/delete/${idMultimedia}`);
+  } catch (error) {
+    console.error('Error deleting multimedia:', error);
+  }
+};
