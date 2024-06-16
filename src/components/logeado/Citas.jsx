@@ -100,6 +100,29 @@ const Citas = () => {
     console.log('Id de cita: ', citaId)
     window.location.href=`/actualizarCita/${citaId}`;
   };
+
+  // Función para formatear la hora según el huso horario de Bolivia (UTC-4)
+  const formatHoraBolivia = (horaUTC) => {
+    const dateUTC = new Date(horaUTC);
+    // Ajustar a UTC-4 (Bolivia)
+    dateUTC.setHours(dateUTC.getHours() - 4);
+    return dateUTC.toLocaleTimeString('es-BO', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+  };
+
+  // Función para formatear la fecha según el formato deseado
+  const formatFecha = (fechaISO) => {
+    const date = new Date(fechaISO);
+    return date.toLocaleDateString('es-BO', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  };
+
   return (
     <motion.div 
       variants={fadeIn('up', 0.3)}
@@ -159,7 +182,8 @@ const Citas = () => {
               <div className="flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full">
                 <img src={user} alt="Cita" className="w-20 rounded-full" />
                 <div>
-                  <p className="text-gray-600">{`Fecha de la cita: ${cita.fecha}`}</p>
+                  <p className='text-gay-600'>{`Paciente: ${cita.nombrePaciente} ${cita.apellidoPPaciente} ${cita.apellidoMPaciente}`}</p>
+                  <p className="text-gray-600">{`Fecha de la cita: ${formatFecha(cita.fecha)}`}</p>
                   <p className="text-gray-600">{`Hora: ${cita.hora}`}</p>
                   
                   <button className="btn3" onClick={() => modificarCita(cita.idCita)}>
