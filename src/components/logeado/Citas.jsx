@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion'; 
 import { fadeIn } from '../../variants';
@@ -89,17 +90,13 @@ const Citas = () => {
       whileInView={'show'}
       className="container mx-auto mt-32"
     >
+     
       <div className="text-center">
         <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Lista de Citas</h2>
         <p className="text-tartiary md:w-1/3 mx-auto px-4">Lista de todas las citas registradas:</p>    
       </div>
 
-      <button 
-        className="absolute top-20 right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
-        onClick={() => addCita()}
-      >
-        Agregar Cita
-      </button>
+      
 
       <div className="bg-white shadow-xl rounded-lg p-6">
         <div className="flex flex-col md:flex-row justify-between mb-6">
@@ -118,6 +115,12 @@ const Citas = () => {
             onChange={(e) => setFechaRegistro(e.target.value)}
             onBlur={handleSearchByDate}
           />
+           <button 
+            className=" right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
+            onClick={() => addCita()}
+          >
+            Agregar Cita
+          </button>
           <button
             className={`px-4 py-2 ${mostrarActivos ? 'bg-green-500' : 'bg-red-500'} text-white rounded`}
             onClick={handleToggleActive}
