@@ -49,13 +49,14 @@ const ListaHistorialesClinicos = () => {
       <div className="text-center">
         <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Lista de Historiales Clínicos</h2>
       </div>
+      
+      <div className="bg-white shadow-xl rounded-lg p-6">
       <button
-        className="absolute top-20 right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
+        className=" right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
         onClick={goToHistorial}
       >
         Añadir Historial Clínico
       </button>
-      <div className="bg-white shadow-xl rounded-lg p-6">
         {sortedHistoriales && sortedHistoriales.length > 0 ? (
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {sortedHistoriales.map(historial => (

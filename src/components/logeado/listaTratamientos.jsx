@@ -5,6 +5,7 @@ import useTratamientosStore from '../../store/tratamientoStore';
 import { useParams } from 'react-router-dom';
 
 const ListaTratamientos = () => {
+  
     const { idHistorial } = useParams();
     const { tratamientos, listaTratamientoByHistorial } = useTratamientosStore();
     const [update, setUpdate] = useState(false);
@@ -41,13 +42,15 @@ const ListaTratamientos = () => {
       <div className="text-center">
         <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Lista de Tratamientos</h2>
       </div>
+      
+      <div className="bg-white shadow-xl rounded-lg p-6">
       <button
-        className="absolute top-20 right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
+        className=" right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
         onClick={goToAgregarTratamiento}
       >
         Añadir Tratamiento
       </button>
-      <div className="bg-white shadow-xl rounded-lg p-6">
+
         {sortedTratamientos && sortedTratamientos.length > 0 ? (
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {sortedTratamientos.map(tratamiento => (

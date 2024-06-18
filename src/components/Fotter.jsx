@@ -41,7 +41,7 @@ const Fotter = () => {
       <div className="my-12 flex flex-col md:flex-row gap-10">
         <div className="md:w-1/2 space-y-8">
           <a href="/" className="text-2xl font-semibold flex items-center space-x-3 text-primary">
-            <img src={logo} alt="" className="w-10 inline-block items-center" />
+            <img src={logo} alt="Clinica Torrelio Logo" className="w-10 inline-block items-center" />
             <span className="text-white">Clinica Torrelio</span>
           </a>
           <p className="md:w-1/2">Reciba las últimas actualizaciones en tratamientos ORL y consejos para su salud auditiva y respiratoria directamente en su correo.</p>
@@ -75,7 +75,7 @@ const Fotter = () => {
             </ul>
           </div>
           <div className="space-y-4 mt-5">
-            <img src={doctor} alt="" className="w-40 h-40 rounded-full" />
+            <img src={doctor} alt="Doctor" className="w-40 h-40 rounded-full" />
           </div>
         </div>
       </div>
@@ -86,10 +86,18 @@ const Fotter = () => {
           Hecho con {"<3"}
         </p>
         <div className='flex items-center space-x-5'>
-          <img src={fb} alt="https://www.facebook.com/dreduardotorrelio" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300' />
-          <img src={ig} href="https://www.instagram.com/dreduardotorrelio" alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300' />
-          <img src={tw} alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300' />
-          <img src={tt} href="https://www.tiktok.com/dreduardotorrelio" alt="" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300' />
+          <a href="https://www.facebook.com/dreduardotorrelio">
+            <img src={fb} alt="Facebook" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300' />
+          </a>
+          <a href="https://www.instagram.com/dreduardotorrelio">
+            <img src={ig} alt="Instagram" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300' />
+          </a>
+          <a href="https://twitter.com/dreduardotorrelio">
+            <img src={tw} alt="Twitter" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300' />
+          </a>
+          <a href="https://www.tiktok.com/dreduardotorrelio">
+            <img src={tt} alt="TikTok" className='w-8 cursor-pointer hover:-translate-y-4 transition-all duration-300' />
+          </a>
         </div>
       </div>
     </div>
