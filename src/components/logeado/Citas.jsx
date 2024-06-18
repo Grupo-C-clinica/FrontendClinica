@@ -7,21 +7,21 @@ import user from '../../assets/user.png';
 
 const Citas = () => {
   const { citas, fetchCitasByFecha, fetchCitasFalse, fetchCitasActivas } = useCitasStore();
-
   const [busqueda, setBusqueda] = useState('');
   const [fechaRegistro, setFechaRegistro] = useState('');
   const [mostrarActivos, setMostrarActivos] = useState(true);
   const [mensajeNoEncontrado] = useState('No se encontraron citas.');
   const [dataLoaded, setDataLoaded] = useState(false);
-
   const fechaActual = new Date();
   const year = fechaActual.getFullYear();
   const month = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Suma 1 porque los meses van de 0 a 11
   const day = String(fechaActual.getDate()).padStart(2, '0');
   const fechaActualString = `${year}-${month}-${day}`;
 
+
   // Fetch initial citas based on the current date
   useEffect(() => {
+
     const fetchCitasDelDia = async () => {
       await fetchCitasByFecha(fechaActualString);
       setDataLoaded(true);
@@ -29,9 +29,11 @@ const Citas = () => {
     fetchCitasDelDia();
   }, [fetchCitasByFecha]);
 
+
   // Fetch citas based on mostrarActivos state
   useEffect(() => {
     const fetchCitas = async () => {
+
       setDataLoaded(false);
       if (mostrarActivos) {
         await fetchCitasByFecha(fechaActualString);
@@ -87,13 +89,17 @@ const Citas = () => {
     <motion.div 
       variants={fadeIn('up', 0.3)}
       initial='hidden'
+
       whileInView={'show'}
+      
       className="container mx-auto mt-32"
     >
      
       <div className="text-center">
         <h2 className="md:text-5xl text-3xl font-extrabold text-primary mb-2">Lista de Citas</h2>
-        <p className="text-tartiary md:w-1/3 mx-auto px-4">Lista de todas las citas registradas:</p>    
+
+        <p className="text-tartiary md:w-1/3 mx-auto px-4">Lista de todas las citas registradas:</p>   
+
       </div>
 
       
