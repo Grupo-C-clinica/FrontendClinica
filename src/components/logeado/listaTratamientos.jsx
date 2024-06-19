@@ -8,25 +8,30 @@ const ListaTratamientos = () => {
   const { idHistorial } = useParams();
   const navigate = useNavigate();
   const { tratamientos, listaTratamientoByHistorial } = useTratamientosStore();
+  const [update, setUpdate] = useState(false);
   const [sortedTratamientos, setSortedTratamientos] = useState([]);
+
 
   useEffect(() => {
     if (idHistorial) {
-      listaTratamientoByHistorial(idHistorial);
+      listaTratamientoByHistorial(idHistorial).then(() => {
+        setUpdate(true); // Cambia el estado para forzar la renderización
+      });
     }
   }, [idHistorial, listaTratamientoByHistorial]);
 
   useEffect(() => {
-    const sorted = [...tratamientos].sort((a, b) => a.tratamientoId - b.tratamientoId);
-    setSortedTratamientos(sorted);
-    console.log('Datos actualizados y componente re-renderizado');
-    console.log('Tratamientos en el componente:', sorted);
-  }, [tratamientos]);
+    if (update) {
+      const sorted = [...tratamientos].sort((a, b) => a.tratamientoId - b.tratamientoId);
+      setSortedTratamientos(sorted);
+      console.log('Datos actualizados y componente re-renderizado');
+      console.log('Tratamientos en el componente:', sorted);
+    }
+  }, [update, tratamientos]);
 
   const goToAgregarTratamiento = () => {
     navigate(`/regTratamiento/${idHistorial}`);
   };
-
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
@@ -39,12 +44,12 @@ const ListaTratamientos = () => {
       </div>
       
       <div className="bg-white shadow-xl rounded-lg p-6">
-      <button
-        className="right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
-        onClick={goToAgregarTratamiento}
-      >
-        Añadir Tratamiento
-      </button>
+        <button
+          className="right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
+          onClick={goToAgregarTratamiento}
+        >
+          Añadir Tratamiento
+        </button>
 
         {sortedTratamientos && sortedTratamientos.length > 0 ? (
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

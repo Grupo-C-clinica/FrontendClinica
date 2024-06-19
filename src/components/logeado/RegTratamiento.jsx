@@ -24,6 +24,9 @@ const RegistroTratamiento = () => {
       contenido,
       status: estatus
     };
+    console.log(contenido)
+    console.log(estatus)
+    console.log('tratamientoData:', tratamientoData);
 
     // Validar que el contenido no esté vacío
     if (!tratamientoData.contenido) {
