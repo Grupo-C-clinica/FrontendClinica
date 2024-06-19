@@ -1,54 +1,56 @@
-import { useEffect,  useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 import useTratamientoStore from '../../store/tratamientoStore';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const RegistroTratamiento = () => {
-  const {historialClinicoId } = useParams();
-  console.log(historialClinicoId);
+  const { historialClinicoId } = useParams();
+  const navigate = useNavigate();
   const [contenido, setContenido] = useState('');
   const [estatus, setEstatus] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [error, setError] = useState('');
 
-  const { addTratamiento } = useTratamientoStore();
+  const { addTratamiento, listaTratamientoByHistorial } = useTratamientoStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!historialClinicoId) {
       console.error('No se ha proporcionado historialClinicoId');
       return;
-    }  
+    }
     const tratamientoData = {
       contenido,
       status: estatus
     };
-    //Validar que el contenido no esté vacío
+
+    // Validar que el contenido no esté vacío
     if (!tratamientoData.contenido) {
       setError('El contenido del tratamiento es requerido.');
       return;
     }
-    //Validar Status
+
+    // Validar Status
     if (tratamientoData.status === undefined) {
       setError('El estatus del tratamiento es requerido.');
       return;
     }
+
     try {
-      // Aquí puedes realizar una llamada a tu backend para registrar el tratamiento
-      console.log('tramamientoData:', tratamientoData, historialClinicoId);
       await addTratamiento(tratamientoData, historialClinicoId);
-      console.log('Tratamiento registrado:', tratamientoData);
+      await listaTratamientoByHistorial(historialClinicoId); // Re-fetch treatments after adding a new one
       setShowSuccessMessage(true);
       setTimeout(() => {
         setShowSuccessMessage(false);
-        window.history.back();
+        navigate(`/historial/${historialClinicoId}`);
       }, 3000);
     } catch (error) {
       console.error('Error al registrar el tratamiento:', error);
       setError('Ocurrió un error al registrar el tratamiento.');
     }
   };
+
   useEffect(() => {
     console.log('historialClinicoId:', historialClinicoId);
   }, [historialClinicoId]);
@@ -95,12 +97,6 @@ const RegistroTratamiento = () => {
               {estatus ? 'Activo' : 'Inactivo'}
             </button>
           </div>
-
-          <input
-            type="hidden"
-            id="historialClinicoId"
-            value={historialClinicoId}
-          />
 
           <button
             type="submit"
