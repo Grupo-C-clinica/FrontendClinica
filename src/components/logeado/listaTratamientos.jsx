@@ -2,35 +2,30 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 import useTratamientosStore from '../../store/tratamientoStore';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const ListaTratamientos = () => {
-  
-    const { idHistorial } = useParams();
-    const { tratamientos, listaTratamientoByHistorial } = useTratamientosStore();
-    const [update, setUpdate] = useState(false);
-    const [sortedTratamientos, setSortedTratamientos] = useState([]);
-  
-    useEffect(() => {
-      if (idHistorial) {
-        listaTratamientoByHistorial(idHistorial).then(() => {
-          setUpdate(true); // Cambia el estado para forzar la renderización
-        });
-      }
-    }, [idHistorial, listaTratamientoByHistorial]);
-  
-    useEffect(() => {
-      if (update) {
-        const sorted = [...tratamientos].sort((a, b) => a.tratamientoId - b.tratamientoId);
-        setSortedTratamientos(sorted);
-        console.log('Datos actualizados y componente re-renderizado');
-        console.log('Tratamientos en el componente:', sorted);
-      }
-    }, [update, tratamientos]);
+  const { idHistorial } = useParams();
+  const navigate = useNavigate();
+  const { tratamientos, listaTratamientoByHistorial } = useTratamientosStore();
+  const [sortedTratamientos, setSortedTratamientos] = useState([]);
 
-    const goToAgregarTratamiento = () => {
-        window.location.href = `/regTratamiento/${idHistorial}`;
-    };
+  useEffect(() => {
+    if (idHistorial) {
+      listaTratamientoByHistorial(idHistorial);
+    }
+  }, [idHistorial, listaTratamientoByHistorial]);
+
+  useEffect(() => {
+    const sorted = [...tratamientos].sort((a, b) => a.tratamientoId - b.tratamientoId);
+    setSortedTratamientos(sorted);
+    console.log('Datos actualizados y componente re-renderizado');
+    console.log('Tratamientos en el componente:', sorted);
+  }, [tratamientos]);
+
+  const goToAgregarTratamiento = () => {
+    navigate(`/regTratamiento/${idHistorial}`);
+  };
 
   return (
     <motion.div
@@ -45,7 +40,7 @@ const ListaTratamientos = () => {
       
       <div className="bg-white shadow-xl rounded-lg p-6">
       <button
-        className=" right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
+        className="right-10 bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded"
         onClick={goToAgregarTratamiento}
       >
         Añadir Tratamiento
