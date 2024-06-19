@@ -8,30 +8,25 @@ const ListaTratamientos = () => {
   const { idHistorial } = useParams();
   const navigate = useNavigate();
   const { tratamientos, listaTratamientoByHistorial } = useTratamientosStore();
-  const [update, setUpdate] = useState(false);
   const [sortedTratamientos, setSortedTratamientos] = useState([]);
-
 
   useEffect(() => {
     if (idHistorial) {
-      listaTratamientoByHistorial(idHistorial).then(() => {
-        setUpdate(true); // Cambia el estado para forzar la renderización
-      });
+      listaTratamientoByHistorial(idHistorial);
     }
   }, [idHistorial, listaTratamientoByHistorial]);
 
   useEffect(() => {
-    if (update) {
-      const sorted = [...tratamientos].sort((a, b) => a.tratamientoId - b.tratamientoId);
+    if (tratamientos && tratamientos.data && tratamientos.data.length > 0) {
+      const sorted = [...tratamientos.data].sort((a, b) => a.idTratamiento - b.idTratamiento);
       setSortedTratamientos(sorted);
-      console.log('Datos actualizados y componente re-renderizado');
-      console.log('Tratamientos en el componente:', sorted);
     }
-  }, [update, tratamientos]);
+  }, [tratamientos]);
 
   const goToAgregarTratamiento = () => {
-    navigate(`/regTratamiento/${idHistorial}`);
+    navigate('/regTratamiento/${idHistorial}');
   };
+
   return (
     <motion.div
       variants={fadeIn('up', 0.3)}
@@ -51,12 +46,12 @@ const ListaTratamientos = () => {
           Añadir Tratamiento
         </button>
 
-        {sortedTratamientos && sortedTratamientos.length > 0 ? (
+        {sortedTratamientos.length > 0 ? (
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {sortedTratamientos.map(tratamiento => (
-              <li key={tratamiento.tratamientoId}>
+              <li key={tratamiento.idTratamiento}>
                 <div className="tratamiento-item flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow space-y-3 w-full ">
-                  <h3 className="text-lg font-semibold">{`Tratamiento #${tratamiento.tratamientoId}`}</h3>
+                  <h3 className="text-lg font-semibold">{`Tratamiento #${tratamiento.idTratamiento}`}</h3>
                   <p className="text-justify"><strong>Contenido:</strong> {tratamiento.contenido}</p>
                   <p className="text-justify"><strong>Estado:</strong> {tratamiento.status ? 'Activo' : 'Inactivo'}</p>
                 </div>

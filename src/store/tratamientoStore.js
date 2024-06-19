@@ -18,12 +18,14 @@ const useTratamientoStore = create((set) => ({
         }
     },
     listaTratamientoByHistorial: async (idHistorial) => {
-        try{
-            const tratamiento = await listaTratamientoByHistorial(idHistorial);
-            set({ tratamiento });
-        }catch(error){
-            console.error("Error al obtener tratamientos del historial")
+        try {
+            const tratamientos = await listaTratamientoByHistorial(idHistorial);
+            console.log('Tratamientos obtenidos del historial:', tratamientos);
+            set({ tratamientos });  // Asegúrate de que 'tratamientos' está estableciendo correctamente
+        } catch (error) {
+            console.error("Error al obtener tratamientos del historial", error);
         }
     },
 }));
+
 export default useTratamientoStore;
