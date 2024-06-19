@@ -43,7 +43,7 @@ const RegistroTratamiento = () => {
       setShowSuccessMessage(true);
       setTimeout(() => {
         setShowSuccessMessage(false);
-        navigate(`/historial/${historialClinicoId}`);
+        navigate(`/listaTratamiento/${historialClinicoId}`);
       }, 3000);
     } catch (error) {
       console.error('Error al registrar el tratamiento:', error);
